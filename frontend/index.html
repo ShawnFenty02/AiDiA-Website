@@ -310,7 +310,7 @@
   </div>
   <div class="hero-img-wrap">
     <div class="hero-main-img">
-      <img src="images/aidia-elderly.png" alt="AiDiA companion bear with elderly lady">
+      <img src="images/child-with-bear.JPG" alt="AiDiA companion bear with elderly lady">
     </div>
     <div class="hero-float-badge">
       <img src="images/bear-white.png" alt="AiDiA bear">
@@ -390,34 +390,81 @@
   </div>
 </section>
 
-<!-- PRODUCT SHOWCASE -->
+<!-- PRODUCT SHOWCASE CAROUSEL -->
 <section id="products">
   <div class="products-intro">
     <span class="section-tag">The Bears</span>
     <h2 class="section-title">Two colours, one heart</h2>
-    <p class="section-sub">AiDiA comes in two beautiful versions — both packed with the same powerful AI and the same warmth inside.</p>
+    <p class="section-sub">
+      AiDiA comes in two beautiful versions — both packed with the same
+      powerful AI and the same warmth inside.
+    </p>
   </div>
-  <div class="products-grid">
-    <div class="product-card fade-in">
-      <div class="product-card-img">
-        <img src="images/bear-white.png" alt="AiDiA White Bear"/>
-      </div>
-      <div class="product-card-body">
+
+  <div class="carousel-container">
+
+    <div class="carousel-slide active">
+      <img src="images/sitting-bears.JPG" alt="AiDiA White Bear">
+      <div class="carousel-content">
         <span class="product-tag tag-white">Classic</span>
         <h3>AiDiA White</h3>
-        <p>The original. Soft cream fur, warm red accents, and a friendly face that's instantly loveable. Perfect for care homes and all ages.</p>
+        <p>
+          The original. Soft cream fur, warm red accents, and a friendly face
+          that's instantly lovable.
+        </p>
       </div>
     </div>
-    <div class="product-card fade-in">
-      <div class="product-card-img">
-        <img src="images/bear-blue.jpeg" alt="AiDiA blue bear"/>
+
+    <div class="carousel-slide">
+      <img src="images/blue-and-white-bear.JPG" alt="AiDiA White Bear">
+      <div class="carousel-content">
+        <span class="product-tag tag-white">Classic</span>
+        <h3>AiDiA White</h3>
+        <p>
+          Designed for companionship, comfort and emotional connection.
+        </p>
       </div>
-      <div class="product-card-body">
+    </div>
+
+    <div class="carousel-slide">
+      <img src="images/white-and-blue-bear.JPG" alt="AiDiA Blue Bear">
+      <div class="carousel-content">
         <span class="product-tag tag-blue">Signature</span>
         <h3>AiDiA Blue</h3>
-        <p>Bold, distinctive, and just as full of heart. The blue edition is a statement companion — for those who like to stand out.</p>
+        <p>
+          Bold, distinctive and full of heart for those who love something unique.
+        </p>
       </div>
     </div>
+
+    <div class="carousel-slide">
+      <img src="images/blue-and-white-bear-box.JPG" alt="AiDiA Blue Bear">
+      <div class="carousel-content">
+        <span class="product-tag tag-blue">Signature</span>
+        <h3>AiDiA Blue</h3>
+        <p>
+          A modern companion designed to brighten every day.
+        </p>
+      </div>
+    </div>
+
+    <!-- ARROWS -->
+    <button class="carousel-btn prev" onclick="changeSlide(-1)">
+      &#10094;
+    </button>
+
+    <button class="carousel-btn next" onclick="changeSlide(1)">
+      &#10095;
+    </button>
+
+    <!-- DOTS -->
+    <div class="carousel-dots">
+      <span class="dot active-dot" onclick="goToSlide(0)"></span>
+      <span class="dot" onclick="goToSlide(1)"></span>
+      <span class="dot" onclick="goToSlide(2)"></span>
+      <span class="dot" onclick="goToSlide(3)"></span>
+    </div>
+
   </div>
 </section>
 
