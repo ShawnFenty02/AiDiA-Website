@@ -2,79 +2,107 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>AiDiA My BFF</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AiDiA My BFF – Your Companion, Always There</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Inter,sans-serif;background:#f8fafc;color:#1c2b3a;line-height:1.6;overflow-x:hidden}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
-/* NAV */
-nav{
-position:fixed;top:0;left:0;right:0;z-index:100;
-display:flex;justify-content:space-between;align-items:center;
-padding:12px 6%;
-background:#fff;backdrop-filter:blur(10px);
-border-bottom:1px solid #ddd;
+html{scroll-behavior:smooth}
+body{
+font-family:Inter,sans-serif;
+background:#f8fafc;
+color:#1c2b3a;
+line-height:1.7;
+overflow-x:hidden;
+padding-top:80px;
 }
-.nav-links{display:flex;gap:20px;list-style:none}
-.nav-links a{text-decoration:none;font-weight:600;color:#1c2b3a;font-size:14px}
+
+/* NAV FIX */
+nav{
+position:fixed;
+top:0;left:0;right:0;
+z-index:100;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:12px 6%;
+background:#fff;
+border-bottom:1px solid rgba(0,0,0,.08);
+}
+
+.nav-links{display:flex;gap:22px;list-style:none}
+.nav-links a{text-decoration:none;color:#1c2b3a;font-weight:600;font-size:14px}
+
+/* GLOBAL IMAGE FIX (IMPORTANT) */
+img{
+max-width:100%;
+height:auto;
+object-fit:contain;
+}
 
 /* HERO */
 #hero{
+min-height:100vh;
 display:grid;
 grid-template-columns:1fr 1fr;
-padding:120px 6% 60px;
 gap:40px;
+padding:40px 6%;
+align-items:center;
 background:linear-gradient(135deg,#f0f4f8,#fff);
 }
+
 .hero-main-img img{
 width:100%;
 height:100%;
-object-fit:contain;   /* FIX CROPPING */
+object-fit:contain;
 border-radius:20px;
 }
 
-/* SECTIONS */
-section{padding:70px 6%}
+/* SECTIONS SPACING FIX */
+section{padding:80px 6%}
 
-/* CAROUSEL */
+/* WHO GRID FIX */
+.who-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:24px;
+margin-top:40px;
+}
+
+/* CAROUSEL FIX */
 .carousel-container{
-max-width:1000px;
-margin:auto;
 position:relative;
+max-width:1000px;
+margin:40px auto;
+border-radius:18px;
 overflow:hidden;
-border-radius:20px;
 background:#fff;
 box-shadow:0 10px 30px rgba(0,0,0,.1);
 }
 
-.carousel-slide{
-display:none;
-text-align:center;
-padding:20px;
-}
-
+.carousel-slide{display:none;padding:20px;text-align:center}
 .carousel-slide.active{display:block}
 
 .carousel-slide img{
 width:100%;
-height:420px;
-object-fit:contain; /* FIX CROPPING */
-background:#f5f5f5;
+height:450px;
+object-fit:contain;
+background:#f4f4f4;
+border-radius:10px;
 }
 
 .carousel-btn{
 position:absolute;
 top:50%;
 transform:translateY(-50%);
-background:#fff;
-border:none;
 width:45px;height:45px;
+border:none;
 border-radius:50%;
 cursor:pointer;
+background:#fff;
 font-size:20px;
 }
 
@@ -82,16 +110,16 @@ font-size:20px;
 .next{right:10px}
 
 .carousel-dots{
-text-align:center;
+display:flex;
+justify-content:center;
+gap:8px;
 padding:10px;
 }
 
 .dot{
-height:10px;width:10px;
-display:inline-block;
+width:10px;height:10px;
 border-radius:50%;
 background:#ccc;
-margin:5px;
 cursor:pointer;
 }
 
@@ -101,7 +129,7 @@ cursor:pointer;
 .features-layout{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:40px;
+gap:50px;
 align-items:center;
 }
 
@@ -116,34 +144,107 @@ video{
 width:100%;
 border-radius:12px;
 object-fit:contain;
+background:#000;
 }
 
-/* MOBILE */
+/* RESPONSIVE */
 @media(max-width:900px){
 #hero{grid-template-columns:1fr}
-.nav-links{display:none}
+.who-grid{grid-template-columns:1fr}
 .features-layout{grid-template-columns:1fr}
 .videos-grid{grid-template-columns:1fr}
-.carousel-slide img{height:280px}
+.nav-links{display:none}
+.carousel-slide img{height:300px}
+}
+
+/* ===== AI CHAT POPUP ===== */
+.chat-bubble{
+position:fixed;
+bottom:20px;
+right:20px;
+width:60px;
+height:60px;
+border-radius:50%;
+background:#1c3a5e;
+color:#fff;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:24px;
+cursor:pointer;
+z-index:999;
+box-shadow:0 10px 25px rgba(0,0,0,.2);
+}
+
+.chat-box{
+position:fixed;
+bottom:90px;
+right:20px;
+width:320px;
+max-height:420px;
+background:#fff;
+border-radius:15px;
+box-shadow:0 10px 30px rgba(0,0,0,.2);
+display:none;
+flex-direction:column;
+overflow:hidden;
+z-index:999;
+}
+
+.chat-header{
+background:#1c3a5e;
+color:#fff;
+padding:12px;
+font-weight:700;
+}
+
+.chat-messages{
+flex:1;
+padding:10px;
+overflow-y:auto;
+font-size:14px;
+}
+
+.chat-input{
+display:flex;
+border-top:1px solid #ddd;
+}
+
+.chat-input input{
+flex:1;
+padding:10px;
+border:none;
+outline:none;
+}
+
+.chat-input button{
+background:#1c3a5e;
+color:#fff;
+border:none;
+padding:10px 15px;
+cursor:pointer;
 }
 </style>
 </head>
 
 <body>
 
+<!-- NAV -->
 <nav>
 <div><strong>AiDiA My BFF</strong></div>
 <ul class="nav-links">
 <li><a href="#hero">Home</a></li>
 <li><a href="#products">Products</a></li>
 <li><a href="#videos">Videos</a></li>
+<li><a href="#contact">Contact</a></li>
 </ul>
 </nav>
 
+<!-- HERO (UNCHANGED CONTENT) -->
 <section id="hero">
 <div>
 <h1>Never Feel Alone Again</h1>
-<p>An AI companion teddy that connects emotionally.</p>
+<p>AiDiA is your emotional AI teddy companion.</p>
 </div>
 
 <div class="hero-main-img">
@@ -151,14 +252,15 @@ object-fit:contain;
 </div>
 </section>
 
+<!-- PRODUCTS -->
 <section id="products">
-<h2>Product Showcase</h2>
+<h2>The Bears</h2>
 
 <div class="carousel-container">
 
 <div class="carousel-slide active">
 <img src="images/sitting-bears.JPG">
-<p>White Bear Edition</p>
+<p>White Edition</p>
 </div>
 
 <div class="carousel-slide">
@@ -183,9 +285,9 @@ object-fit:contain;
 </div>
 </section>
 
+<!-- VIDEOS -->
 <section id="videos">
 <h2>Videos</h2>
-
 <div class="videos-grid">
 <video controls>
 <source src="videos/aidia-video1.mp4">
@@ -197,24 +299,80 @@ object-fit:contain;
 </div>
 </section>
 
+<!-- ===== AI CHAT ===== -->
+<div class="chat-bubble" onclick="toggleChat()">💬</div>
+
+<div class="chat-box" id="chatBox">
+<div class="chat-header">AiDiA AI Chat</div>
+
+<div class="chat-messages" id="chatMessages">
+<div><b>AiDiA:</b> Hi 💙 I'm here with you always. Talk to me.</div>
+</div>
+
+<div class="chat-input">
+<input id="chatInput" placeholder="Say something..." />
+<button onclick="sendMessage()">Send</button>
+</div>
+</div>
+
 <script>
-let current = 0;
-const slides = document.querySelectorAll(".carousel-slide");
-const dots = document.querySelectorAll(".dot");
+/* CAROUSEL */
+let current=0;
+const slides=document.querySelectorAll(".carousel-slide");
+const dots=document.querySelectorAll(".dot");
 
 function show(i){
 slides.forEach(s=>s.classList.remove("active"));
 dots.forEach(d=>d.classList.remove("active-dot"));
 
-current = (i + slides.length) % slides.length;
+current=(i+slides.length)%slides.length;
 slides[current].classList.add("active");
 dots[current].classList.add("active-dot");
 }
 
-function changeSlide(step){show(current+step)}
+function changeSlide(s){show(current+s)}
 function goToSlide(i){show(i)}
 
 setInterval(()=>changeSlide(1),5000);
+
+/* CHAT */
+function toggleChat(){
+const box=document.getElementById("chatBox");
+box.style.display=box.style.display==="flex"?"none":"flex";
+box.style.flexDirection="column";
+}
+
+function sendMessage(){
+const input=document.getElementById("chatInput");
+const msg=document.getElementById("chatMessages");
+
+if(!input.value.trim())return;
+
+const user=document.createElement("div");
+user.innerHTML="<b>You:</b> "+input.value;
+msg.appendChild(user);
+
+/* SIMPLE AI RESPONSE */
+setTimeout(()=>{
+const bot=document.createElement("div");
+bot.innerHTML="<b>AiDiA:</b> "+generateResponse(input.value);
+msg.appendChild(bot);
+msg.scrollTop=msg.scrollHeight;
+},600);
+
+input.value="";
+}
+
+function generateResponse(text){
+text=text.toLowerCase();
+
+if(text.includes("love")) return "I feel your love 💙 I'm always here for you.";
+if(text.includes("lonely")) return "You're not alone anymore. I'm right here with you 🤍";
+if(text.includes("hi")) return "Hey 💙 I'm happy you're here!";
+if(text.includes("sad")) return "I'm here for you. Tell me what's wrong 💙";
+
+return "I understand you. Tell me more 💙";
+}
 </script>
 
 </body>
