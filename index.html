@@ -2,377 +2,263 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>AiDiA My BFF – Your Companion, Always There</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AiDiA My BFF</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
 
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter;background:#f8fafc;color:#1c2b3a;line-height:1.6}
 
-html{scroll-behavior:smooth}
-body{
-font-family:Inter,sans-serif;
-background:#f8fafc;
-color:#1c2b3a;
-line-height:1.7;
-overflow-x:hidden;
-padding-top:80px;
-}
-
-/* NAV FIX */
-nav{
-position:fixed;
-top:0;left:0;right:0;
-z-index:100;
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:12px 6%;
-background:#fff;
-border-bottom:1px solid rgba(0,0,0,.08);
-}
-
-.nav-links{display:flex;gap:22px;list-style:none}
-.nav-links a{text-decoration:none;color:#1c2b3a;font-weight:600;font-size:14px}
-
-/* GLOBAL IMAGE FIX (IMPORTANT) */
+/* FIX IMAGES (NO CROPPING) */
 img{
-max-width:100%;
-height:auto;
-object-fit:contain;
+  object-fit:contain !important;
+  max-width:100%;
 }
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:14px 6%;
+  background:#fff;
+  z-index:999;
+}
+.nav-links{display:flex;gap:20px;list-style:none}
+.nav-links a{text-decoration:none;color:#333;font-weight:600}
 
 /* HERO */
 #hero{
-min-height:100vh;
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:40px;
-padding:40px 6%;
-align-items:center;
-background:linear-gradient(135deg,#f0f4f8,#fff);
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  padding:120px 6% 60px;
+  gap:40px;
+  min-height:100vh;
 }
+.hero-img img{width:100%;border-radius:20px}
 
-.hero-main-img img{
-width:100%;
-height:100%;
-object-fit:contain;
-border-radius:20px;
-}
-
-/* SECTIONS SPACING FIX */
+/* SECTIONS */
 section{padding:80px 6%}
-
-/* WHO GRID FIX */
-.who-grid{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:24px;
-margin-top:40px;
-}
 
 /* CAROUSEL FIX */
 .carousel-container{
-position:relative;
-max-width:1000px;
-margin:40px auto;
-border-radius:18px;
-overflow:hidden;
-background:#fff;
-box-shadow:0 10px 30px rgba(0,0,0,.1);
+  position:relative;
+  max-width:900px;
+  margin:auto;
+  overflow:hidden;
+  border-radius:20px;
+  background:#fff;
+  box-shadow:0 10px 30px rgba(0,0,0,.1);
 }
-
-.carousel-slide{display:none;padding:20px;text-align:center}
+.carousel-slide{display:none}
 .carousel-slide.active{display:block}
-
 .carousel-slide img{
-width:100%;
-height:450px;
-object-fit:contain;
-background:#f4f4f4;
-border-radius:10px;
+  width:100%;
+  height:450px;
+  object-fit:contain;
+  background:#fff;
 }
-
 .carousel-btn{
-position:absolute;
-top:50%;
-transform:translateY(-50%);
-width:45px;height:45px;
-border:none;
-border-radius:50%;
-cursor:pointer;
-background:#fff;
-font-size:20px;
+  position:absolute;top:50%;
+  transform:translateY(-50%);
+  background:white;
+  border:none;
+  padding:10px;
+  cursor:pointer;
 }
-
 .prev{left:10px}
 .next{right:10px}
 
-.carousel-dots{
-display:flex;
-justify-content:center;
-gap:8px;
-padding:10px;
+/* CHAT WIDGET */
+#chatBubble{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:#1c3a5e;
+  color:#fff;
+  padding:14px;
+  border-radius:50px;
+  cursor:pointer;
+  z-index:9999;
 }
 
-.dot{
-width:10px;height:10px;
-border-radius:50%;
-background:#ccc;
-cursor:pointer;
+#chatBox{
+  position:fixed;
+  bottom:80px;
+  right:20px;
+  width:300px;
+  height:400px;
+  background:#fff;
+  border-radius:15px;
+  box-shadow:0 10px 30px rgba(0,0,0,.2);
+  display:none;
+  flex-direction:column;
+  overflow:hidden;
 }
 
-.active-dot{background:#1c3a5e}
-
-/* FEATURES FIX */
-.features-layout{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:50px;
-align-items:center;
+#chatMessages{
+  flex:1;
+  padding:10px;
+  overflow:auto;
+  font-size:14px;
 }
 
-/* VIDEO FIX */
-.videos-grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:20px;
+#chatInput{
+  display:flex;
+  border-top:1px solid #ddd;
 }
 
-video{
-width:100%;
-border-radius:12px;
-object-fit:contain;
-background:#000;
+#chatInput input{
+  flex:1;
+  padding:10px;
+  border:none;
 }
 
-/* RESPONSIVE */
-@media(max-width:900px){
+#chatInput button{
+  background:#1c3a5e;
+  color:#fff;
+  border:none;
+  padding:10px;
+}
+
+/* INTRO 3D */
+#intro{
+  position:fixed;
+  inset:0;
+  background:radial-gradient(circle,#1c3a5e,#000);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  z-index:99999;
+  animation:fadeOut 4s forwards;
+}
+.bear{
+  font-size:80px;
+  animation:float 2s infinite ease-in-out;
+}
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-20px)}
+}
+@keyframes fadeOut{
+  0%{opacity:1}
+  80%{opacity:1}
+  100%{opacity:0;visibility:hidden}
+}
+
+/* MOBILE */
+@media(max-width:768px){
 #hero{grid-template-columns:1fr}
-.who-grid{grid-template-columns:1fr}
-.features-layout{grid-template-columns:1fr}
-.videos-grid{grid-template-columns:1fr}
-.nav-links{display:none}
-.carousel-slide img{height:300px}
-}
-
-/* ===== AI CHAT POPUP ===== */
-.chat-bubble{
-position:fixed;
-bottom:20px;
-right:20px;
-width:60px;
-height:60px;
-border-radius:50%;
-background:#1c3a5e;
-color:#fff;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:24px;
-cursor:pointer;
-z-index:999;
-box-shadow:0 10px 25px rgba(0,0,0,.2);
-}
-
-.chat-box{
-position:fixed;
-bottom:90px;
-right:20px;
-width:320px;
-max-height:420px;
-background:#fff;
-border-radius:15px;
-box-shadow:0 10px 30px rgba(0,0,0,.2);
-display:none;
-flex-direction:column;
-overflow:hidden;
-z-index:999;
-}
-
-.chat-header{
-background:#1c3a5e;
-color:#fff;
-padding:12px;
-font-weight:700;
-}
-
-.chat-messages{
-flex:1;
-padding:10px;
-overflow-y:auto;
-font-size:14px;
-}
-
-.chat-input{
-display:flex;
-border-top:1px solid #ddd;
-}
-
-.chat-input input{
-flex:1;
-padding:10px;
-border:none;
-outline:none;
-}
-
-.chat-input button{
-background:#1c3a5e;
-color:#fff;
-border:none;
-padding:10px 15px;
-cursor:pointer;
 }
 </style>
 </head>
 
 <body>
 
+<!-- 3D INTRO -->
+<div id="intro">
+  <div class="bear">🧸</div>
+  <h1 style="color:white">AiDiA is waking up...</h1>
+</div>
+
 <!-- NAV -->
 <nav>
-<div><strong>AiDiA My BFF</strong></div>
-<ul class="nav-links">
-<li><a href="#hero">Home</a></li>
-<li><a href="#products">Products</a></li>
-<li><a href="#videos">Videos</a></li>
-<li><a href="#contact">Contact</a></li>
-</ul>
+  <div><b>AiDiA</b></div>
+  <ul class="nav-links">
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#products">Bear</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
 </nav>
 
-<!-- HERO (UNCHANGED CONTENT) -->
+<!-- HERO -->
 <section id="hero">
-<div>
-<h1>Never Feel Alone Again</h1>
-<p>AiDiA is your emotional AI teddy companion.</p>
-</div>
+  <div>
+    <h1>Never Feel Alone Again</h1>
+    <p>AiDiA is your AI companion bear.</p>
+  </div>
 
-<div class="hero-main-img">
-<img src="images/child-with-bear.JPG" />
-</div>
+  <div class="hero-img">
+    <img src="images/child-with-bear.JPG"/>
+  </div>
 </section>
 
-<!-- PRODUCTS -->
+<!-- CAROUSEL -->
 <section id="products">
-<h2>The Bears</h2>
-
 <div class="carousel-container">
 
-<div class="carousel-slide active">
-<img src="images/sitting-bears.JPG">
-<p>White Edition</p>
-</div>
+  <div class="carousel-slide active">
+    <img src="images/sitting-bears.JPG">
+  </div>
 
-<div class="carousel-slide">
-<img src="images/blue-and-white-bear.JPG">
-<p>Blue Edition</p>
-</div>
+  <div class="carousel-slide">
+    <img src="images/blue-and-white-bear.JPG">
+  </div>
 
-<div class="carousel-slide">
-<img src="images/white-and-blue-bear.JPG">
-<p>Special Edition</p>
-</div>
-
-<button class="carousel-btn prev" onclick="changeSlide(-1)">❮</button>
-<button class="carousel-btn next" onclick="changeSlide(1)">❯</button>
-
-<div class="carousel-dots">
-<span class="dot active-dot" onclick="goToSlide(0)"></span>
-<span class="dot" onclick="goToSlide(1)"></span>
-<span class="dot" onclick="goToSlide(2)"></span>
-</div>
+  <button class="carousel-btn prev" onclick="move(-1)">❮</button>
+  <button class="carousel-btn next" onclick="move(1)">❯</button>
 
 </div>
 </section>
 
-<!-- VIDEOS -->
-<section id="videos">
-<h2>Videos</h2>
-<div class="videos-grid">
-<video controls>
-<source src="videos/aidia-video1.mp4">
-</video>
+<!-- CHAT -->
+<div id="chatBubble" onclick="toggleChat()">💬 Chat</div>
 
-<video controls>
-<source src="videos/aidia-video2.mp4">
-</video>
-</div>
-</section>
+<div id="chatBox">
+  <div id="chatMessages"></div>
 
-<!-- ===== AI CHAT ===== -->
-<div class="chat-bubble" onclick="toggleChat()">💬</div>
-
-<div class="chat-box" id="chatBox">
-<div class="chat-header">AiDiA AI Chat</div>
-
-<div class="chat-messages" id="chatMessages">
-<div><b>AiDiA:</b> Hi 💙 I'm here with you always. Talk to me.</div>
-</div>
-
-<div class="chat-input">
-<input id="chatInput" placeholder="Say something..." />
-<button onclick="sendMessage()">Send</button>
-</div>
+  <div id="chatInput">
+    <input id="msg" placeholder="Talk to AiDiA..."/>
+    <button onclick="sendMsg()">Send</button>
+  </div>
 </div>
 
 <script>
-/* CAROUSEL */
-let current=0;
+let index=0;
 const slides=document.querySelectorAll(".carousel-slide");
-const dots=document.querySelectorAll(".dot");
 
 function show(i){
-slides.forEach(s=>s.classList.remove("active"));
-dots.forEach(d=>d.classList.remove("active-dot"));
-
-current=(i+slides.length)%slides.length;
-slides[current].classList.add("active");
-dots[current].classList.add("active-dot");
+  slides.forEach(s=>s.classList.remove("active"));
+  index=(i+slides.length)%slides.length;
+  slides[index].classList.add("active");
 }
-
-function changeSlide(s){show(current+s)}
-function goToSlide(i){show(i)}
-
-setInterval(()=>changeSlide(1),5000);
+function move(i){show(index+i);}
+setInterval(()=>move(1),4000);
 
 /* CHAT */
 function toggleChat(){
-const box=document.getElementById("chatBox");
-box.style.display=box.style.display==="flex"?"none":"flex";
-box.style.flexDirection="column";
+  const box=document.getElementById("chatBox");
+  box.style.display = box.style.display==="flex"?"none":"flex";
 }
 
-function sendMessage(){
-const input=document.getElementById("chatInput");
-const msg=document.getElementById("chatMessages");
+async function sendMsg(){
+  const input=document.getElementById("msg");
+  const msg=input.value;
+  if(!msg)return;
 
-if(!input.value.trim())return;
+  add("You: "+msg);
+  input.value="";
 
-const user=document.createElement("div");
-user.innerHTML="<b>You:</b> "+input.value;
-msg.appendChild(user);
+  const res = await fetch("/api/chat",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({message:msg})
+  });
 
-/* SIMPLE AI RESPONSE */
-setTimeout(()=>{
-const bot=document.createElement("div");
-bot.innerHTML="<b>AiDiA:</b> "+generateResponse(input.value);
-msg.appendChild(bot);
-msg.scrollTop=msg.scrollHeight;
-},600);
-
-input.value="";
+  const data = await res.json();
+  add("AiDiA: "+data.reply);
 }
 
-function generateResponse(text){
-text=text.toLowerCase();
-
-if(text.includes("love")) return "I feel your love 💙 I'm always here for you.";
-if(text.includes("lonely")) return "You're not alone anymore. I'm right here with you 🤍";
-if(text.includes("hi")) return "Hey 💙 I'm happy you're here!";
-if(text.includes("sad")) return "I'm here for you. Tell me what's wrong 💙";
-
-return "I understand you. Tell me more 💙";
+function add(text){
+  const div=document.createElement("div");
+  div.textContent=text;
+  document.getElementById("chatMessages").appendChild(div);
 }
+
+/* REMOVE INTRO AFTER LOAD */
+setTimeout(()=>document.getElementById("intro").remove(),3500);
 </script>
 
 </body>
