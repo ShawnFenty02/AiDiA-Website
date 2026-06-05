@@ -286,9 +286,7 @@
   font-family: 'Playfair Display', serif;
   font-size: 1.4rem;
 }
-
-.story-container {
-   .carousel {
+.carousel {
   width: 100%;
   max-width: 900px;
   height: 500px;
@@ -296,8 +294,8 @@
   overflow: hidden;
   position: relative;
   border-radius: 16px;
-  box-shadow: var(--card-shadow);
   background: white;
+  box-shadow: var(--card-shadow);
 }
 
 .carousel-track {
@@ -306,8 +304,13 @@
   transition: transform 0.6s ease;
 }
 
-.carousel-track img {
+.slide {
   min-width: 100%;
+  height: 100%;
+}
+
+.slide img {
+  width: 100%;
   height: 100%;
   object-fit: contain;
 }
@@ -476,26 +479,28 @@
     </p>
   </div>
 
-  <div class="products-grid">
+  <!-- SLIDESHOW -->
+  <div class="carousel">
+    <div class="carousel-track">
 
-    <!-- PRODUCT 1 -->
-<!-- SLIDESHOW -->
-<div class="carousel">
-  <div class="carousel-track">
-    <img src="images/bear-white.png" alt="">
-    <img src="images/sitting-bears.JPG" alt="">
-    <img src="images/aidia-box.JPG" alt="">
-     <img src="images/bear-white.png"alt="AiDiA White Bear"/>
-  </div>
-    <div class="product-card-body">
-        <span class="product-tag tag-white">Classic</span>
-        <h3>AiDiA White</h3>
-        <p>The original. Soft cream fur, warm red accents, and a friendly face that's instantly loveable.</p>
+      <div class="slide">
+        <img src="images/bear-white.png" alt="AiDiA White Bear">
       </div>
 
-  <button class="carousel-btn prev">❮</button>
-  <button class="carousel-btn next">❯</button>
-</div>
+      <div class="slide">
+        <img src="images/sitting-bears.JPG" alt="AiDiA Sitting Bears">
+      </div>
+
+      <div class="slide">
+        <img src="images/aidia-box.JPG" alt="AiDiA Box">
+      </div>
+
+    </div>
+
+    <button class="carousel-btn prev">❮</button>
+    <button class="carousel-btn next">❯</button>
+  </div>
+
 </section>
 <!-- FEATURES -->
 <section id="features">
@@ -753,7 +758,6 @@
     <p>© 2026 AiDiA My BFF. All rights reserved. Bringing companionship to those who need it most.</p>
   </div>
 </footer>
-
 <script>
   function handleSubmit(e) {
     e.preventDefault();
@@ -766,8 +770,7 @@
   }
   const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.1 });
   document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
-</script>
-  
+</script>  
   <script>
 window.addEventListener("load", () => {
   setTimeout(() => {
@@ -781,35 +784,33 @@ window.addEventListener("load", () => {
   }, 2500);
 });
 </script>
-  
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const track = document.querySelector(".carousel-track");
-  const slides = document.querySelectorAll(".carousel-track img");
+  const slides = document.querySelectorAll(".slide");
 
   let current = 0;
 
-  function updateSlide() {
+  function moveSlide() {
     track.style.transform = `translateX(-${current * 100}%)`;
   }
 
   document.querySelector(".next").addEventListener("click", () => {
     current = (current + 1) % slides.length;
-    updateSlide();
+    moveSlide();
   });
 
   document.querySelector(".prev").addEventListener("click", () => {
     current = (current - 1 + slides.length) % slides.length;
-    updateSlide();
+    moveSlide();
   });
 
   setInterval(() => {
     current = (current + 1) % slides.length;
-    updateSlide();
+    moveSlide();
   }, 4000);
 });
 </script>
-
 </body>
 </body>
 </html>
