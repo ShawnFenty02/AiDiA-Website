@@ -285,102 +285,40 @@
 #loader h2 {
   font-family: 'Playfair Display', serif;
   font-size: 1.4rem;
+}
+
 .story-container {
-  max-width: 900px;
-  margin: 80px auto;
-  position: relative;
-  text-align: center;
-}
-
-.scene {
-  display: none;
-  animation: fade 0.6s ease;
-}
-
-.scene.active {
-  display: block;
-}
-
-.scene img {
-  width: 100%;
-  border-radius: 16px;
-  margin-bottom: 20px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-}
-
-.scene h2 {
-  font-family: 'Playfair Display', serif;
-  margin-bottom: 10px;
-}
-
-.scene p {
-  color: #555;
-  margin-bottom: 20px;
-}
-
-.scene button {
-  margin: 5px;
-  padding: 10px 18px;
-  border: none;
-  border-radius: 30px;
-  cursor: pointer;
-  background: #1C3A5E;
-  color: white;
-  font-weight: bold;
-}
-
-@keyframes fade {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.carousel{
-  position:relative;
+    .carousel{
+  width:100%;
   max-width:900px;
   height:500px;
   margin:60px auto;
   overflow:hidden;
+  position:relative;
   border-radius:16px;
-  box-shadow:0 10px 30px rgba(0,0,0,.15);
 }
 
 .carousel-track{
   display:flex;
+  width:100%;
   height:100%;
   transition:transform .6s ease;
 }
 
 .carousel-track img{
+  flex:0 0 100%;
   width:100%;
-  min-width:100%;
   height:100%;
-  object-fit:contain; /* use cover if you want full width */
-  background:#fff;
+  object-fit:contain;
+  display:block;
 }
-
-.prev,
-.next{
-  position:absolute;
-  top:50%;
-  transform:translateY(-50%);
-  background:rgba(0,0,0,.6);
-  color:#fff;
-  border:none;
-  width:45px;
-  height:45px;
-  border-radius:50%;
-  cursor:pointer;
-  z-index:10;
-}
-
-.prev{left:15px;}
-.next{right:15px;}
   </style>
 </head>
 <body>
 <!-- LOADING SCREEN -->
 <div id="loader">
   <model-viewer 
-    src="models/bear.glb"
+    src="models/Bear.glb"
     autoplay
   auto-rotate
   camera-controls
@@ -848,34 +786,39 @@ window.addEventListener("load", () => {
   
    <script>
  <script>
-let currentSlide = 0;
+<script>
+document.addEventListener("DOMContentLoaded", () => {
 
-const track = document.querySelector(".carousel-track");
-const slides = document.querySelectorAll(".carousel-track img");
-const prevBtn = document.querySelector(".prev");
-const nextBtn = document.querySelector(".next");
+  const track = document.querySelector(".carousel-track");
+  const slides = document.querySelectorAll(".carousel-track img");
 
-function showSlide(index){
-  if(index >= slides.length) currentSlide = 0;
-  else if(index < 0) currentSlide = slides.length - 1;
-  else currentSlide = index;
+  let current = 0;
 
-  track.style.transform =
-    `translateX(-${currentSlide * 100}%)`;
-}
+  function showSlide(index) {
+    current = index;
 
-nextBtn.addEventListener("click", () => {
-  showSlide(currentSlide + 1);
+    if(current >= slides.length) current = 0;
+    if(current < 0) current = slides.length - 1;
+
+    track.style.transform =
+      `translateX(-${current * 100}%)`;
+  }
+
+  document.querySelector(".next").addEventListener("click", () => {
+    showSlide(current + 1);
+  });
+
+  document.querySelector(".prev").addEventListener("click", () => {
+    showSlide(current - 1);
+  });
+
+  setInterval(() => {
+    showSlide(current + 1);
+  }, 4000);
+
 });
-
-prevBtn.addEventListener("click", () => {
-  showSlide(currentSlide - 1);
-});
-
-/* Auto slideshow every 4 seconds */
-setInterval(() => {
-  showSlide(currentSlide + 1);
-}, 4000);
 </script>
+
+</body>
 </body>
 </html>
