@@ -126,17 +126,80 @@
     .section-sub { color: var(--muted); font-size: 0.98rem; max-width: 540px; line-height: 1.8; }
 
     /* WHO IT'S FOR */
-    #who { background: var(--white); }
-    .who-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
-    .who-card { border-radius: var(--radius); overflow: hidden; box-shadow: var(--card-shadow); border: 1px solid rgba(28,58,94,0.08); transition: transform 0.25s, box-shadow 0.25s; background: white; }
-    .who-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(28,58,94,0.15); }
-    .who-card-img { width: 100%; aspect-ratio: 4/3; overflow: hidden; position: relative; }
-    .who-card-img img {width: 100%;height: 100%;object-fit: contain;background: #fff;}
-    .who-label { position: absolute; top: 12px; left: 12px; background: white; border-radius: 50px; padding: 4px 12px; font-size: 0.72rem; font-weight: 700; color: var(--primary); box-shadow: 0 2px 8px rgba(0,0,0,0.12); }
-    .who-card-body { padding: 22px; }
-    .who-card-body h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
-    .who-card-body p { font-size: 0.86rem; color: var(--muted); line-height: 1.7; }
+#who {
+  background: var(--white);
+}
 
+.who-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+
+.who-card {
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  border: 1px solid rgba(28,58,94,0.08);
+  transition: transform 0.25s, box-shadow 0.25s;
+  background: white;
+}
+
+.who-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 48px rgba(28,58,94,0.15);
+}
+
+/* ✅ FIXED IMAGE CONTAINER */
+.who-card-img {
+  position: relative;
+  height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: linear-gradient(135deg, #ffffff, #f1f5f9);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+/* ✅ FIXED IMAGE */
+.who-card-img img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: center;
+  padding: 10px;
+}
+
+/* who is it for*/
+.who-label {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: white;
+  border-radius: 50px;
+  padding: 4px 12px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--primary);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  z-index: 2;
+}
+.who-card-body {
+  padding: 22px;
+}
+.who-card-body h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.who-card-body p {
+  font-size: 0.86rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
     /* ABOUT */
     #about { background: var(--warm); }
     .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; margin-top: 48px; }
@@ -261,7 +324,6 @@
   flex-direction: column;
   gap: 14px;
 }
-
     /* FOOTER */
     footer { background: #1C2B3A; color: rgba(255,255,255,0.55); padding: 48px 7% 28px; }
     .footer-inner { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 32px; margin-bottom: 36px; }
@@ -431,6 +493,150 @@ linear-gradient(
 .next {
   right: 20px;
 }
+/* shopping */    
+.shop-section{
+  padding: 90px 7%;
+  background: var(--bg);
+}
+
+.shop-container{
+  display:flex;
+  justify-content:center;
+}
+
+.shop-card{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:40px;
+  background:white;
+  border-radius:24px;
+  box-shadow:var(--card-shadow);
+  padding:40px;
+  max-width:1000px;
+  width:100%;
+}
+
+.shop-card img{
+  width:100%;
+  max-height:500px;
+  object-fit:contain;
+}
+
+.shop-info h3{
+  font-family:'Playfair Display', serif;
+}
+
+.price{
+  font-size:2rem;
+  font-weight:700;
+  color:var(--accent);
+  margin:15px 0;
+}
+
+.qty-box{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:10px 0 20px;
+}
+
+.qty-box button{
+  width:40px;
+  height:40px;
+  border:none;
+  border-radius:50%;
+  background:var(--primary);
+  color:white;
+  cursor:pointer;
+}
+
+.qty-box input{
+  width:60px;
+  text-align:center;
+  padding:8px;
+}
+
+#total{
+  margin-top:20px;
+  font-size:1.2rem;
+  font-weight:700;
+}
+
+#checkout{
+  margin-top:25px;
+  padding:14px 30px;
+  border:none;
+  border-radius:50px;
+  background:var(--accent);
+  color:white;
+  font-weight:700;
+  cursor:pointer;
+}  
+/* shopping cart */
+   .cart-box {
+  margin-top: 25px;
+  padding: 22px;
+  border-radius: 16px;
+  background: white;
+  box-shadow: var(--card-shadow);
+}
+
+.cart-box h3 {
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 10px;
+}
+
+.price {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 14px;
+}
+
+.qty {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.qty button {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: var(--primary);
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.qty span {
+  font-weight: 700;
+}
+
+.shipping {
+  margin-bottom: 16px;
+}
+
+.shipping select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  margin-top: 6px;
+}
+
+.buy-btn {
+  width: 100%;
+  padding: 14px;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-weight: 700;
+  cursor: pointer;
+}  
   </style>
 </head>
 <body>
@@ -586,7 +792,7 @@ linear-gradient(
     <img src="images/bear-white.png" alt="AiDiA White">
   </div>
     
-      <div class="slide active">
+      <div class="slide">
     <img src="images/blue-and-white-bear.JPG" alt="AiDiA White">
   </div>
 
@@ -610,7 +816,37 @@ linear-gradient(
     <p>Always there. Always yours.</p>
   </div>
 </section>
-  
+  <!-- Shopping -->
+  <div class="cart-box">
+  <h3>Buy AiDiA My BFF</h3>
+
+  <div class="price">
+    $249.99 USD
+  </div>
+
+  <div class="qty">
+    <button onclick="changeQty(-1)">−</button>
+    <span id="qty">1</span>
+    <button onclick="changeQty(1)">+</button>
+  </div>
+
+  <div class="shipping">
+    <h4>Shipping Calculator</h4>
+    <select id="country">
+      <option>Jamaica</option>
+      <option>USA</option>
+      <option>UK</option>
+      <option>Canada</option>
+      <option>International</option>
+    </select>
+
+    <p id="shipCost">Shipping: $0.00</p>
+  </div>
+
+  <button class="buy-btn" onclick="checkoutStripe()">
+    Checkout Securely →
+  </button>
+</div>
 <!-- FEATURES -->
 <section id="features">
   <div class="features-layout">
@@ -788,29 +1024,52 @@ linear-gradient(
 </section>
 
 <!-- CONTACT -->
-<section id="contact">
-  <span class="section-tag">Get In Touch</span>
-  <h2 class="section-title">Ready to bring AiDiA into your life?</h2>
-  <div class="contact-grid">
-    <div class="contact-info-card fade-in">
-      <h3>We're here to help</h3>
-      <p>Whether you're an individual, a family member, or a care home manager — reach out and we'll find the right solution for you.</p>
-    <div class="contact-detail">
-  <div class="contact-icon">📧</div>
-  <div>
-    <strong>General Enquiries</strong>
-    <span>
-      <a href="mailto:aidiateddy@gmail.com">aidiateddy@gmail.com</a>
-    </span>
+<div class="contact-info-card fade-in">
+  <h3>We're here to help</h3>
+  <p>
+    Whether you're an individual, a family member,
+    or a care home manager — reach out and we'll
+    find the right solution for you.
+  </p>
+  <div class="contact-detail">
+    <div class="contact-icon">📧</div>
+    <div>
+      <strong>General Enquiries</strong>
+      <span>
+        <a href="mailto:aidiateddy@gmail.com">
+          aidiateddy@gmail.com
+        </a>
+      </span>
+    </div>
   </div>
-</div>
-     <div class="contact-detail">
-  <div class="contact-icon">🏥</div>
-  <div>
-    <strong>Care Home Packages</strong>
-    <span>
-      <a href="mailto:aidiateddy@gmail.com">aidiateddy@gmail.com</a>
-    </span>
+  <div class="contact-detail">
+    <div class="contact-icon">🏥</div>
+    <div>
+      <strong>Care Home Enquiries</strong>
+      <span>
+        <a href="mailto:aidiateddy@gmail.com?subject=Care%20Home%20Enquiry">
+          Request Information
+        </a>
+      </span>
+    </div>
+  </div>
+  <div class="contact-detail">
+    <div class="contact-icon">📦</div>
+    <div>
+      <strong>Shipping</strong>
+      <span>Worldwide delivery available</span>
+    </div>
+  </div>
+  <div class="contact-detail">
+    <div class="contact-icon">📱</div>
+    <div>
+      <strong>Follow Us</strong>
+      <span>
+        <a href="https://www.instagram.com/aidiateddybear/" target="_blank">
+          @AiDiAMyBFF
+        </a>
+      </span>
+    </div>
   </div>
 </div>
       <div class="contact-detail">
@@ -818,15 +1077,18 @@ linear-gradient(
         <div><strong>Shipping</strong><span>Worldwide delivery available</span></div>
       </div>
     <div class="contact-detail">
+  <div>
+    <div class="contact-detail">
   <div class="contact-icon">📱</div>
   <div>
     <strong>Follow Us</strong>
     <span>
-      <a href="https://www.instagram.com/aidiateddybear?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank">
+      <a href="https://www.instagram.com/aidiateddybear/" target="_blank">
         @AiDiAMyBFF
       </a>
     </span>
-    </div>
+  </div>
+</div>
     <form class="contact-form fade-in" onsubmit="handleSubmit(event)">
       <div class="form-row">
         <div class="form-group"><label>First Name</label><input type="text" placeholder="Margaret" required /></div>
@@ -850,7 +1112,25 @@ linear-gradient(
     </form>
   </div>
 </section>
+<!-- shooping -->    
+<section id="shop" class="shop-section">
+  <span class="section-tag">Shop AiDiA</span>
+  <h2 class="section-title">Bring AiDiA Home</h2>
 
+  <div class="shop-container">
+
+    <div class="shop-card">
+      <img src="images/bear-white.png" alt="AiDiA Bear">
+
+      <div class="shop-info">
+        <h3>AiDiA My BFF</h3>
+        <p>AI Companion Bear</p>
+
+      </div>
+    </div>
+
+  </div>
+</section>
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
@@ -881,7 +1161,17 @@ linear-gradient(
   <div class="footer-bottom">
     <p>© 2026 AiDiA My BFF. All rights reserved. Bringing companionship to those who need it most.</p>
   </div>
-</footer>
+</footer>    
+<!-- SHOPPING -->
+      <script>
+const PRODUCT = {
+  name: "AiDiA My BFF Bear",
+  price: 249.99,
+  currency: "USD",
+  image: "images/bear-white.png"
+};
+</script>   
+<!-- CONTACT -->
 <script>
   function handleSubmit(e) {
     e.preventDefault();
@@ -894,7 +1184,9 @@ linear-gradient(
   }
   const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.1 });
   document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
-</script>  
+</script> 
+      
+<!-- LOADING SCREEN -->
   <script>
 window.addEventListener("load", () => {
   setTimeout(() => {
@@ -908,6 +1200,8 @@ window.addEventListener("load", () => {
   }, 2500);
 });
 </script>
+      
+<!-- CAROUSEL -->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -940,6 +1234,35 @@ document.addEventListener("DOMContentLoaded", () => {
   }, 5000);
 
 });
+</script>
+      
+<!-- SHOPPING CART -->
+      <script>
+let qty = 1;
+
+function changeQty(val) {
+  qty = Math.max(1, qty + val);
+  document.getElementById("qty").innerText = qty;
+  updateShipping();
+}
+
+function updateShipping() {
+  const country = document.getElementById("country").value;
+
+  let cost = 0;
+
+  if (country === "Jamaica") cost = 5;
+  else if (country === "USA") cost = 15;
+  else if (country === "UK") cost = 18;
+  else if (country === "Canada") cost = 17;
+  else cost = 25;
+
+  document.getElementById("shipCost").innerText =
+    "Shipping: $" + cost.toFixed(2);
+}
+
+document.getElementById("country").addEventListener("change", updateShipping);
+updateShipping();
 </script>
 </body>
 </body>
