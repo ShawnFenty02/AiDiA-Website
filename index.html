@@ -237,16 +237,30 @@
     .contact-detail { display: flex; align-items: center; gap: 13px; margin-bottom: 16px; }
     .contact-icon { width: 40px; height: 40px; border-radius: 11px; background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
     .contact-detail span { font-size: 0.83rem; color: var(--muted); }
-    .contact-detail strong { display: block; font-size: 0.88rem; color: var(--text); }
-    .contact-form { display: flex; flex-direction: column; gap: 14px; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    .form-group { display: flex; flex-direction: column; gap: 5px; }
-    .form-group label { font-size: 0.8rem; font-weight: 700; color: var(--text); }
-    .form-group input, .form-group textarea, .form-group select { padding: 11px 15px; border-radius: 11px; border: 1.5px solid rgba(28,58,94,0.14); background: white; font-family: 'Inter', sans-serif; font-size: 0.9rem; color: var(--text); transition: border-color 0.2s, box-shadow 0.2s; outline: none; }
-    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--primary-mid); box-shadow: 0 0 0 3px rgba(61,90,128,0.10); }
-    .form-group textarea { resize: vertical; min-height: 110px; }
-    .form-submit { background: var(--primary); color: #fff; padding: 13px 30px; border-radius: 50px; font-weight: 700; font-size: 0.92rem; border: none; cursor: pointer; box-shadow: 0 5px 18px rgba(28,58,94,0.25); transition: transform 0.2s, box-shadow 0.2s; }
-    .form-submit:hover { transform: translateY(-2px); box-shadow: 0 9px 26px rgba(28,58,94,0.35); }
+   .contact-detail strong {
+  display: block;
+  font-size: 0.88rem;
+  color: var(--text);
+}
+
+/* ⭐ BONUS: Make contact links look clean */
+.contact-detail a {
+  color: var(--primary-mid);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease, text-decoration 0.2s ease;
+}
+
+.contact-detail a:hover {
+  text-decoration: underline;
+  color: var(--primary);
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
 
     /* FOOTER */
     footer { background: #1C2B3A; color: rgba(255,255,255,0.55); padding: 48px 7% 28px; }
@@ -781,22 +795,37 @@ linear-gradient(
     <div class="contact-info-card fade-in">
       <h3>We're here to help</h3>
       <p>Whether you're an individual, a family member, or a care home manager — reach out and we'll find the right solution for you.</p>
-      <div class="contact-detail">
-        <div class="contact-icon">📧</div>
-        <div><strong>General Enquiries</strong><span>hello@aidiacompanion.com</span></div>
-      </div>
-      <div class="contact-detail">
-        <div class="contact-icon">🏥</div>
-        <div><strong>Care Home Packages</strong><span>carehomes@aidiacompanion.com</span></div>
-      </div>
+    <div class="contact-detail">
+  <div class="contact-icon">📧</div>
+  <div>
+    <strong>General Enquiries</strong>
+    <span>
+      <a href="mailto:aidiateddy@gmail.com">aidiateddy@gmail.com</a>
+    </span>
+  </div>
+</div>
+     <div class="contact-detail">
+  <div class="contact-icon">🏥</div>
+  <div>
+    <strong>Care Home Packages</strong>
+    <span>
+      <a href="mailto:aidiateddy@gmail.com">aidiateddy@gmail.com</a>
+    </span>
+  </div>
+</div>
       <div class="contact-detail">
         <div class="contact-icon">📦</div>
         <div><strong>Shipping</strong><span>Worldwide delivery available</span></div>
       </div>
-      <div class="contact-detail">
-        <div class="contact-icon">📱</div>
-        <div><strong>Follow Us</strong><span>@AiDiAMyBFF</span></div>
-      </div>
+    <div class="contact-detail">
+  <div class="contact-icon">📱</div>
+  <div>
+    <strong>Follow Us</strong>
+    <span>
+      <a href="https://www.instagram.com/aidiateddybear?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank">
+        @AiDiAMyBFF
+      </a>
+    </span>
     </div>
     <form class="contact-form fade-in" onsubmit="handleSubmit(event)">
       <div class="form-row">
