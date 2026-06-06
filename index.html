@@ -3,228 +3,266 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>AiDiA My BFF – Your Companion, Always There</title>
+<title>AiDiA My BFF</title>
 
-<!-- FONTS -->
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<!-- ICONS -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
-<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
+*{margin:0;padding:0;box-sizing:border-box}
 
 :root{
-  --primary:#1C3A5E;
-  --primary-mid:#3D5A80;
-  --primary-light:#E8EFF7;
-  --accent:#C0392B;
-  --text:#1C2B3A;
-  --muted:#5a6a78;
-  --bg:#F8FAFC;
-  --radius:16px;
-  --card-shadow:0 8px 32px rgba(28,58,94,0.12);
+--primary:#1C3A5E;
+--accent:#C0392B;
+--bg:#F8FAFC;
+--text:#1C2B3A;
+--radius:16px;
+--shadow:0 12px 40px rgba(0,0,0,.12);
 }
 
 body{
-  font-family:Inter, sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  line-height:1.7;
+font-family:Inter,sans-serif;
+background:var(--bg);
+color:var(--text);
+line-height:1.6;
 }
 
 /* NAV */
 nav{
-  position:fixed;
-  top:0;
-  left:0;
-  right:0;
-  z-index:100;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:14px 7%;
-  background:rgba(255,255,255,0.97);
-  backdrop-filter:blur(12px);
+position:fixed;
+top:0;left:0;right:0;
+z-index:1000;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:14px 7%;
+background:rgba(255,255,255,.95);
+backdrop-filter:blur(12px);
 }
 
-.nav-logo{display:flex; gap:10px; align-items:center;}
-.nav-logo img{height:45px;}
-
-.nav-links{display:flex; gap:20px; list-style:none;}
-.nav-links a{text-decoration:none; color:var(--text); font-weight:600;}
+.nav-links{display:flex;gap:20px;list-style:none}
+.nav-links a{text-decoration:none;color:var(--text);font-weight:600}
 
 .nav-cta{
-  background:var(--accent);
-  color:white;
-  padding:10px 18px;
-  border-radius:50px;
-  text-decoration:none;
+background:var(--accent);
+color:white;
+padding:10px 18px;
+border-radius:50px;
+text-decoration:none;
+transition:.3s;
 }
+.nav-cta:hover{transform:translateY(-2px)}
 
 /* HERO */
 #hero{
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  position:relative;
-  overflow:hidden;
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+position:relative;
+overflow:hidden;
+padding:80px 7% 40px;
+gap:60px;
 }
 
-.hero-image-first{
-  position:absolute;
-  inset:0;
+/* BACKGROUND IMAGE */
+.hero-bg{
+position:absolute;
+inset:0;
+z-index:0;
 }
 
-.hero-image-first img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
+.hero-bg img{
+width:100%;
+height:100%;
+object-fit:cover;
 }
 
-/* OVERLAY */
-.hero-image-first::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:rgba(0,0,0,0.25);
+.hero-bg::after{
+content:"";
+position:absolute;
+inset:0;
+background:rgba(0,0,0,.35);
 }
 
 /* HERO CONTENT */
-.hero-text-overlay{
-  position:relative;
-  z-index:3;
-  text-align:center;
-  max-width:900px;
-  padding:20px;
-  color:white;
-}
-
 .hero-content{
-  display:flex;
-  gap:40px;
-  align-items:center;
-  justify-content:center;
+position:relative;
+z-index:2;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:60px;
+width:100%;
 }
 
-.hero-side-image img{
-  width:280px;
-  border-radius:20px;
-  box-shadow:0 20px 40px rgba(0,0,0,0.3);
+.hero-text{
+color:white;
+max-width:500px;
 }
 
+.hero-text h1{
+font-size:clamp(2.5rem,5vw,4rem);
+margin-bottom:10px;
+}
+
+.hero-text p{
+opacity:.9;
+margin-bottom:20px;
+}
+
+/* BUTTONS */
 .hero-btns{
-  margin-top:20px;
-  display:flex;
-  gap:12px;
-  justify-content:center;
-  flex-wrap:wrap;
+display:flex;
+gap:12px;
+flex-wrap:wrap;
 }
 
 .btn-primary,
 .btn-outline{
-  padding:14px 24px;
-  border-radius:50px;
-  font-weight:700;
-  text-decoration:none;
+padding:14px 22px;
+border-radius:50px;
+font-weight:700;
+text-decoration:none;
+transition:.3s;
+cursor:pointer;
 }
 
 .btn-primary{
-  background:var(--accent);
-  color:white;
+background:var(--accent);
+color:white;
+box-shadow:0 10px 30px rgba(192,57,43,.4);
 }
+.btn-primary:hover{transform:translateY(-3px)}
 
 .btn-outline{
-  border:1px solid white;
-  color:white;
+border:1px solid white;
+color:white;
+background:rgba(255,255,255,.08);
+backdrop-filter:blur(10px);
+}
+.btn-outline:hover{
+background:rgba(255,255,255,.2);
+transform:translateY(-3px);
 }
 
-/* TRUST */
+/* SIDE IMAGE */
+.hero-side img{
+width:280px;
+border-radius:20px;
+box-shadow:var(--shadow);
+}
+
+/* TRUST BAR */
 #trust{
-  background:var(--primary);
-  color:white;
-  display:flex;
-  justify-content:center;
-  gap:30px;
-  padding:20px;
-  flex-wrap:wrap;
-}
-
-/* SECTIONS */
-section{padding:80px 7%;}
-
-/* WHO CARDS */
-.who-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:20px;
+display:flex;
+gap:20px;
+justify-content:center;
+padding:18px;
+background:var(--primary);
+color:white;
+flex-wrap:wrap;
 }
 
 /* CONTACT */
+#contact{
+padding:80px 7%;
+}
+
 .contact-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:40px;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:40px;
+margin-top:30px;
 }
 
 .contact-info-card,
 .contact-form{
-  background:white;
-  padding:30px;
-  border-radius:20px;
-  box-shadow:var(--card-shadow);
+background:white;
+padding:30px;
+border-radius:20px;
+box-shadow:var(--shadow);
 }
 
+/* ICONS */
 .contact-detail{
-  display:flex;
-  gap:12px;
-  margin-bottom:12px;
-  align-items:center;
+display:flex;
+gap:12px;
+margin-bottom:15px;
+align-items:center;
 }
 
 .contact-icon{
-  width:40px;
-  height:40px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background:var(--primary-light);
-  border-radius:10px;
+width:42px;height:42px;
+display:flex;
+align-items:center;
+justify-content:center;
+background:#e8eff7;
+border-radius:12px;
 }
 
 /* FORM */
-.form-row{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-}
-
-input, textarea{
-  width:100%;
-  padding:12px;
-  border-radius:10px;
-  border:1px solid #ccc;
-  margin-top:10px;
+input,textarea{
+width:100%;
+padding:12px;
+border-radius:10px;
+border:1px solid #ddd;
+margin-top:10px;
 }
 
 button{
-  margin-top:15px;
-  padding:14px;
-  width:100%;
-  border:none;
-  border-radius:50px;
-  background:var(--primary);
-  color:white;
-  font-weight:700;
+width:100%;
+padding:14px;
+margin-top:15px;
+border:none;
+border-radius:50px;
+background:var(--primary);
+color:white;
+font-weight:700;
+cursor:pointer;
+}
+
+/* VIDEO MODAL */
+.modal{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.8);
+display:none;
+align-items:center;
+justify-content:center;
+z-index:2000;
+}
+
+.modal-content{
+width:90%;
+max-width:700px;
+position:relative;
+}
+
+.modal video{
+width:100%;
+border-radius:16px;
+}
+
+.close{
+position:absolute;
+top:-40px;
+right:0;
+background:white;
+border:none;
+width:40px;
+height:40px;
+border-radius:50%;
+cursor:pointer;
+font-weight:bold;
 }
 
 /* RESPONSIVE */
 @media(max-width:900px){
-  .contact-grid{grid-template-columns:1fr;}
-  .hero-content{flex-direction:column;}
+.hero-content{flex-direction:column;text-align:center}
+.hero-side img{width:200px}
+.contact-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -233,100 +271,111 @@ button{
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">
-    <img src="images/aidia-logo.png">
-    <h3>AiDiA</h3>
-  </div>
+<div><strong>AiDiA</strong></div>
 
-  <ul class="nav-links">
-    <li><a href="#who">Who</a></li>
-    <li><a href="#products">Products</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
+<ul class="nav-links">
+<li><a href="#hero">Home</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
 
-  <a class="nav-cta" href="#contact">Get in Touch</a>
+<a class="nav-cta" href="#contact">Get in Touch</a>
 </nav>
 
 <!-- HERO -->
 <section id="hero">
 
-  <div class="hero-image-first">
-    <img src="images/bear-white.png">
-  </div>
+<div class="hero-bg">
+<img src="images/bear-white.png">
+</div>
 
-  <div class="hero-text-overlay">
+<div class="hero-content">
 
-    <div class="hero-content">
+<div class="hero-text">
+<h1>Never Feel Alone Again</h1>
+<p>Your AI companion bear that listens, talks & cares.</p>
 
-      <div>
-        <h1>Never Feel Alone Again</h1>
+<div class="hero-btns">
+<a class="btn-primary" href="#contact">Discover AiDiA</a>
+<button class="btn-outline" onclick="openVideo()">Care Home Enquiries</button>
+</div>
+</div>
 
-        <p>AiDiA is your AI companion bear.</p>
+<div class="hero-side">
+<img src="images/child-with-bear.JPG">
+</div>
 
-        <div class="hero-btns">
-          <a class="btn-primary" href="#who">Discover AiDiA</a>
-          <a class="btn-outline" href="#contact">Care Home Enquiries</a>
-        </div>
-      </div>
-
-      <div class="hero-side-image">
-        <img src="images/child-with-bear.JPG">
-      </div>
-
-    </div>
-
-  </div>
+</div>
 </section>
 
 <!-- TRUST -->
 <div id="trust">
-  <div>🔒 Safe AI</div>
-  <div>💬 Talks</div>
-  <div>🧠 Learns</div>
-  <div>🌍 Global</div>
+<div>🔒 Safe AI</div>
+<div>💬 Talks</div>
+<div>🧠 Learns</div>
+<div>🌍 Global</div>
 </div>
 
 <!-- CONTACT -->
 <section id="contact">
+<h2>Get In Touch</h2>
 
-  <h2>Get In Touch</h2>
+<div class="contact-grid">
 
-  <div class="contact-grid">
+<div class="contact-info-card">
+<div class="contact-detail">
+<div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
+<div>
+<strong>Email</strong>
+<p>aidiateddy@gmail.com</p>
+</div>
+</div>
+</div>
 
-    <div class="contact-info-card">
-      <div class="contact-detail">
-        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
-        <div>
-          <strong>Email</strong>
-          <p>aidiateddy@gmail.com</p>
-        </div>
-      </div>
+<form class="contact-form" onsubmit="handleSubmit(event)">
+<input placeholder="Name">
+<input placeholder="Email">
+<textarea placeholder="Message"></textarea>
+<button>Send Message</button>
+</form>
 
-      <div class="contact-detail">
-        <div class="contact-icon"><i class="fab fa-instagram"></i></div>
-        <div>
-          <strong>Instagram</strong>
-          <p>@AiDiAMyBFF</p>
-        </div>
-      </div>
-    </div>
-
-    <form class="contact-form">
-      <input placeholder="First Name">
-      <input placeholder="Last Name">
-      <input placeholder="Email">
-      <textarea placeholder="Message"></textarea>
-      <button type="submit">Send Message</button>
-    </form>
-
-  </div>
+</div>
 </section>
+
+<!-- VIDEO MODAL -->
+<div class="modal" id="videoModal" onclick="closeVideo(event)">
+<div class="modal-content">
+<button class="close" onclick="closeVideo()">X</button>
+<video controls id="video">
+<source src="videos/aidia-video3.mp4">
+</video>
+</div>
+</div>
 
 <script>
 function handleSubmit(e){
-  e.preventDefault();
-  alert("Message sent!");
+e.preventDefault();
+alert("Message sent!");
 }
+
+/* OPEN MODAL */
+function openVideo(){
+document.getElementById("videoModal").style.display="flex";
+}
+
+/* CLOSE MODAL (click outside or X) */
+function closeVideo(e){
+if(!e || e.target.id==="videoModal"){
+document.getElementById("videoModal").style.display="none";
+document.getElementById("video").pause();
+}
+}
+
+/* ESC KEY CLOSE */
+document.addEventListener("keydown",e=>{
+if(e.key==="Escape"){
+closeVideo();
+}
+});
 </script>
 
 </body>
