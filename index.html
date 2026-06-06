@@ -659,39 +659,32 @@ linear-gradient(
   <a href="#contact" class="nav-cta">Get in Touch</a>
 </nav>
 
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-content">
+<!-- HERO (IMAGE FIRST VERSION) -->
+<section id="hero" class="hero-entrance">
+
+  <!-- FULL SCREEN BEAR IMAGE FIRST -->
+  <div class="hero-image-first">
+    <img src="images/bear-white.png" alt="AiDiA Bear">
+  </div>
+
+  <!-- TEXT OVER IMAGE -->
+  <div class="hero-text-overlay">
     <div class="hero-tag">
       <span class="dot"></span> More Than a Teddy. A Companion for Life.
     </div>
+
     <h1>Never Feel <em>Alone</em> Again</h1>
+
     <p class="hero-sub">
-      AiDiA is an AI-powered companion bear that listens, talks, learns, and genuinely connects — bringing warmth and presence to those who need it most.
+      AiDiA is an AI-powered companion bear that listens, talks, learns, and genuinely connects.
     </p>
-    <div class="hero-pills">
-      <span class="pill">🏡 Care Homes</span>
-      <span class="pill">🧓 People Living Alone</span>
-      <span class="pill">🧑 Isolated Teens</span>
-      <span class="pill">👨‍👩‍👧 Families</span>
-    </div>
+
     <div class="hero-btns">
       <a href="#who" class="btn-primary">Discover AiDiA</a>
       <a href="#contact" class="btn-outline">Care Home Enquiries</a>
     </div>
   </div>
-  <div class="hero-img-wrap">
-    <div class="hero-main-img">
-      <img src="images/child-with-bear.JPG" alt="AiDiA companion bear with elderly lady">
-    </div>
-    <div class="hero-float-badge">
-      <img src="images/bear-white.png" alt="AiDiA bear">
-      <div>
-        <strong>AiDiA My BFF</strong>
-        <span>Always there. Always yours.</span>
-      </div>
-    </div>
-  </div>
+
 </section>
 
 <!-- TRUST BAR -->
@@ -735,9 +728,9 @@ linear-gradient(
         <div class="who-label">Also For</div>
       </div>
       <div class="who-card-body">
-        <h3>Teens &amp; Children</h3>
-        <p>From isolated teenagers who need a non-judgmental friend, to children who love to learn — AiDiA grows with every user.</p>
-      </div>
+  <h3>Teens & Children</h3>
+  <p>From helping your child learn to supporting emotional growth, AiDiA becomes a safe, friendly companion that grows with them.</p>
+</div>
     </div>
   </div>
 </section>
@@ -1067,7 +1060,30 @@ linear-gradient(
           </span>
         </div>
       </div>
-    </div>
+
+    <div class="contact-detail">
+  <div class="contact-icon">🎵</div>
+  <div>
+    <strong>TikTok</strong>
+    <span>
+      <a href="https://www.tiktok.com/@aidiateddybear" target="_blank">
+        @AiDiATeddyBear
+      </a>
+    </span>
+  </div>
+</div>
+
+<div class="contact-detail">
+  <div class="contact-icon">👍</div>
+  <div>
+    <strong>Facebook</strong>
+    <span>
+      <a href="https://www.facebook.com/@aidiateddybear" target="_blank">
+        @AiDiATeddyBear
+      </a>
+    </span>
+  </div>
+</div>
     <!-- RIGHT COLUMN -->
     <form class="contact-form fade-in" onsubmit="handleSubmit(event)">
       <div class="form-row">
@@ -1094,6 +1110,7 @@ linear-gradient(
     </form>
   </div>
 </section>
+  
 <!-- shooping -->    
 <section id="shop" class="shop-section">
   <span class="section-tag">Shop AiDiA</span>
@@ -1108,6 +1125,7 @@ linear-gradient(
     </div>
   </div>
 </section>
+  
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
@@ -1148,6 +1166,7 @@ const PRODUCT = {
   image: "images/bear-white.png"
 };
 </script>   
+  
 <!-- CONTACT -->
 <script>
   function handleSubmit(e) {
@@ -1181,35 +1200,26 @@ window.addEventListener("load", () => {
 <!-- CAROUSEL -->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-
   const slides = document.querySelectorAll(".fade-carousel .slide");
-
   let current = 0;
-
   function showSlide(index) {
-
     slides.forEach(slide => {
       slide.classList.remove("active");
     });
-
     slides[index].classList.add("active");
   }
-
   document.querySelector(".next").addEventListener("click", () => {
     current = (current + 1) % slides.length;
     showSlide(current);
   });
-
   document.querySelector(".prev").addEventListener("click", () => {
     current = (current - 1 + slides.length) % slides.length;
     showSlide(current);
   });
-
   setInterval(() => {
     current = (current + 1) % slides.length;
     showSlide(current);
   }, 5000);
-
 });
 </script>
       
@@ -1218,7 +1228,6 @@ document.addEventListener("DOMContentLoaded", () => {
 document.getElementById("checkoutBtn").addEventListener("click", async () => {
   const qty = parseInt(document.getElementById("qty").innerText);
   const country = document.getElementById("country").value;
-
   const response = await fetch("/create-checkout-session", {
     method: "POST",
     headers: {
@@ -1236,6 +1245,6 @@ document.getElementById("checkoutBtn").addEventListener("click", async () => {
     alert("Checkout failed");
   }
 });
-</script>
+</script>  
 </body>
 </html>
