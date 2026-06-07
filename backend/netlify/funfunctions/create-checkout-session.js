@@ -1,27 +1,47 @@
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const express = require("express");
+const stripe = require("stripe")("YOUR_SECRET_KEY");
+const cors = require("cors");
 
-exports.handler = async (event) => {
-  const { quantity, country } = JSON.parse(event.body);
+const app = express();
+app.use(cors());
+app.use(express.json());
 
-  const session = await stripe.checkout.sessions.create({
-    payment_method_types: ["card"],
-    line_items: [{
-      price_data: {
-        currency: "usd",
-        product_data: {
-          name: "AiDiA My BFF Bear",
-        },
-        unit_amount: 24999,
-      },
-      quantity: quantity,
-    }],
-    mode: "payment",
-    success_url: "https://your-site.netlify.app/success.html",
-    cancel_url: "https://your-site.netlify.app/cancel.html",
-  });
+app.post("/create-checkout-session", async (req, res) => {
+  const { quantity, country } = req.body;
 
-  return {
-    statusCode: 200,
-    body: JSON.stringify({ url: session.url }),
-  };
-};
+  let shipping = 0;
+
+  if (country === "Jamaica") shipping = 800;
+  if (country === "USA") shipping = 1500;
+  if (country === "UK") shipping = 1800;
+  if (country === "Canada") shipping = 1700;
+  if (country === "International") shipping = 2500;
+
+  try {
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      mode: "payment",
+      line_items: [
+        {
+          price_data: {
+            currency: "usd",
+            product_data: {
+              name: "AiDiA My BFF Bear"
+            },
+            unit_amount: 24999 + shipping
+          },
+          quantity: quantity
+        }
+      ],
+      success_url: "https://your-site.com/success.html",
+      cancel_url: "https://your-site.com/cancel.html"
+    });
+
+    res.json({ url: session.url });
+
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.listen(3000, () => console.log("Server running"));
