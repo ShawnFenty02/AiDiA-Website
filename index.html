@@ -608,40 +608,39 @@ a.btn-outline {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform:
-    translate(-50%, -50%)
-    scale(.9);
+  transform: translate(-50%, -50%) scale(.9);
 
   width: 90%;
   max-width: 800px;
-  z-index: 9999;
+
+  background: #000;
+  border-radius: 18px;
+  overflow: hidden;
+
   opacity: 0;
   visibility: hidden;
+
   transition: all .4s ease;
-}
 
-.kids-video-box.active {
-
-  opacity: 1;
-  visibility: visible;
-
-  transform:
-    translate(-50%, -50%)
-    scale(1);
-}
-
-.kids-video-box video {
-  width: 100%;
-  border-radius: 18px;
-  box-shadow:
-    0 30px 80px rgba(0,0,0,.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* ACTIVE STATE */
 .kids-video-box.active {
-  max-height: 500px;
   opacity: 1;
-  margin-top: 14px;
+  visibility: visible;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* VIDEO FIX */
+.kids-video-box video {
+  width: 100%;
+  height: auto;
+  max-height: 80vh;   /* 👈 KEY FIX */
+  object-fit: contain; /* prevents cropping */
+  display: block;
 }
     
 /* RESPONSIVE */
