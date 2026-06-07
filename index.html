@@ -76,8 +76,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 .hero-image-first img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center top; /* 👈 keeps head visible */
+  object-fit: contain;
+  object-position: center center;
 }
 
 /* DARK OVERLAY */
@@ -91,20 +91,19 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 /* TEXT LAYER */
 .hero-text-overlay {
   position: relative;
-  z-index: 5;
-  width: 100%;
-  background: linear-gradient(
-    to right,
-    rgba(0,0,0,0.55),
-    rgba(0,0,0,0.25),
-    transparent
-  ); /* 👈 makes text readable WITHOUT covering bear */
-  padding: 60px 7%;
+  z-index: 10;
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 10;
 }
     
-.hero-copy h1 {
+.hero-copy h1,
+.hero-copy p,
+.hero-tag {
   color: white;
-  text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  text-shadow: 0 3px 12px rgba(0,0,0,.7);
 }
 
 .hero-sub {
