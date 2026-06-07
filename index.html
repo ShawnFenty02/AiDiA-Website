@@ -61,21 +61,12 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
   position: relative;
   min-height: 100vh;
   overflow: hidden;
-  padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* FULL SCREEN BEAR */
-.hero-image-first {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  background: radial-gradient(circle at center, #ffffff 0%, #e8eff7 60%, #dce8f2 100%);
-}
-
-/* HERO IMAGE */
+/* BACKGROUND LAYER */
 .hero-image-first {
   position: absolute;
   inset: 0;
@@ -84,31 +75,25 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 .hero-image-first img {
   width: 100%;
-  height: 100vh;
+  height: 100%;
   object-fit: cover;
+  transform: scale(1.02);
 }
-    
+
 /* DARK OVERLAY */
 .hero-image-first::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.25);
-}
-    
-/* TEXT ON TOP */
-..hero-text-overlay {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 5;
-  width: 100%;
-  max-width: 1100px;
-  text-align: center;
-  padding: 0 20px;
+  background: radial-gradient(circle, rgba(0,0,0,0.2), rgba(0,0,0,0.55));
 }
 
+/* TEXT LAYER */
+.hero-text-overlay {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+}
 .hero-copy h1 {
   color: white;
   text-shadow: 0 10px 30px rgba(0,0,0,0.5);
@@ -621,17 +606,24 @@ a.btn-outline {
 
 .kids-video-box {
   max-height: 0;
-  overflow: hidden;
   opacity: 0;
-  transition: all 0.5s ease;
-  margin-top: 0;
-  border-radius: 14px;
+  transform: scale(0.98);
+  overflow: hidden;
+  transition: all 0.6s ease;
+  border-radius: 16px;
+}
+
+.kids-video-box.active {
+  max-height: 520px;
+  opacity: 1;
+  transform: scale(1);
+  margin-top: 14px;
 }
 
 .kids-video-box video {
   width: 100%;
-  border-radius: 14px;
-  margin-top: 12px;
+  border-radius: 16px;
+  box-shadow: 0 18px 50px rgba(0,0,0,0.25);
 }
 
 /* ACTIVE STATE */
@@ -1021,16 +1013,14 @@ linear-gradient(
       From helping your child learn to supporting emotional growth.
     </p>
 
-    <button class="who-video-btn" onclick="toggleKidsVideo(this)">
-      ▶ Watch How Kids Use AiDiA
-    </button>
+   <button class="who-video-btn" onclick="toggleKidsVideo(this)">
+  ▶ Watch How Kids Use AiDiA
+</button>
 
-    <div class="kids-video-box">
-      <video controls>
-        <source src="videos/aidia-video3.mp4" type="video/mp4">
-      </video>
-    </div>
-  </div>
+<div class="kids-video-box">
+  <video id="kidsVideo" playsinline>
+    <source src="videos/aidia-video3.mp4" type="video/mp4">
+  </video>
 </div>
 </section>
 
@@ -1491,18 +1481,21 @@ window.addEventListener("load", () => {
       
   <!-- kID VIDEO -->
   <script>
-function toggleKidsVideo(btn) {
-  const box = btn.parentElement.querySelector(".kids-video-box");
+window.addEventListener("scroll", () => {
+  const box = document.querySelector(".kids-video-box");
+  const video = document.getElementById("kidsVideo");
 
-  box.classList.toggle("active");
+  if (!box || !video) return;
 
-  // optional text change
-  if (box.classList.contains("active")) {
-    btn.textContent = "✕ Close Video";
-  } else {
-    btn.textContent = "▶ Watch How Kids Use AiDiA";
+  const rect = box.getBoundingClientRect();
+
+  // if video leaves viewport
+  if (rect.top > window.innerHeight || rect.bottom < 0) {
+    video.pause();
+    video.currentTime = 0;
+    box.classList.remove("active");
   }
-}
+});
 </script>
       
 <!-- CAROUSEL -->
