@@ -172,14 +172,18 @@ section + section {
   text-decoration: none;
 }
 
-/* MOBILE */
-@media(max-width:600px){
-  .hero-top-text h1{
-    font-size:1.6rem;
+@media (max-width: 768px) {
+  #hero {
+    padding-top: 110px;
   }
 
-  .hero-image-first img{
-    height:55vh;
+  .hero-image-first img {
+    height: 60vh;
+  }
+
+  .hero-btns {
+    flex-direction: column;
+    align-items: center;
   }
 }
 /* TRUST BAR */
@@ -331,6 +335,17 @@ section + section{
   line-height: 1.7;
 }
     /* ABOUT */
+    #about .container {
+  max-width: 800px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+#about .section-sub {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--muted);
+}
     #about { background: var(--warm); }
     .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; margin-top: 48px; }
     .about-img { border-radius: var(--radius); overflow: hidden; box-shadow: 0 16px 48px rgba(28,58,94,0.14); }
@@ -1226,35 +1241,42 @@ footer{
 </nav>
 
 <!-- HERO (IMAGE FIRST VERSION) -->
-<!-- HERO (CLEAN CENTER VERSION) -->
 <section id="hero" class="hero-entrance">
 
-  <!-- TEXT ABOVE BEAR -->
-  <div class="hero-top-text">
-    <div class="hero-tag">
-      <span class="dot"></span>
-      More Than a Teddy. A Companion for Life.
-    </div>
+ <!-- HERO IMAGE -->
+<div class="hero-image-first">
+  <img src="images/sitting-blue-bear.jpeg" alt="AiDiA Bear">
+</div>
 
-    <h1>Never Feel <em>Alone</em> Again</h1>
-  </div>
+<!-- HERO TEXT -->
+<div class="hero-text-overlay">
 
-  <!-- BEAR IMAGE -->
-  <div class="hero-image-first">
-    <img src="images/sitting-blue-bear.jpeg" alt="AiDiA Bear">
-  </div>
+  <div class="hero-content">
 
-  <!-- TEXT UNDER BEAR -->
-  <div class="hero-bottom-text">
+    <div class="hero-copy">
 
-    <p class="hero-sub">
-      AiDiA is an AI-powered companion bear that listens,
-      talks, learns, and genuinely connects.
-    </p>
+      <div class="hero-tag">
+        <span class="dot"></span>
+        More Than a Teddy. A Companion for Life.
+      </div>
 
-    <div class="hero-btns">
-      <a href="#who" class="btn-primary">Discover AiDiA</a>
-      <a href="#contact" class="btn-outline">Care Home Enquiries</a>
+      <h1>Never Feel <em>Alone</em> Again</h1>
+
+      <p class="hero-sub">
+        AiDiA is an AI-powered companion bear that listens,
+        talks, learns, and genuinely connects.
+      </p>
+
+      <div class="hero-btns">
+        <a href="#products" class="btn-primary">
+          Shop AiDiA
+        </a>
+
+        <a href="#contact" class="btn-outline">
+          Care Home Enquiries
+        </a>
+      </div>
+
     </div>
 
   </div>
@@ -1331,21 +1353,25 @@ onclick="toggleKidsVideo(this)">
 
 <!-- ABOUT -->
 <section id="about">
-  <div class="about-grid">
-    <div class="about-img fade-in">
-      <img src="images/aidia-elderly.png" alt="AiDiA with elderly companion"/>
-    </div>
-    <div class="about-text">
-      <span class="section-tag">About AiDiA</span>
-      <h2 class="section-title">Built on the belief that no one should feel alone</h2>
-      <p>Loneliness is one of the most serious challenges facing people today — from elderly residents in care facilities, to individuals living alone, to teenagers who feel disconnected from the world around them.</p>
-      <p>AiDiA was created to address that gap. Combining the comfort of a soft, tactile companion with advanced conversational AI, AiDiA offers something genuinely new: a presence that listens without judgement, engages without tiring, and cares without condition.</p>
-      <div class="about-quote">
-        <p>"Not just a teddy. A companion for every chapter of life — always there, always yours."</p>
-        <cite>— The AiDiA Team</cite>
-      </div>
-      <p>From care homes to family homes, AiDiA is transforming what it means to have company.</p>
-    </div>
+  <div class="container">
+
+    <span class="section-tag">About AiDiA</span>
+
+    <h2 class="section-title">More than a teddy. A true companion.</h2>
+
+    <p class="section-sub">
+      AiDiA was created to bring comfort, conversation, and connection to people who need it most.
+      From elderly individuals living alone, to children and teens, AiDiA provides a warm presence that listens, responds, and learns.
+    </p>
+
+    <p class="section-sub">
+      Unlike ordinary toys, AiDiA combines soft physical comfort with advanced conversational intelligence — designed to reduce loneliness and create meaningful daily interaction.
+    </p>
+
+    <p class="section-sub">
+      Our mission is simple: no one should feel alone when they don’t have to be.
+    </p>
+
   </div>
 </section>
 
