@@ -892,10 +892,100 @@ linear-gradient(
 .loading {
   opacity: 0.6;
   pointer-events: none;
-}    
+} 
+    /* =========================
+   FOOTER
+========================= */
+
+footer{
+  background:#0f1c2e;
+  color:rgba(255,255,255,.8);
+  padding:70px 7% 25px;
+}
+
+.footer-inner{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr;
+  gap:50px;
+  max-width:1400px;
+  margin:auto;
+}
+
+.footer-brand img{
+  height:60px;
+  width:auto;
+  margin-bottom:15px;
+}
+
+.footer-brand-name{
+  font-family:'Playfair Display',serif;
+  font-size:1.6rem;
+  font-weight:800;
+  color:white;
+  margin-bottom:12px;
+}
+
+.footer-brand p{
+  max-width:400px;
+  line-height:1.8;
+  color:rgba(255,255,255,.65);
+}
+
+.footer-nav h4{
+  color:white;
+  margin-bottom:18px;
+  font-size:1rem;
+}
+
+.footer-nav ul{
+  list-style:none;
+  padding:0;
+}
+
+.footer-nav li{
+  margin-bottom:10px;
+}
+
+.footer-nav a{
+  color:rgba(255,255,255,.7);
+  text-decoration:none;
+  transition:.25s;
+}
+
+.footer-nav a:hover{
+  color:white;
+  padding-left:4px;
+}
+
+.footer-bottom{
+  margin-top:50px;
+  padding-top:20px;
+  border-top:1px solid rgba(255,255,255,.1);
+  text-align:center;
+}
+
+.footer-bottom p{
+  color:rgba(255,255,255,.5);
+  font-size:.85rem;
+}
+
+/* MOBILE */
+@media(max-width:900px){
+
+  .footer-inner{
+    grid-template-columns:1fr;
+    text-align:center;
+  }
+
+  .footer-brand p{
+    max-width:100%;
+  }
+
+}
 </style>
 </head>
 <body>
+  
 <!-- LOADING SCREEN -->
 <div id="loader">
   <model-viewer 
@@ -1033,16 +1123,15 @@ onclick="toggleKidsVideo(this)">
 </button>
 
 <div class="kids-video-box">
-
   <video id="kidsVideo" controls>
-
-    <source
-      src="videos/aidia-video3.mp4"
-      type="video/mp4">
-
+    <source src="videos/aidia-video3.mp4" type="video/mp4">
   </video>
-
 </div>
+
+</div> 
+</div> 
+
+</div> 
 </section>
 
 <!-- ABOUT -->
@@ -1625,7 +1714,6 @@ document.getElementById("checkoutBtn").addEventListener("click", async () => {
     btn.disabled = false;
   }
 });
-  btn.classList.add("loading");
 </script>
   
 <!-- SHIPPING -->
