@@ -57,29 +57,32 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 7px 20px rgba(192,57,43,0.40); }
 
 /* HERO SECTION */
-#hero {
-  position: relative;
-  min-height: 100vh;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+#hero{
+  position:relative;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  padding-top:90px;
 }
 
-/* BACKGROUND LAYER */
-.hero-image-first {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-}
-    
-.hero-image-first img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: center center;
+.hero-image-first{
+  position:absolute;
+  inset:0;
+  z-index:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
+.hero-image-first img{
+  width:auto;
+  height:90vh;
+  max-width:95%;
+  object-fit:contain;
+  object-position:center bottom;
+}
 /* DARK OVERLAY */
 .hero-image-first::after {
   content: "";
@@ -160,6 +163,29 @@ a.btn-outline {
   background: rgba(255,255,255,0.25);
   transform: translateY(-3px);
 }
+    @media(max-width:900px){
+
+  #hero{
+    min-height:auto;
+    padding-top:120px;
+    padding-bottom:60px;
+  }
+
+  .hero-content{
+    flex-direction:column;
+    text-align:center;
+  }
+
+  .hero-image-first img{
+    object-fit:contain;
+    object-position:center top;
+  }
+
+  .hero-copy h1{
+    font-size:2.4rem;
+  }
+
+}
 
 /* HERO ANIMATION */
 @keyframes heroZoom {
@@ -227,28 +253,33 @@ a.btn-outline {
 /* =========================
    MOBILE RESPONSIVE FIX
 ========================= */
-@media (max-width: 600px) {
-  #hero {
-    min-height: 90vh;
+@media(max-width:900px){
+
+  #hero{
+    min-height:auto;
+    padding:120px 20px 60px;
   }
 
-  .hero-image-first img {
-    object-position: top center;
+  .hero-content{
+    flex-direction:column;
+    text-align:center;
+    gap:30px;
   }
 
-  .hero-text-overlay {
-    padding: 20px;
-    text-align: center;
-    background: linear-gradient(
-      to top,
-      rgba(0,0,0,0.65),
-      rgba(0,0,0,0.2)
-    );
+  .hero-image-first img{
+    height:65vh;
+    max-width:100%;
   }
 
-  .hero-side-image {
-    display: none; /* optional: removes clutter on small screens */
+  .hero-copy{
+    position:relative;
+    z-index:10;
   }
+
+  .hero-copy h1{
+    font-size:2.3rem;
+  }
+
 }
     /* SECTIONS */
     section { padding: 88px 7%; }
@@ -342,25 +373,104 @@ a.btn-outline {
     .about-quote cite { display: block; margin-top: 8px; font-size: 0.8rem; color: var(--muted); font-style: normal; font-weight: 600; }
 
     /* PRODUCT SHOWCASE */
-    #products { background: var(--bg); }
-    .products-intro { max-width: 580px; margin-bottom: 48px; }
-    .products-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
-    .product-card {
-      border-radius: var(--radius); overflow: hidden;
-      box-shadow: var(--card-shadow); background: white;
-      display: grid; grid-template-columns: 1fr 1fr;
-      transition: transform 0.25s, box-shadow 0.25s;
-    }
-    .product-card:hover { transform: translateY(-5px); box-shadow: 0 16px 48px rgba(28,58,94,0.15); }
-    .product-card-img { overflow: hidden; }
-    .product-card-img img { width: 100%;height: 100%;object-fit: contain;background: #fff;}
-    .product-card-body { padding: 28px 24px; display: flex; flex-direction: column; justify-content: center; }
-    .product-tag { display: inline-block; font-size: 0.7rem; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; border-radius: 50px; padding: 4px 12px; margin-bottom: 10px; }
-    .tag-white { background: #fdf0ec; color: var(--accent); }
-    .tag-blue { background: var(--primary-light); color: var(--primary-mid); }
-    .product-card-body h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; margin-bottom: 8px; }
-    .product-card-body p { font-size: 0.84rem; color: var(--muted); line-height: 1.7; }
+#products{
+  background: var(--bg);
+  padding: 80px 7%;
+}
 
+.products-intro{
+  max-width: 580px;
+  margin-bottom: 48px;
+}
+
+/* GRID */
+.products-grid{
+  display:grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap:28px;
+}
+
+/* CARD */
+.product-card{
+  border-radius: var(--radius);
+  overflow:hidden;
+  box-shadow: var(--card-shadow);
+  background:white;
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  transition: 0.25s;
+}
+
+.product-card:hover{
+  transform: translateY(-6px);
+  box-shadow: 0 16px 48px rgba(28,58,94,0.15);
+}
+
+/* IMAGE */
+.product-card-img{
+  overflow:hidden;
+  background:#fff;
+}
+
+.product-card-img img{
+  width:100%;
+  height:100%;
+  object-fit: contain;
+}
+
+/* CONTENT */
+.product-card-body{
+  padding:28px 24px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+/* TAGS */
+.product-tag{
+  display:inline-block;
+  font-size:0.7rem;
+  font-weight:800;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  border-radius:50px;
+  padding:4px 12px;
+  margin-bottom:10px;
+}
+
+.tag-white{
+  background:#fdf0ec;
+  color:var(--accent);
+}
+
+.tag-blue{
+  background:var(--primary-light);
+  color:var(--primary-mid);
+}
+
+/* TEXT */
+.product-card-body h3{
+  font-family:'Playfair Display', serif;
+  font-size:1.15rem;
+  margin-bottom:8px;
+}
+
+.product-card-body p{
+  font-size:0.84rem;
+  color:var(--muted);
+  line-height:1.7;
+}
+
+/* ================= MOBILE ================= */
+@media(max-width:768px){
+  .products-grid{
+    grid-template-columns:1fr;
+  }
+
+  .product-card{
+    grid-template-columns:1fr;
+  }
+}
     /* FEATURES */
     #features { background: white; }
     .features-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; margin-top: 48px; }
@@ -917,10 +1027,26 @@ linear-gradient(
 
 .amazon-buy select{
   width:100%;
-  padding:12px;
-  border-radius:10px;
-  border:1px solid #ccc;
-  margin-top:10px;
+  padding:14px 16px;
+  border-radius:14px;
+  border:1px solid #dbe2ea;
+  background:#f8fafc;
+  font-size:.95rem;
+  font-weight:600;
+  color:var(--text);
+  appearance:none;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.amazon-buy select:hover{
+  border-color:var(--primary);
+}
+
+.amazon-buy select:focus{
+  outline:none;
+  border-color:var(--accent);
+  box-shadow:0 0 0 4px rgba(192,57,43,.15);
 }
 
 .qty{
@@ -983,13 +1109,11 @@ linear-gradient(
   .main-image img{
     height:350px;
   }
-
-}
 }
 .loading {
   opacity: 0.6;
   pointer-events: none;
-} 
+}
     /* =========================
    FOOTER
 ========================= */
@@ -1262,71 +1386,96 @@ onclick="toggleKidsVideo(this)">
   </div>
 
   <!-- SLIDESHOW -->
-<div class="carousel fade-carousel">
+<section class="product-section">
 
-  <!-- SLIDES -->
-  <div class="slide active" data-title="Classic White AiDiA" data-text="Pure, calm, comforting presence">
-  <img src="images/bear-white.png">
-</div>
-  <div class="slide active" data-title="Classic White AiDiA" data-text="Pure, calm, comforting presence">
-  <img src="images/bear-blue.png">
-</div>
+  <!-- ================= CAROUSEL ================= -->
+  <div class="carousel fade-carousel">
 
-<div class="slide" data-title="Blue Edition AiDiA" data-text="Calming and emotionally warm companion">
-  <img src="images/blue-and-white-bear.JPG">
-</div>
+    <div class="slide active"
+      data-title="Classic White AiDiA"
+      data-text="Pure, calm, comforting presence">
+      <img src="images/bear-white.png" alt="White AiDiA">
+    </div>
 
-<div class="slide" data-title="Together Always" data-text="Designed for connection and comfort">
-  <img src="images/sitting-bears.JPG">
-</div>
+    <div class="slide"
+      data-title="Blue Edition AiDiA"
+      data-text="Calming and emotionally warm companion">
+      <img src="images/bear-blue.png" alt="Blue AiDiA">
+    </div>
 
-  <!-- ARROWS (MUST BE INSIDE CAROUSEL) -->
-  <button class="carousel-btn prev">❮</button>
-  <button class="carousel-btn next">❯</button>
+    <div class="slide"
+      data-title="Together Always"
+      data-text="Designed for connection and comfort">
+      <img src="images/sitting-bears.JPG" alt="Together Bears">
+    </div>
 
-  <!-- OVERLAY (MUST ALSO BE INSIDE) -->
-  <div class="carousel-overlay">
-    <h3>AiDiA My BFF</h3>
-    <p>Always there. Always yours.</p>
+    <!-- ARROWS -->
+    <button class="carousel-btn prev">❮</button>
+    <button class="carousel-btn next">❯</button>
+
+    <!-- OVERLAY -->
+    <div class="carousel-overlay">
+      <h3 id="carouselTitle">AiDiA My BFF</h3>
+      <p id="carouselText">Always there. Always yours.</p>
+    </div>
+
   </div>
 
-</div>
 
-<!-- ✅ BUY BOX MUST BE UNDER CAROUSEL -->
-<div class="cart-box">
-  <h3>Buy AiDiA My BFF</h3>
+  <!-- ================= BUY BOX ================= -->
+  <div class="buy-section">
 
-  <div class="price">
-    $249.99 USD
+    <h2>AiDiA My BFF</h2>
+
+    <div class="price">$249.99 USD</div>
+
+    <p class="description">
+      AI-powered companion teddy bear designed for comfort,
+      conversation, companionship and emotional support.
+    </p>
+
+    <hr>
+
+
+    <!-- QUANTITY -->
+    <div class="field">
+      <label>Quantity</label>
+
+      <div class="qty-box">
+        <button onclick="changeQty(-1)">−</button>
+        <span id="qtyValue">1</span>
+        <button onclick="changeQty(1)">+</button>
+      </div>
+    </div>
+
+
+    <!-- SHIPPING -->
+    <div class="field">
+      <label>Shipping</label>
+
+      <select id="countrySelect">
+        <option value="0">Jamaica</option>
+        <option value="15">USA</option>
+        <option value="18">UK</option>
+        <option value="20">Canada</option>
+        <option value="25">International</option>
+      </select>
+
+      <p id="shippingCost">Shipping: $0.00</p>
+    </div>
+
+
+    <!-- BUTTONS -->
+    <button class="buy-btn">Buy Now</button>
+    <button class="cart-btn">Add to Cart</button>
+
+    <p class="stock">✓ In Stock</p>
+
+    <p class="secure">Secure payment powered by Stripe 🔒</p>
+
   </div>
 
-  <div class="qty">
-    <button onclick="changeQty(-1)">−</button>
-    <span id="qty">1</span>
-    <button onclick="changeQty(1)">+</button>
-  </div>
-</div>
 </section>
-  <div class="shipping">
-    <h4>Shipping Calculator</h4>
-    <select id="country">
-      <option>Jamaica</option>
-      <option>USA</option>
-      <option>UK</option>
-      <option>Canada</option>
-      <option>International</option>
-    </select>
-
-    <p id="shipCost">Shipping: $0.00</p>
-  </div>
-
-<button class="buy-btn" id="checkoutBtn">
-  Checkout Securely →
-</button>
-    <p style="font-size:0.75rem;color:#777;margin-top:10px;">
-Secure payment powered by Stripe 🔒
-</p>
-</div>
 <!-- FEATURES -->
 <section id="features">
   <div class="features-layout">
@@ -1378,7 +1527,11 @@ Secure payment powered by Stripe 🔒
   <p class="section-sub">See for yourself how AiDiA moves, responds, and connects with the people who love it.</p>
   <div class="videos-grid">
     <div class="video-card fade-in">
-      <video controls playsinline preload="metadata">
+     <video
+controls
+playsinline
+preload="metadata"
+poster="images/video1-cover.jpg">
         <source src="videos/aidia-video1.mp4" type="video/mp4">
     </video>
       <div class="video-caption">
@@ -1387,7 +1540,11 @@ Secure payment powered by Stripe 🔒
       </div>
     </div>
     <div class="video-card fade-in">
-      <video controls playsinline preload="metadata">
+     <video
+controls
+playsinline
+preload="metadata"
+poster="images/video1-cover.jpg">
         <source src="videos/aidia-video2.mp4" type="video/mp4">
     </video>
       <div class="video-caption">
@@ -1599,94 +1756,6 @@ Secure payment powered by Stripe 🔒
   </div>
 </section>
   
-<!-- shooping -->    
-<section id="shop" class="amazon-product">
-
-  <div class="amazon-gallery">
-
-    <div class="main-image">
-      <img id="mainProductImage"
-           src="images/bear-white.png"
-           alt="AiDiA Bear">
-    </div>
-
-    <div class="thumbs">
-
-      <img src="images/sitting-blue-bear.jpeg"
-           onclick="changeImage(this.src)">
-
-      <img src="images/blue-and-white-bear.JPG"
-           onclick="changeImage(this.src)">
-
-      <img src="images/sitting-bears.JPG"
-           onclick="changeImage(this.src)">
-
-      <img src="images/aidia-box.JPG"
-           onclick="changeImage(this.src)">
-
-      <img src="images/white-and-blue-bear.JPG"
-           onclick="changeImage(this.src)">
-    </div>
-
-  </div>
-
-  <div class="amazon-buy">
-
-    <h2>AiDiA My BFF</h2>
-
-    <div class="amazon-rating">
-      ★★★★★ 4.9/5
-    </div>
-
-    <div class="amazon-price">
-      $249.99
-    </div>
-
-    <p>
-      AI-powered companion teddy bear designed
-      to provide comfort, conversation,
-      companionship and emotional support.
-    </p>
-
-    <hr>
-
-    <label>Quantity</label>
-
-    <div class="qty">
-      <button onclick="changeQty(-1)">−</button>
-      <span id="qty">1</span>
-      <button onclick="changeQty(1)">+</button>
-    </div>
-
-    <label>Shipping</label>
-
-    <select id="country">
-      <option>Jamaica</option>
-      <option>USA</option>
-      <option>UK</option>
-      <option>Canada</option>
-      <option>International</option>
-    </select>
-
-    <p id="shipCost">
-      Shipping: $8.00
-    </p>
-
-    <button class="amazon-buy-btn">
-      Buy Now
-    </button>
-
-    <button class="amazon-cart-btn">
-      Add To Cart
-    </button>
-
-    <p class="stock">
-      ✓ In Stock
-    </p>
-
-  </div>
-</section>
-  
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
@@ -1718,6 +1787,7 @@ Secure payment powered by Stripe 🔒
     <p>© 2026 AiDiA My BFF. All rights reserved. Bringing companionship to those who need it most.</p>
   </div>
 </footer>    
+  
 <!-- SHOPPING -->
       <script>
 const PRODUCT = {
@@ -1880,76 +1950,52 @@ function changeImage(src){
   
 <!-- SHOPPING CART -->
 <script>
-document.getElementById("checkoutBtn").addEventListener("click", async () => {
-  const qty = parseInt(document.getElementById("qty").innerText);
-  const country = document.getElementById("country").value;
+let qty = 1;
 
-  const btn = document.getElementById("checkoutBtn");
-  btn.innerText = "Redirecting...";
-  btn.disabled = true;
+// QUANTITY SYSTEM
+function changeQty(amount) {
+  qty += amount;
+  if (qty < 1) qty = 1;
+  document.getElementById("qtyValue").innerText = qty;
+  updateShipping();
+}
 
-  try {
-    const response = await fetch("https://YOUR-BACKEND-URL/create-checkout-session", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        productName: "AiDiA My BFF Bear",
-        price: 24999, // cents = $249.99
-        quantity: qty,
-        country: country,
-        image: "https://yourdomain.com/images/bear-white.png"
-      })
-    });
+// SHIPPING SYSTEM
+const countrySelect = document.getElementById("countrySelect");
+const shippingDisplay = document.getElementById("shippingCost");
 
-    const data = await response.json();
-
-    if (data.url) {
-      window.location.href = data.url;
-    } else {
-      throw new Error("No checkout URL returned");
-    }
-
-  } catch (err) {
-    console.error(err);
-    alert("Checkout failed. Please try again.");
-    btn.innerText = "Checkout Securely →";
-    btn.disabled = false;
-  }
-});
-</script>
-  
-<!-- SHIPPING -->
-  <script>
-const shippingRates = {
-  Jamaica: 8,
-  USA: 15,
-  UK: 18,
-  Canada: 17,
-  International: 25
-};
-
-document.getElementById("country").addEventListener("change", updateShipping);
-document.addEventListener("DOMContentLoaded", updateShipping);
+countrySelect.addEventListener("change", updateShipping);
 
 function updateShipping() {
-  const country = document.getElementById("country").value;
-  const cost = shippingRates[country] || 0;
-  document.getElementById("shipCost").innerText = "Shipping: $" + cost.toFixed(2);
+  const cost = parseFloat(countrySelect.value) || 0;
+  shippingDisplay.innerText = "Shipping: $" + cost.toFixed(2);
 }
-</script>
-  
-<!-- Quantity  -->
-  <script>
-let qty = 1;
-function changeQty(change){
-  qty += change;
-  if(qty < 1){
-    qty = 1;
-  }
-  document.getElementById("qty").textContent = qty;
+
+// SIMPLE CAROUSEL
+const slides = document.querySelectorAll(".slide");
+const title = document.getElementById("carouselTitle");
+const text = document.getElementById("carouselText");
+
+let index = 0;
+
+function showSlide(i) {
+  slides.forEach(s => s.classList.remove("active"));
+  slides[i].classList.add("active");
+
+  title.innerText = slides[i].dataset.title;
+  text.innerText = slides[i].dataset.text;
 }
+
+// NEXT / PREV
+document.querySelector(".next").onclick = () => {
+  index = (index + 1) % slides.length;
+  showSlide(index);
+};
+
+document.querySelector(".prev").onclick = () => {
+  index = (index - 1 + slides.length) % slides.length;
+  showSlide(index);
+};
 </script>
 </body>
 </html>
