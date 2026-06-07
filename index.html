@@ -76,41 +76,46 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 }
 
 /* HERO IMAGE */
+.hero-image-first {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
 .hero-image-first img {
   width: 100%;
   height: 100vh;
-  object-fit: contain;
-  object-position: center;
-  display: block;
-  animation: heroZoom 8s ease forwards;
+  object-fit: cover;
 }
-
+    
 /* DARK OVERLAY */
-.hero-image-first::after{
-  background:rgba(0,0,0,.18);
+.hero-image-first::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.25);
 }
-
+    
 /* TEXT ON TOP */
-.hero-text-overlay{
-  position:relative;
-  z-index:3;
-}
-  max-width:800px;
-  text-align:center;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-55%);
+..hero-text-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  width: 100%;
+  max-width: 1100px;
+  text-align: center;
+  padding: 0 20px;
 }
 
-.hero-text-overlay h1 {
+.hero-copy h1 {
   color: white;
-  font-size: clamp(3rem, 7vw, 6rem);
+  text-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
-.hero-text-overlay .hero-sub {
-  color: rgba(255, 255, 255, 0.9);
-  margin: auto;
-  max-width: 700px;
+.hero-sub {
+  color: rgba(255,255,255,0.9);
 }
 
 /* HERO BUTTON AREA (safe spacing) */
@@ -131,7 +136,12 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
   border-radius: 999px;
   font-weight: 700;
   text-decoration: none;
-  transition: all 0.3s ease;
+  cursor: pointer;
+  white-space: nowrap;
+}
+a.btn-primary,
+a.btn-outline {
+  text-decoration: none !important;
 }
 
 /* Primary Button */
@@ -452,15 +462,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
   right: -140px;
 }
 
-/* GRID */
-.contact-grid {
-  display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: 50px;
-  margin-top: 48px;
-  position: relative;
-  z-index: 2;
-}
 
 /* LEFT CARD — GLASS PREMIUM */
 .contact-info-card {
@@ -485,11 +486,11 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
   pointer-events: none;
 }
 
-/* CONTACT ITEMS */
 /* =========================
    MODERN CONTACT (CLEAN VERSION)
 ========================= */
-
+/* GRID */
+    
 #contact {
   background: radial-gradient(circle at top, #f8fafc, #eef3f8);
   position: relative;
@@ -1007,14 +1008,7 @@ linear-gradient(
         <p>For those who live independently, AiDiA is a reliable daily companion — always ready to chat, listen, or simply be present when it matters.</p>
       </div>
     </div>
-    <div class="who-card fade-in">
-  <div class="who-card-img">
-    <img src="images/aidia-kids.png" alt="Young person with AiDiA" />
-    <div class="who-label">Also For</div>
-  </div>
-
- <div class="who-card fade-in">
-
+   <div class="who-card fade-in">
   <div class="who-card-img">
     <img src="images/aidia-kids.png" alt="Young person with AiDiA" />
     <div class="who-label">Also For</div>
@@ -1024,20 +1018,18 @@ linear-gradient(
     <h3>Teens & Children</h3>
 
     <p>
-      From helping your child learn to supporting emotional growth, AiDiA becomes a safe, friendly companion that grows with them.
+      From helping your child learn to supporting emotional growth.
     </p>
 
     <button class="who-video-btn" onclick="toggleKidsVideo(this)">
       ▶ Watch How Kids Use AiDiA
     </button>
 
-    <!-- INLINE VIDEO (hidden by default) -->
     <div class="kids-video-box">
       <video controls>
         <source src="videos/aidia-video3.mp4" type="video/mp4">
       </video>
     </div>
-
   </div>
 </div>
 </section>
