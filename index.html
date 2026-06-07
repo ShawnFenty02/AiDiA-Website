@@ -27,6 +27,42 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
       --card-shadow: 0 8px 32px rgba(28,58,94,0.12);
       --radius: 16px;
     }
+    /* =========================
+   GLOBAL UI RESET SYSTEM
+========================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* consistent section spacing */
+section {
+  padding: clamp(60px, 8vw, 100px) 7%;
+}
+
+/* global container rule */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* consistent spacing rhythm */
+section + section {
+  margin-top: 0;
+}
     html { scroll-behavior: smooth; }
     body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
 
@@ -282,10 +318,26 @@ a.btn-outline {
 
 }
     /* SECTIONS */
-    section { padding: 88px 7%; }
-    .section-tag { display: inline-block; background: var(--primary-light); color: var(--primary-mid); font-size: 0.72rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; border-radius: 50px; padding: 5px 14px; margin-bottom: 14px; }
-    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.7rem, 3vw, 2.4rem); font-weight: 800; line-height: 1.2; margin-bottom: 14px; }
-    .section-sub { color: var(--muted); font-size: 0.98rem; max-width: 540px; line-height: 1.8; }
+   section{
+  padding: 70px 7%;
+}
+
+section + section{
+  margin-top: 10px;
+}
+
+/* better visual flow */
+.section-tag{
+  margin-bottom: 10px;
+}
+
+.section-title{
+  margin-bottom: 12px;
+}
+
+.section-sub{
+  margin-bottom: 25px;
+}
 
     /* WHO IT'S FOR */
 #who {
@@ -463,13 +515,32 @@ a.btn-outline {
 
 /* ================= MOBILE ================= */
 @media(max-width:768px){
+
   .products-grid{
-    grid-template-columns:1fr;
+    grid-template-columns: 1fr;
   }
 
-  .product-card{
-    grid-template-columns:1fr;
+  .amazon-product{
+    grid-template-columns: 1fr;
   }
+
+  .hero-content{
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .who-grid{
+    grid-template-columns: 1fr;
+  }
+
+  .testi-grid{
+    grid-template-columns: 1fr;
+  }
+
+  .videos-grid{
+    grid-template-columns: 1fr;
+  }
+
 }
     /* FEATURES */
     #features { background: white; }
@@ -492,8 +563,8 @@ a.btn-outline {
     #videos .section-title { color: white; }
     #videos .section-sub { color: rgba(255,255,255,0.65); }
     .videos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 48px; }
-    .video-card { border-radius: var(--radius); overflow: hidden; box-shadow: 0 12px 40px rgba(0,0,0,0.3); background: rgba(0,0,0,0.3); }
-   .video-card video {width: 100%;height: auto;max-height: 700px;object-fit: contain;background: #000;}
+    .video-card video{width: 100%;height: 360px;object-fit: cover;background: #000;border-radius: 14px;}
+    .video-card{overflow: hidden;border-radius: 18px;}
     .video-caption { padding: 16px 20px; }
     .video-caption h3 { color: white; font-size: 0.95rem; font-weight: 700; margin-bottom: 4px; }
     .video-caption p { color: rgba(255,255,255,0.6); font-size: 0.82rem; }
@@ -847,25 +918,24 @@ linear-gradient(
 #f8fafc
 );
 }
-..fade-carousel .slide {
+.fade-carousel .slide {
   position: absolute;
   inset: 0;
   opacity: 0;
-  transform: scale(1.08);
-  transition: opacity 1s ease, transform 6s ease;
+  transition: opacity 0.8s ease;
 }
 
 .fade-carousel .slide.active {
   opacity: 1;
-  transform: scale(1);
   z-index: 2;
 }
 
 .fade-carousel img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: contain; /* fixes cropped bear */
 }
+    
 /* luxury gradient */
 .carousel-overlay {
   position: absolute;
@@ -1893,19 +1963,22 @@ document.addEventListener("DOMContentLoaded", () => {
   const slides = document.querySelectorAll(".fade-carousel .slide");
   const carousel = document.querySelector(".fade-carousel");
 
+  const title = document.getElementById("carouselTitle");
+  const text = document.getElementById("carouselText");
+
   let current = 0;
-  let startX = 0;
-  let endX = 0;
 
   function showSlide(index) {
     slides.forEach(s => s.classList.remove("active"));
     slides[index].classList.add("active");
 
-    // update caption
-    updateCaption(index);
+    // caption update (SAFE)
+    if (title && text) {
+      title.innerText = slides[index].dataset.title || "";
+      text.innerText = slides[index].dataset.text || "";
+    }
   }
 
-  // NEXT / PREV
   document.querySelector(".next").addEventListener("click", () => {
     current = (current + 1) % slides.length;
     showSlide(current);
@@ -1916,36 +1989,39 @@ document.addEventListener("DOMContentLoaded", () => {
     showSlide(current);
   });
 
-  // 👉 SWIPE SUPPORT
-  carousel.addEventListener("touchstart", e => {
-    startX = e.touches[0].clientX;
-  });
+  // swipe support
+  let startX = 0;
 
-  carousel.addEventListener("touchend", e => {
-    endX = e.changedTouches[0].clientX;
+  if (carousel) {
+    carousel.addEventListener("touchstart", e => {
+      startX = e.touches[0].clientX;
+    });
 
-    const diff = startX - endX;
+    carousel.addEventListener("touchend", e => {
+      const endX = e.changedTouches[0].clientX;
+      const diff = startX - endX;
 
-    if (Math.abs(diff) > 40) {
-      if (diff > 0) {
-        current = (current + 1) % slides.length;
-      } else {
-        current = (current - 1 + slides.length) % slides.length;
+      if (Math.abs(diff) > 40) {
+        if (diff > 0) current++;
+        else current--;
+
+        if (current < 0) current = slides.length - 1;
+        if (current >= slides.length) current = 0;
+
+        showSlide(current);
       }
-      showSlide(current);
-    }
-  });
-  // auto slide
+    });
+  }
+  
+  // autoplay
   setInterval(() => {
     current = (current + 1) % slides.length;
     showSlide(current);
   }, 5000);
+
+  // init
+  showSlide(0);
 });
-</script>
-  <script>
-function changeImage(src){
-  document.getElementById("mainProductImage").src = src;
-}
 </script>
   
 <!-- SHOPPING CART -->
@@ -1960,7 +2036,7 @@ function changeQty(amount) {
   updateShipping();
 }
 
-// SHIPPING SYSTEM
+// SHIPPING SYSTEM\\
 const countrySelect = document.getElementById("countrySelect");
 const shippingDisplay = document.getElementById("shippingCost");
 
@@ -1997,5 +2073,15 @@ document.querySelector(".prev").onclick = () => {
   showSlide(index);
 };
 </script>
+  
+  <script>
+  document.querySelectorAll("video").forEach(video => {
+  video.addEventListener("loadedmetadata", () => {
+    if (video.duration > 60) {
+      video.currentTime = 60; // start at 1 min preview
+    }
+  });
+});
+  </script>
 </body>
 </html>
