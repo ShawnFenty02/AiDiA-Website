@@ -395,10 +395,14 @@ section + section{
   background:#fff;
 }
 
-.product-card-img img{
-  width:100%;
-  height:100%;
+.product-card-img img,
+.main-image img,
+.fade-carousel img,
+.who-card-img img {
+  width: 100%;
+  height: 420px;
   object-fit: contain;
+  display: block;
 }
 
 /* CONTENT */
@@ -972,8 +976,11 @@ linear-gradient(
 
 .main-image img{
   width:100%;
-  height:550px;
+  max-width:100%;
+  height:500px;
   object-fit:contain;
+  display:block;
+  margin:auto;
 }
 
 .thumbs{
@@ -992,10 +999,14 @@ linear-gradient(
   cursor:pointer;
   transition:.3s;
 }
-
+    
 .thumbs img:hover{
   border-color:var(--accent);
   transform:translateY(-2px);
+}
+   .thumbs img.active{
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px rgba(192,57,43,.15);
 }
 
 .amazon-buy{
@@ -1005,7 +1016,7 @@ linear-gradient(
   padding:30px;
   box-shadow:var(--card-shadow);
   position:sticky;
-  top:100px;
+  top:120px;
   height:fit-content;
 }
 
@@ -1107,9 +1118,21 @@ linear-gradient(
     position:static;
   }
 
-  .main-image img{
-    height:350px;
+@media(max-width:900px){
+
+  .amazon-product{
+    grid-template-columns:1fr;
+    gap:30px;
   }
+
+  .amazon-buy{
+    position:static;
+  }
+
+  .main-image img{
+    height:400px;
+  }
+
 }
 .loading {
   opacity: 0.6;
@@ -1421,21 +1444,28 @@ onclick="toggleKidsVideo(this)">
 
   </div>
 
-
   <!-- ================= BUY BOX ================= -->
-  <div class="buy-section">
+ <div class="buy-section">
 
-    <h2>AiDiA My BFF</h2>
+  <h2>AiDiA My BFF Bear</h2>
 
-    <div class="price">$249.99 USD</div>
+  <!-- VARIANT SELECTOR (NEW) -->
+  <div class="field">
+    <label>Choose Your Bear</label>
 
-    <p class="description">
-      AI-powered companion teddy bear designed for comfort,
-      conversation, companionship and emotional support.
-    </p>
+    <select id="bearVariant" onchange="updateProductImage()">
+      <option value="white">White AiDiA (Classic)</option>
+      <option value="blue">Blue AiDiA (Calming)</option>
+    </select>
+  </div>
+
+  <div class="price">$249.99 USD</div>
+
+  <p class="description">
+    AI-powered companion teddy bear designed for comfort and companionship.
+  </p>
 
     <hr>
-
 
     <!-- QUANTITY -->
     <div class="field">
@@ -1463,8 +1493,6 @@ onclick="toggleKidsVideo(this)">
 
       <p id="shippingCost">Shipping: $0.00</p>
     </div>
-
-
     <!-- BUTTONS -->
     <button class="buy-btn">Buy Now</button>
     <button class="cart-btn">Add to Cart</button>
@@ -1472,9 +1500,7 @@ onclick="toggleKidsVideo(this)">
     <p class="stock">✓ In Stock</p>
 
     <p class="secure">Secure payment powered by Stripe 🔒</p>
-
   </div>
-
 </section>
 <!-- FEATURES -->
 <section id="features">
@@ -1519,7 +1545,6 @@ onclick="toggleKidsVideo(this)">
     </div>
   </div>
 </section>
-
 <!-- VIDEOS -->
 <section id="videos">
   <span class="section-tag">See AiDiA in Action</span>
@@ -1554,7 +1579,6 @@ poster="images/video1-cover.jpg">
     </div>
   </div>
 </section>
-
 <!-- TESTIMONIALS -->
 <section id="testimonials">
   <span class="section-tag">What People Say</span>
@@ -1713,25 +1737,31 @@ poster="images/video1-cover.jpg">
           </div>
         </div>
 
-        <div class="contact-detail">
-          <div class="contact-icon"><i class="fab fa-tiktok"></i></div>
-          <div>
-            <strong>TikTok</strong>
-            <a href="https://tiktok.com/@aidiateddybear" target="_blank">@AiDiATeddyBear</a>
-          </div>
-        </div>
+       <div class="contact-detail">
+  <div class="contact-icon">
+    <i class="fab fa-tiktok"></i>
+  </div>
 
-        <div class="contact-detail">
-          <div class="contact-icon"><i class="fab fa-facebook"></i></div>
-          <div>
-            <strong>Facebook</strong>
-            <a href="https://facebook.com/aidiateddybear" target="_blank">@AiDiATeddyBear</a>
-          </div>
-        </div>
+  <div>
+    <strong>TikTok</strong>
+    <a href="https://www.tiktok.com/@aidia.teddy.bear?_r=1&_t=ZP-971NThjBZuh" target="_blank">
+      @aidia.teddy.bear
+    </a>
+  </div>
+</div>
 
-      </div>
-    </div>
+<div class="contact-detail">
+  <div class="contact-icon">
+    <i class="fab fa-facebook"></i>
+  </div>
 
+  <div>
+    <strong>Facebook</strong>
+    <a href="https://www.facebook.com/share/1HgHfmSsqj/?mibextid=wwXIfr" target="_blank">
+      @AiDiATeddyBear
+    </a>
+  </div>
+</div>
     <!-- RIGHT FORM -->
     <form class="contact-form fade-in" onsubmit="handleSubmit(event)">
       <div class="form-header">
@@ -1976,32 +2006,20 @@ function updateShipping() {
   const cost = parseFloat(countrySelect.value) || 0;
   shippingDisplay.innerText = "Shipping: $" + cost.toFixed(2);
 }
+</script>
+      <script>
+function updateProductImage() {
+  const variant = document.getElementById("bearVariant").value;
+  const mainImg = document.querySelector(".main-image img");
 
-// SIMPLE CAROUSEL
-const slides = document.querySelectorAll(".slide");
-const title = document.getElementById("carouselTitle");
-const text = document.getElementById("carouselText");
+  if (!mainImg) return;
 
-let index = 0;
-
-function showSlide(i) {
-  slides.forEach(s => s.classList.remove("active"));
-  slides[i].classList.add("active");
-
-  title.innerText = slides[i].dataset.title;
-  text.innerText = slides[i].dataset.text;
+  if (variant === "blue") {
+    mainImg.src = "images/bear-blue.png";
+  } else {
+    mainImg.src = "images/bear-white.png";
+  }
 }
-
-// NEXT / PREV
-document.querySelector(".next").onclick = () => {
-  index = (index + 1) % slides.length;
-  showSlide(index);
-};
-
-document.querySelector(".prev").onclick = () => {
-  index = (index - 1 + slides.length) % slides.length;
-  showSlide(index);
-};
 </script>
   
   <script>
