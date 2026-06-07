@@ -76,8 +76,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 .hero-image-first img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  object-position: center center;
+  object-fit: cover;
+  object-position: center top; /* 👈 keeps head visible */
 }
 
 /* DARK OVERLAY */
@@ -93,7 +93,15 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
   position: relative;
   z-index: 5;
   width: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(0,0,0,0.55),
+    rgba(0,0,0,0.25),
+    transparent
+  ); /* 👈 makes text readable WITHOUT covering bear */
+  padding: 60px 7%;
 }
+    
 .hero-copy h1 {
   color: white;
   text-shadow: 0 10px 30px rgba(0,0,0,0.5);
@@ -221,21 +229,26 @@ a.btn-outline {
    MOBILE RESPONSIVE FIX
 ========================= */
 @media (max-width: 600px) {
+  #hero {
+    min-height: 90vh;
+  }
 
   .hero-image-first img {
-    height: 70vh;
-  }
-
-  .hero-text-overlay h1 {
-    font-size: 2.2rem;
-  }
-
-  .hero-sub {
-    font-size: 0.9rem;
+    object-position: top center;
   }
 
   .hero-text-overlay {
-    padding: 16px;
+    padding: 20px;
+    text-align: center;
+    background: linear-gradient(
+      to top,
+      rgba(0,0,0,0.65),
+      rgba(0,0,0,0.2)
+    );
+  }
+
+  .hero-side-image {
+    display: none; /* optional: removes clutter on small screens */
   }
 }
     /* SECTIONS */
@@ -725,29 +738,25 @@ linear-gradient(
 #f8fafc
 );
 }
-.fade-carousel .slide {
+..fade-carousel .slide {
   position: absolute;
   inset: 0;
-
   opacity: 0;
-  transition:
-    opacity 1.5s ease,
-    transform 8s ease;
-
-  transform: scale(1.05);
+  transform: scale(1.08);
+  transition: opacity 1s ease, transform 6s ease;
 }
+
 .fade-carousel .slide.active {
   opacity: 1;
-  z-index: 2;
   transform: scale(1);
+  z-index: 2;
 }
+
 .fade-carousel img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  object-position: center;
 }
-
 /* luxury gradient */
 .carousel-overlay {
   position: absolute;
@@ -814,7 +823,19 @@ linear-gradient(
 .next {
   right: 20px;
 }
-    
+   @media (max-width: 600px) {
+  .fade-carousel {
+    height: 320px;
+  }
+
+  .carousel-overlay h3 {
+    font-size: 1.1rem;
+  }
+
+  .carousel-overlay p {
+    font-size: 0.85rem;
+  }
+} 
 /* SHOP SECTION */
 .shop-section{
   padding: 90px 7%;
@@ -1164,40 +1185,38 @@ onclick="toggleKidsVideo(this)">
   </div>
 
   <!-- SLIDESHOW -->
-  <div class="carousel fade-carousel">
+<div class="carousel fade-carousel">
 
-  <div class="slide active">
-    <img src="images/bear-white.png" alt="">
-  </div>
+  <!-- SLIDES -->
+  <div class="slide active" data-title="Classic White AiDiA" data-text="Pure, calm, comforting presence">
+  <img src="images/bear-white.png">
+</div>
+  <div class="slide active" data-title="Classic White AiDiA" data-text="Pure, calm, comforting presence">
+  <img src="images/bear-blue.png">
+</div>
 
-  <div class="slide">
-    <img src="images/blue-and-white-bear.JPG" alt="">
-  </div>
+<div class="slide" data-title="Blue Edition AiDiA" data-text="Calming and emotionally warm companion">
+  <img src="images/blue-and-white-bear.JPG">
+</div>
 
-  <div class="slide">
-    <img src="images/sitting-bears.JPG" alt="">
-  </div>
+<div class="slide" data-title="Together Always" data-text="Designed for connection and comfort">
+  <img src="images/sitting-bears.JPG">
+</div>
 
-  <div class="slide">
-    <img src="images/aidia-box.JPG" alt="">
-  </div>
-
-  <div class="slide">
-    <img src="images/white-and-blue-bear.JPG" alt="">
-  </div>
-
+  <!-- ARROWS (MUST BE INSIDE CAROUSEL) -->
   <button class="carousel-btn prev">❮</button>
   <button class="carousel-btn next">❯</button>
 
+  <!-- OVERLAY (MUST ALSO BE INSIDE) -->
   <div class="carousel-overlay">
     <h3>AiDiA My BFF</h3>
     <p>Always there. Always yours.</p>
   </div>
 
 </div>
-</section>
-  <!-- Shopping -->
-  <div class="cart-box">
+
+<!-- ✅ BUY BOX MUST BE UNDER CAROUSEL -->
+<div class="cart-box">
   <h3>Buy AiDiA My BFF</h3>
 
   <div class="price">
@@ -1209,7 +1228,8 @@ onclick="toggleKidsVideo(this)">
     <span id="qty">1</span>
     <button onclick="changeQty(1)">+</button>
   </div>
-
+</div>
+</section>
   <div class="shipping">
     <h4>Shipping Calculator</h4>
     <select id="country">
@@ -1651,28 +1671,58 @@ window.addEventListener("scroll",()=>{
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const slides = document.querySelectorAll(".fade-carousel .slide");
+  const carousel = document.querySelector(".fade-carousel");
+
   let current = 0;
+  let startX = 0;
+  let endX = 0;
+
   function showSlide(index) {
-    slides.forEach(slide => {
-      slide.classList.remove("active");
-    });
+    slides.forEach(s => s.classList.remove("active"));
     slides[index].classList.add("active");
+
+    // update caption
+    updateCaption(index);
   }
+
+  // NEXT / PREV
   document.querySelector(".next").addEventListener("click", () => {
     current = (current + 1) % slides.length;
     showSlide(current);
   });
+
   document.querySelector(".prev").addEventListener("click", () => {
     current = (current - 1 + slides.length) % slides.length;
     showSlide(current);
   });
+
+  // 👉 SWIPE SUPPORT
+  carousel.addEventListener("touchstart", e => {
+    startX = e.touches[0].clientX;
+  });
+
+  carousel.addEventListener("touchend", e => {
+    endX = e.changedTouches[0].clientX;
+
+    const diff = startX - endX;
+
+    if (Math.abs(diff) > 40) {
+      if (diff > 0) {
+        current = (current + 1) % slides.length;
+      } else {
+        current = (current - 1 + slides.length) % slides.length;
+      }
+      showSlide(current);
+    }
+  });
+  // auto slide
   setInterval(() => {
     current = (current + 1) % slides.length;
     showSlide(current);
   }, 5000);
 });
 </script>
-      
+  
 <!-- SHOPPING CART -->
 <script>
 document.getElementById("checkoutBtn").addEventListener("click", async () => {
