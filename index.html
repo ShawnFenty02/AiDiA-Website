@@ -922,7 +922,7 @@ linear-gradient(
 
   <!-- FULL SCREEN BEAR IMAGE FIRST -->
   <div class="hero-image-first">
-    <img src="images/bear-white.png" alt="AiDiA Bear">
+    <img src="images/sitting-blue-bear.jpeg" alt="AiDiA Bear">
   </div>
 
   <!-- TEXT OVER IMAGE -->
@@ -1480,21 +1480,65 @@ window.addEventListener("load", () => {
 </script>
       
   <!-- kID VIDEO -->
-  <script>
-window.addEventListener("scroll", () => {
-  const box = document.querySelector(".kids-video-box");
-  const video = document.getElementById("kidsVideo");
+<script>
+function toggleKidsVideo(btn) {
 
-  if (!box || !video) return;
+  const box = btn.parentElement.querySelector(".kids-video-box");
+  const video = box.querySelector("video");
 
-  const rect = box.getBoundingClientRect();
+  if (!box.classList.contains("active")) {
 
-  // if video leaves viewport
-  if (rect.top > window.innerHeight || rect.bottom < 0) {
+    box.classList.add("active");
+
+    setTimeout(() => {
+      video.currentTime = 0;
+
+      const playPromise = video.play();
+
+      if (playPromise !== undefined) {
+        playPromise.catch(err => {
+          console.log("Playback prevented:", err);
+        });
+      }
+
+    }, 300);
+
+    btn.textContent = "✕ Close Video";
+
+  } else {
+
     video.pause();
     video.currentTime = 0;
+
     box.classList.remove("active");
+
+    btn.textContent = "▶ Watch How Kids Use AiDiA";
   }
+}
+</script>
+<script>
+window.addEventListener("scroll", () => {
+
+  document.querySelectorAll(".kids-video-box.active").forEach(box => {
+
+    const video = box.querySelector("video");
+    const rect = box.getBoundingClientRect();
+
+    if (rect.bottom < 0 || rect.top > window.innerHeight) {
+
+      video.pause();
+      video.currentTime = 0;
+
+      box.classList.remove("active");
+
+      const btn = box.parentElement.querySelector(".who-video-btn");
+
+      if(btn){
+        btn.textContent = "▶ Watch How Kids Use AiDiA";
+      }
+    }
+  });
+
 });
 </script>
       
