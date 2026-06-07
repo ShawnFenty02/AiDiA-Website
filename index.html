@@ -618,41 +618,26 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
   box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
 
-   .video-modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.75);
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-}
-
-.video-box {
-  width: 90%;
-  max-width: 700px;
-  background: black;
-  border-radius: 16px;
+.kids-video-box {
+  max-height: 0;
   overflow: hidden;
-  position: relative;
+  opacity: 0;
+  transition: all 0.5s ease;
+  margin-top: 0;
+  border-radius: 14px;
 }
 
-.video-box video {
+.kids-video-box video {
   width: 100%;
-  display: block;
+  border-radius: 14px;
+  margin-top: 12px;
 }
 
-.close-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: white;
-  border: none;
-  border-radius: 50%;
-  width: 36px;
-  height: 36px;
-  cursor: pointer;
-  font-weight: bold;
+/* ACTIVE STATE */
+.kids-video-box.active {
+  max-height: 500px;
+  opacity: 1;
+  margin-top: 14px;
 }
     
 /* RESPONSIVE */
@@ -900,7 +885,10 @@ linear-gradient(
   font-weight: 700;
   cursor: pointer;
 }
-    
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}    
 </style>
 </head>
 <body>
@@ -1025,26 +1013,31 @@ linear-gradient(
     <div class="who-label">Also For</div>
   </div>
 
+ <div class="who-card fade-in">
+
+  <div class="who-card-img">
+    <img src="images/aidia-kids.png" alt="Young person with AiDiA" />
+    <div class="who-label">Also For</div>
+  </div>
+
   <div class="who-card-body">
     <h3>Teens & Children</h3>
+
     <p>
       From helping your child learn to supporting emotional growth, AiDiA becomes a safe, friendly companion that grows with them.
     </p>
 
-    <!-- NEW PREMIUM CTA -->
-    <button class="who-video-btn" onclick="openKidsVideo()">
+    <button class="who-video-btn" onclick="toggleKidsVideo(this)">
       ▶ Watch How Kids Use AiDiA
     </button>
-  </div>
-</div>
-    <!-- KIDS VIDEO MODAL -->
-<div id="kidsModal" class="video-modal">
-  <div class="video-box">
-    <button class="close-btn" onclick="closeKidsVideo()">✕</button>
 
-    <video id="kidsVideo" controls>
-      <source src="videos/aidia-video3.mp4" type="video/mp4">
-    </video>
+    <!-- INLINE VIDEO (hidden by default) -->
+    <div class="kids-video-box">
+      <video controls>
+        <source src="videos/aidia-video3.mp4" type="video/mp4">
+      </video>
+    </div>
+
   </div>
 </div>
 </section>
@@ -1142,6 +1135,9 @@ linear-gradient(
 <button class="buy-btn" id="checkoutBtn">
   Checkout Securely →
 </button>
+    <p style="font-size:0.75rem;color:#777;margin-top:10px;">
+Secure payment powered by Stripe 🔒
+</p>
 </div>
 <!-- FEATURES -->
 <section id="features">
@@ -1500,20 +1496,20 @@ window.addEventListener("load", () => {
   }, 2500);
 });
 </script>
-  
+      
+  <!-- kID VIDEO -->
   <script>
-function openKidsVideo() {
-  document.getElementById("kidsModal").style.display = "flex";
-  document.getElementById("kidsVideo").play();
-}
+function toggleKidsVideo(btn) {
+  const box = btn.parentElement.querySelector(".kids-video-box");
 
-function closeKidsVideo() {
-  const modal = document.getElementById("kidsModal");
-  const video = document.getElementById("kidsVideo");
+  box.classList.toggle("active");
 
-  modal.style.display = "none";
-  video.pause();
-  video.currentTime = 0;
+  // optional text change
+  if (box.classList.contains("active")) {
+    btn.textContent = "✕ Close Video";
+  } else {
+    btn.textContent = "▶ Watch How Kids Use AiDiA";
+  }
 }
 </script>
       
@@ -1544,7 +1540,6 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
       
 <!-- SHOPPING CART -->
- <script>
 <script>
 document.getElementById("checkoutBtn").addEventListener("click", async () => {
   const qty = parseInt(document.getElementById("qty").innerText);
@@ -1584,6 +1579,27 @@ document.getElementById("checkoutBtn").addEventListener("click", async () => {
     btn.disabled = false;
   }
 });
+  btn.classList.add("loading");
+</script>
+  
+<!-- SHIPPING -->
+  <script>
+const shippingRates = {
+  Jamaica: 8,
+  USA: 15,
+  UK: 18,
+  Canada: 17,
+  International: 25
+};
+
+document.getElementById("country").addEventListener("change", updateShipping);
+document.addEventListener("DOMContentLoaded", updateShipping);
+
+function updateShipping() {
+  const country = document.getElementById("country").value;
+  const cost = shippingRates[country] || 0;
+  document.getElementById("shipCost").innerText = "Shipping: $" + cost.toFixed(2);
+}
 </script>
   
 <!-- Quantity  -->
