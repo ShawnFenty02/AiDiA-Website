@@ -104,92 +104,144 @@ box-shadow: 0 2px 12px rgba(0,0,0,0.06);
 }
 
 /* HERO SECTION (NEW CLEAN STACKED VERSION) */
-  #hero{
+#hero{
   min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
+  display:grid;
+  grid-template-columns:1fr 1.2fr;
   align-items:center;
-  text-align:center;
-  padding:140px 7% 100px;
-  position:relative;
+  gap:60px;
+  padding:120px 7% 80px;
   overflow:hidden;
+  position:relative;
 }
-  
-.hero-content {
-  margin-top: 20px;
-  max-width: 700px;
+
+/* text */
+.hero-text{
+  z-index:5;
 }
-  
-/* soft animated background glow */
+
+.hero-text h1{
+  font-size:4.5rem;
+  line-height:1.05;
+  margin-bottom:20px;
+  font-family:'Playfair Display',serif;
+}
+
+.hero-text em{
+  color:var(--accent);
+  font-style:italic;
+}
+
+.hero-text p{
+  max-width:560px;
+  font-size:1.15rem;
+  color:var(--muted);
+}
+
+/* showcase */
+.hero-showcase{
+  position:relative;
+  height:700px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.hero-bear{
+  width:100%;
+  max-width:650px;
+  object-fit:contain;
+  filter:drop-shadow(0 30px 50px rgba(0,0,0,.18));
+  animation:floatBear 6s ease-in-out infinite;
+}
+
+@keyframes floatBear{
+  0%,100%{
+    transform:translateY(0px);
+  }
+  50%{
+    transform:translateY(-15px);
+  }
+}
+
+/* floating photo card */
+.hero-floating-card{
+  position:absolute;
+  right:-20px;
+  top:50%;
+  transform:translateY(-50%);
+  width:320px;
+  background:white;
+  border-radius:28px;
+  overflow:hidden;
+
+  box-shadow:
+  0 25px 60px rgba(0,0,0,.18);
+
+  backdrop-filter:blur(12px);
+
+  animation:floatCard 5s ease-in-out infinite;
+}
+
+.hero-floating-card img{
+  width:100%;
+  display:block;
+}
+
+@keyframes floatCard{
+  0%,100%{
+    transform:translateY(-50%);
+  }
+  50%{
+    transform:translateY(calc(-50% - 12px));
+  }
+}
+
+/* glow behind bear */
 #hero::before{
   content:"";
   position:absolute;
-  width:600px;
-  height:600px;
-  background: radial-gradient(circle, rgba(61,90,128,0.25), transparent 70%);
-  top:-200px;
-  left:-200px;
-  filter: blur(40px);
-  animation: floatGlow 8s ease-in-out infinite;
+
+  width:700px;
+  height:700px;
+
+  background:
+  radial-gradient(
+    circle,
+    rgba(61,90,128,.25),
+    transparent 70%
+  );
+
+  right:5%;
+  top:50%;
+
+  transform:translateY(-50%);
+  filter:blur(40px);
 }
 
-@keyframes floatGlow{
-  0%,100%{transform:translate(0,0);}
-  50%{transform:translate(80px,40px);}
-}
+/* mobile */
+@media(max-width:900px){
 
-.hero-images{
-  display:flex;
-  gap:20px;
-  justify-content:center;
-  flex-wrap:wrap;
-}
-
-.hero-images img{
-  width:100%;
-  max-width:420px;
-  border-radius:20px;
-  object-fit:cover;
-}
-  
-/* DARK OVERLAY */
-.hero-image-first::after {content: "";position: absolute;inset: 0;background: radial-gradient(circle, rgba(0,0,0,0.2), rgba(0,0,0,0.55));}
-
-/* BUTTONS */
-.hero-btns {margin-top: 18px;display: flex;gap: 14px;justify-content: center;flex-wrap: wrap;}
-
-/* BUTTON STYLES (keep yours) */
-.btn-primary,
-.btn-outline {
-display: inline-flex;
-align-items: center;
-justify-content: center;
-padding: 14px 28px;
-border-radius: 999px;
-font-weight: 700;
-text-decoration: none;
-}
-
-/* MOBILE */
-@media (max-width: 768px) {
-  #hero {
-    padding-top: 110px;
+  #hero{
+    grid-template-columns:1fr;
+    text-align:center;
   }
 
-  .hero-image-first img {
-    height: 60vh;
-    width: 100%;
-    object-fit: cover;
+  .hero-text h1{
+    font-size:2.8rem;
   }
 
-  .hero-btns {
-    flex-direction: column;
-    align-items: center;
+  .hero-showcase{
+    height:auto;
   }
 
-  .hero-copy h1 {
-    font-size: 2rem;
+  .hero-floating-card{
+    position:relative;
+    right:auto;
+    top:auto;
+    transform:none;
+    width:85%;
+    margin:-40px auto 0;
   }
 }
   
@@ -230,38 +282,7 @@ flex-wrap: wrap;
     display: none;
   }
 }
-
-/* =========================
-  MOBILE RESPONSIVE FIX
-========================= */
-@media(max-width:900px){
-
-#hero{
-min-height:auto;
-padding:120px 20px 60px;
-}
-
-.hero-content{
-flex-direction:column;
-text-align:center;
-gap:30px;
-}
-
-.hero-image-first img{
-height:65vh;
-max-width:100%;
-}
-
-.hero-copy{
-position:relative;
-z-index:10;
-}
-
-.hero-copy h1{
-font-size:2.3rem;
-}
-
-}
+  
 /* SECTIONS */
 section{padding:80px 7%;}
 section + section{margin-top: 10px;}
@@ -1284,27 +1305,49 @@ html {
   
 <!-- HERO (CLEAN CENTER VERSION) -->
 <section id="hero">
-  <div class="hero-images">
-    <img src="images/sitting-blue-bear.jpeg" alt="AiDiA Bear">
-    <img src="images/child-with-bear.JPG" alt="Child with AiDiA Bear">
-  </div>
 
-  <div class="hero-content">
-    <div class="hero-tag">
+  <div class="hero-text">
+    <span class="hero-tag">
       More Than a Teddy. A Companion for Life.
-    </div>
+    </span>
 
-    <h1>Never Feel <em>Alone</em> Again</h1>
+    <h1>
+      Never Feel <em>Alone</em> Again
+    </h1>
 
-    <p class="hero-sub">
-      AiDiA is an AI-powered companion bear that listens, talks, learns, and connects emotionally.
+    <p>
+      AiDiA is an AI-powered companion bear that listens,
+      talks, learns and genuinely connects.
     </p>
 
     <div class="hero-btns">
-      <a href="#products" class="btn-primary">Shop AiDiA</a>
-      <a href="#contact" class="btn-outline">Care Home Enquiries</a>
+      <a href="#products" class="btn-primary">
+        Discover AiDiA
+      </a>
+
+      <a href="#contact" class="btn-outline">
+        Care Home Enquiries
+      </a>
     </div>
   </div>
+
+  <div class="hero-showcase">
+
+    <img
+      src="images/bear-blue.jpeg"
+      class="hero-bear"
+      alt="AiDiA Bear"
+    >
+
+    <div class="hero-floating-card">
+      <img
+        src="images/child-with-bear.JPG"
+        alt="Child with AiDiA"
+      >
+    </div>
+
+  </div>
+
 </section>
 
 <!-- TRUST BAR -->
