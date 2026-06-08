@@ -54,151 +54,101 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
       transition: transform 0.2s, box-shadow 0.2s;
     }
     .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 7px 20px rgba(192,57,43,0.40); }
-
-/* HERO SECTION */
-#hero {
-  position: relative;
-  min-height: 100vh;
-  overflow: hidden;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* FULL SCREEN BEAR */
-.hero-image-first {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  background: radial-gradient(circle at center, #ffffff 0%, #e8eff7 60%, #dce8f2 100%);
-}
-
-/* HERO IMAGE */
-.hero-image-first img {
-  width: 100%;
-  height: 100vh;
-  object-fit: contain;
-  object-position: center;
-  display: block;
-  animation: heroZoom 8s ease forwards;
-}
-
-/* DARK OVERLAY */
-.hero-image-first::after{
-  background:rgba(0,0,0,.18);
-}
-
-/* TEXT ON TOP */
-.hero-text-overlay{
-  position:relative;
-  z-index:3;
-}
-  max-width:800px;
-  text-align:center;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-55%);
-}
-
-.hero-text-overlay h1 {
-  color: white;
-  font-size: clamp(3rem, 7vw, 6rem);
-}
-
-.hero-text-overlay .hero-sub {
-  color: rgba(255, 255, 255, 0.9);
-  margin: auto;
-  max-width: 700px;
-}
-
-/* HERO BUTTON AREA (safe spacing) */
-.hero-btns {
-  margin-top: 20px;
-  display: flex;
-  gap: 14px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-    /* HERO BUTTONS */
-.btn-primary,
-.btn-outline {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 14px 28px;
-  border-radius: 999px;
-  font-weight: 700;
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
-
-/* Primary Button */
-.btn-primary {
-  background: linear-gradient(135deg, var(--accent), #e25b4b);
-  color: #fff;
-  box-shadow: 0 12px 30px rgba(192,57,43,0.35);
-}
-
-.btn-primary:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 18px 40px rgba(192,57,43,0.45);
-}
-
-/* Secondary Button */
-.btn-outline {
-  background: rgba(255,255,255,0.15);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.35);
-  color: #fff;
-}
-
-.btn-outline:hover {
-  background: rgba(255,255,255,0.25);
-  transform: translateY(-3px);
-}
-
-/* HERO ANIMATION */
-@keyframes heroZoom {
-  0% {
-    transform: scale(1.15);
-    opacity: 0;
-  }
-  20% {
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-.hero-content{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:50px;
-}
-
-.hero-copy{
-  max-width:600px;
-}
-
-.hero-side-image img{
-  width:320px;
-  max-width:100%;
-  border-radius:20px;
-  box-shadow:0 15px 40px rgba(0,0,0,.25);
+.mobile-menu{
+  display:none;
 }
 
 @media(max-width:900px){
 
-  .hero-content{
-    flex-direction:column;
-  }
+nav{
+  flex-wrap:wrap;
+  padding:15px;
+}
 
-  .hero-side-image img{
-    width:220px;
-  }
+.nav-links{
+  width:100%;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:15px;
+}
+
+.nav-links a{
+  background:#f3f4f6;
+  padding:10px 14px;
+  border-radius:50px;
+}
+
+.nav-cta{
+  display:none;
+}
+
+}
+/* === HERO ==== */
+
+#hero{
+  min-height:100vh;
+  padding:120px 7% 80px;
+  background:linear-gradient(
+    135deg,
+    #f8fafc 0%,
+    #e8eff7 100%
+  );
+}
+
+.hero-content{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:60px;
+  align-items:center;
+}
+
+.hero-copy h1{
+  font-size:clamp(2.5rem,5vw,5rem);
+  line-height:1.1;
+  margin-bottom:20px;
+}
+
+.hero-sub{
+  font-size:1.1rem;
+  margin-bottom:30px;
+  color:var(--muted);
+}
+
+.hero-btns{
+  display:flex;
+  gap:15px;
+  flex-wrap:wrap;
+}
+
+.hero-bear{
+  display:flex;
+  justify-content:center;
+}
+
+.hero-bear img{
+  width:100%;
+  max-width:650px;
+  height:auto;
+  object-fit:contain;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+.hero-content{
+  grid-template-columns:1fr;
+  text-align:center;
+}
+
+.hero-btns{
+  justify-content:center;
+}
+
+.hero-bear img{
+  max-width:450px;
+}
 
 }
 /* TRUST BAR */
@@ -820,29 +770,26 @@ linear-gradient(
 }
     
 /* SHOP SECTION */
-.shop-section{
-  padding: 90px 7%;
-  background: var(--bg);
-}
-.shop-container{
-  display:flex;
-  justify-content:center;
-}
 .shop-card{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:40px;
-  background:white;
-  border-radius:24px;
-  box-shadow:var(--card-shadow);
-  padding:40px;
-  max-width:1000px;
-  width:100%;
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:40px;
+ align-items:center;
 }
-.shop-card img{
-  width:100%;
-  max-height:500px;
-  object-fit:contain;
+
+.shop-image img{
+ width:100%;
+ max-height:500px;
+ object-fit:contain;
+}
+
+@media(max-width:900px){
+
+.shop-card{
+ grid-template-columns:1fr;
+ text-align:center;
+}
+
 }
 
 /* CART UI */
@@ -929,51 +876,45 @@ linear-gradient(
 </nav>
 
 <!-- HERO (IMAGE FIRST VERSION) -->
-<section id="hero" class="hero-entrance">
+<section id="hero">
 
-  <!-- FULL SCREEN BEAR IMAGE FIRST -->
-  <div class="hero-image-first">
-    <img src="images/bear-white.png" alt="AiDiA Bear">
-  </div>
+<div class="hero-content">
 
-  <!-- TEXT OVER IMAGE -->
- <div class="hero-text-overlay">
+<div class="hero-copy">
 
-  <div class="hero-content">
+<span class="section-tag">
+AI Companion Bear
+</span>
 
-    <div class="hero-copy">
+<h1>
+Never Feel Alone Again
+</h1>
 
-      <div class="hero-tag">
-        <span class="dot"></span>
-        More Than a Teddy. A Companion for Life.
-      </div>
+<p class="hero-sub">
+AiDiA is an AI-powered companion that listens,
+learns, remembers and creates meaningful
+connections every day.
+</p>
 
-      <h1>Never Feel <em>Alone</em> Again</h1>
+<div class="hero-btns">
 
-      <p class="hero-sub">
-        AiDiA is an AI-powered companion bear that listens,
-        talks, learns, and genuinely connects.
-      </p>
+<a href="#shop" class="btn-primary">
+Buy Now
+</a>
 
-      <div class="hero-btns">
-        <a href="#who" class="btn-primary">
-          Discover AiDiA
-        </a>
+<a href="#contact" class="btn-outline">
+Learn More
+</a>
 
-        <a href="#contact" class="btn-outline">
-          Care Home Enquiries
-        </a>
-      </div>
+</div>
 
-    </div>
+</div>
 
-    <div class="hero-side-image">
-      <img src="images/child-with-bear.JPG" alt="Child with AiDiA">
-    </div>
+<div class="hero-bear">
+<img src="images/bear-white.png" alt="AiDiA Bear">
+</div>
 
-  </div>
-   
- </div>
+</div>
 </section>
 
 <!-- TRUST BAR -->
@@ -1135,6 +1076,7 @@ linear-gradient(
   Checkout Securely →
 </button>
 </div>
+  
 <!-- FEATURES -->
 <section id="features">
   <div class="features-layout">
@@ -1409,17 +1351,60 @@ linear-gradient(
   
 <!-- shooping -->    
 <section id="shop" class="shop-section">
-  <span class="section-tag">Shop AiDiA</span>
-  <h2 class="section-title">Bring AiDiA Home</h2>
-  <div class="shop-container">
-    <div class="shop-card">
-      <img src="images/bear-white.png" alt="AiDiA Bear">
-      <div class="shop-info">
-        <h3>AiDiA My BFF</h3>
-        <p>AI Companion Bear</p>
-      </div>
-    </div>
-  </div>
+
+<div class="shop-card">
+
+<div class="shop-image">
+
+<img
+id="bearImage"
+src="images/bear-white.png"
+alt="AiDiA Bear"
+/>
+
+</div>
+
+<div class="shop-info">
+
+<h2>AiDiA My BFF</h2>
+
+<p>
+Choose your favourite colour.
+</p>
+
+<label>Colour</label>
+
+<select id="bearColor">
+
+<option value="white">
+Classic White
+</option>
+
+<option value="blue">
+Royal Blue
+</option>
+
+</select>
+
+<div class="price">
+$249.99 USD
+</div>
+
+<div class="qty">
+<button onclick="changeQty(-1)">−</button>
+<span id="qty">1</span>
+<button onclick="changeQty(1)">+</button>
+</div>
+
+<button class="buy-btn">
+Buy Now
+</button>
+
+</div>
+
+</div>
+
+</section>
 </section>
   
 <!-- FOOTER -->
@@ -1454,13 +1439,26 @@ linear-gradient(
   </div>
 </footer>    
 <!-- SHOPPING -->
-      <script>
-const PRODUCT = {
-  name: "AiDiA My BFF Bear",
-  price: 249.99,
-  currency: "USD",
-  image: "images/bear-white.png"
-};
+     <script>
+
+const bearColor =
+document.getElementById("bearColor");
+
+const bearImage =
+document.getElementById("bearImage");
+
+bearColor.addEventListener("change",()=>{
+
+if(bearColor.value==="white"){
+bearImage.src="images/bear-white.png";
+}
+
+if(bearColor.value==="blue"){
+bearImage.src="images/bear-blue.png";
+}
+
+});
+
 </script>   
   
 <!-- CONTACT -->
