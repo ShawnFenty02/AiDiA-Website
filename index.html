@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -9,6 +9,7 @@
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <script src="https://js.stripe.com/v3/"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -26,6 +27,42 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
       --card-shadow: 0 8px 32px rgba(28,58,94,0.12);
       --radius: 16px;
     }
+    /* =========================
+   GLOBAL UI RESET SYSTEM
+========================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* consistent section spacing */
+section {
+  padding: clamp(60px, 8vw, 100px) 7%;
+}
+
+/* global container rule */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* consistent spacing rhythm */
+section + section {
+  margin-top: 0;
+}
     html { scroll-behavior: smooth; }
     body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
 
@@ -54,101 +91,179 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
       transition: transform 0.2s, box-shadow 0.2s;
     }
     .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 7px 20px rgba(192,57,43,0.40); }
-.mobile-menu{
-  display:none;
-}
 
-@media(max-width:900px){
-
-nav{
-  flex-wrap:wrap;
-  padding:15px;
-}
-
-.nav-links{
-  width:100%;
-  justify-content:center;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-top:15px;
-}
-
-.nav-links a{
-  background:#f3f4f6;
-  padding:10px 14px;
-  border-radius:50px;
-}
-
-.nav-cta{
-  display:none;
-}
-
-}
-/* === HERO ==== */
-
+/* HERO SECTION */
 #hero{
+  position:relative;
   min-height:100vh;
-  padding:120px 7% 80px;
-  background:linear-gradient(
-    135deg,
-    #f8fafc 0%,
-    #e8eff7 100%
-  );
-}
-
-.hero-content{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:60px;
+  display:flex;
   align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  padding-top:90px;
 }
 
-.hero-copy h1{
-  font-size:clamp(2.5rem,5vw,5rem);
-  line-height:1.1;
-  margin-bottom:20px;
-}
-
-.hero-sub{
-  font-size:1.1rem;
-  margin-bottom:30px;
-  color:var(--muted);
-}
-
-.hero-btns{
+.hero-image-first{
+  position:absolute;
+  inset:0;
+  z-index:1;
   display:flex;
-  gap:15px;
-  flex-wrap:wrap;
-}
-
-.hero-bear{
-  display:flex;
+  align-items:center;
   justify-content:center;
 }
 
-.hero-bear img{
-  width:100%;
-  max-width:650px;
-  height:auto;
+.hero-image-first img{
+  width:auto;
+  height:90vh;
+  max-width:95%;
   object-fit:contain;
+  object-position:center bottom;
+}
+/* DARK OVERLAY */
+.hero-image-first::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(0,0,0,0.2), rgba(0,0,0,0.55));
 }
 
-/* MOBILE */
+/* TEXT LAYER */
+.hero-text-overlay {
+  position: relative;
+  z-index: 10;
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 10;
+}
+
+.hero-copy h1,
+.hero-copy p,
+.hero-tag {
+  color: white;
+  text-shadow: 0 3px 12px rgba(0,0,0,.7);
+}
+
+.hero-sub {
+  color: rgba(255,255,255,0.9);
+}
+
+/* HERO BUTTON AREA (safe spacing) */
+.hero-btns {
+  margin-top: 20px;
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+    /* HERO BUTTONS */
+.btn-primary,
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 28px;
+  border-radius: 999px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+a.btn-primary,
+a.btn-outline {
+  text-decoration: none !important;
+}
+
+/* Primary Button */
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent), #e25b4b);
+  color: #fff;
+  box-shadow: 0 12px 30px rgba(192,57,43,0.35);
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 40px rgba(192,57,43,0.45);
+}
+
+/* Secondary Button */
+.btn-outline {
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.35);
+  color: #fff;
+}
+
+.btn-outline:hover {
+  background: rgba(255,255,255,0.25);
+  transform: translateY(-3px);
+}
+    @media(max-width:900px){
+
+  #hero{
+    min-height:auto;
+    padding-top:120px;
+    padding-bottom:60px;
+  }
+
+  .hero-content{
+    flex-direction:column;
+    text-align:center;
+  }
+
+  .hero-image-first img{
+    object-fit:contain;
+    object-position:center top;
+  }
+
+  .hero-copy h1{
+    font-size:2.4rem;
+  }
+
+}
+
+/* HERO ANIMATION */
+@keyframes heroZoom {
+  0% {
+    transform: scale(1.15);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.hero-content{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:50px;
+}
+
+.hero-copy{
+  max-width:600px;
+}
+
+.hero-side-image img{
+  width:320px;
+  max-width:100%;
+  border-radius:20px;
+  box-shadow:0 15px 40px rgba(0,0,0,.25);
+}
 
 @media(max-width:900px){
 
-.hero-content{
-  grid-template-columns:1fr;
-  text-align:center;
-}
+  .hero-content{
+    flex-direction:column;
+  }
 
-.hero-btns{
-  justify-content:center;
-}
-
-.hero-bear img{
-  max-width:450px;
-}
+  .hero-side-image img{
+    width:220px;
+  }
 
 }
 /* TRUST BAR */
@@ -174,29 +289,59 @@ nav{
 /* =========================
    MOBILE RESPONSIVE FIX
 ========================= */
-@media (max-width: 600px) {
+@media(max-width:900px){
 
-  .hero-image-first img {
-    height: 70vh;
+  #hero{
+    min-height:auto;
+    padding:120px 20px 60px;
   }
 
-  .hero-text-overlay h1 {
-    font-size: 2.2rem;
+  .hero-content{
+    flex-direction:column;
+    text-align:center;
+    gap:30px;
   }
 
-  .hero-sub {
-    font-size: 0.9rem;
+  .hero-image-first img{
+    height:65vh;
+    max-width:100%;
   }
 
-  .hero-text-overlay {
-    padding: 16px;
+  .hero-copy{
+    position:relative;
+    z-index:10;
   }
+
+  .hero-copy h1{
+    font-size:2.3rem;
+  }
+
 }
     /* SECTIONS */
     section { padding: 88px 7%; }
     .section-tag { display: inline-block; background: var(--primary-light); color: var(--primary-mid); font-size: 0.72rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; border-radius: 50px; padding: 5px 14px; margin-bottom: 14px; }
     .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.7rem, 3vw, 2.4rem); font-weight: 800; line-height: 1.2; margin-bottom: 14px; }
     .section-sub { color: var(--muted); font-size: 0.98rem; max-width: 540px; line-height: 1.8; }
+   section{
+  padding: 70px 7%;
+}
+
+section + section{
+  margin-top: 10px;
+}
+
+/* better visual flow */
+.section-tag{
+  margin-bottom: 10px;
+}
+
+.section-title{
+  margin-bottom: 12px;
+}
+
+.section-sub{
+  margin-bottom: 25px;
+}
 
     /* WHO IT'S FOR */
 #who {
@@ -284,25 +429,126 @@ nav{
     .about-quote cite { display: block; margin-top: 8px; font-size: 0.8rem; color: var(--muted); font-style: normal; font-weight: 600; }
 
     /* PRODUCT SHOWCASE */
-    #products { background: var(--bg); }
-    .products-intro { max-width: 580px; margin-bottom: 48px; }
-    .products-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
-    .product-card {
-      border-radius: var(--radius); overflow: hidden;
-      box-shadow: var(--card-shadow); background: white;
-      display: grid; grid-template-columns: 1fr 1fr;
-      transition: transform 0.25s, box-shadow 0.25s;
-    }
-    .product-card:hover { transform: translateY(-5px); box-shadow: 0 16px 48px rgba(28,58,94,0.15); }
-    .product-card-img { overflow: hidden; }
-    .product-card-img img { width: 100%;height: 100%;object-fit: contain;background: #fff;}
-    .product-card-body { padding: 28px 24px; display: flex; flex-direction: column; justify-content: center; }
-    .product-tag { display: inline-block; font-size: 0.7rem; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; border-radius: 50px; padding: 4px 12px; margin-bottom: 10px; }
-    .tag-white { background: #fdf0ec; color: var(--accent); }
-    .tag-blue { background: var(--primary-light); color: var(--primary-mid); }
-    .product-card-body h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; margin-bottom: 8px; }
-    .product-card-body p { font-size: 0.84rem; color: var(--muted); line-height: 1.7; }
+#products{
+  background: var(--bg);
+  padding: 80px 7%;
+}
 
+.products-intro{
+  max-width: 580px;
+  margin-bottom: 48px;
+}
+
+/* GRID */
+.products-grid{
+  display:grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap:28px;
+}
+
+/* CARD */
+.product-card{
+  border-radius: var(--radius);
+  overflow:hidden;
+  box-shadow: var(--card-shadow);
+  background:white;
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  transition: 0.25s;
+}
+
+.product-card:hover{
+  transform: translateY(-6px);
+  box-shadow: 0 16px 48px rgba(28,58,94,0.15);
+}
+
+/* IMAGE */
+.product-card-img{
+  overflow:hidden;
+  background:#fff;
+}
+
+.product-card-img img{
+  width:100%;
+  height:100%;
+  object-fit: contain;
+}
+
+/* CONTENT */
+.product-card-body{
+  padding:28px 24px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+/* TAGS */
+.product-tag{
+  display:inline-block;
+  font-size:0.7rem;
+  font-weight:800;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  border-radius:50px;
+  padding:4px 12px;
+  margin-bottom:10px;
+}
+
+.tag-white{
+  background:#fdf0ec;
+  color:var(--accent);
+}
+
+.tag-blue{
+  background:var(--primary-light);
+  color:var(--primary-mid);
+}
+
+/* TEXT */
+.product-card-body h3{
+  font-family:'Playfair Display', serif;
+  font-size:1.15rem;
+  margin-bottom:8px;
+}
+
+.product-card-body p{
+  font-size:0.84rem;
+  color:var(--muted);
+  line-height:1.7;
+}
+
+/* ================= MOBILE ================= */
+@media(max-width:768px){
+
+  .products-grid{
+    grid-template-columns:1fr;
+    grid-template-columns: 1fr;
+  }
+
+  .product-card{
+    grid-template-columns:1fr;
+  .amazon-product{
+    grid-template-columns: 1fr;
+  }
+
+  .hero-content{
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .who-grid{
+    grid-template-columns: 1fr;
+  }
+
+  .testi-grid{
+    grid-template-columns: 1fr;
+  }
+
+  .videos-grid{
+    grid-template-columns: 1fr;
+  }
+
+}
     /* FEATURES */
     #features { background: white; }
     .features-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; margin-top: 48px; }
@@ -326,6 +572,8 @@ nav{
     .videos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 48px; }
     .video-card { border-radius: var(--radius); overflow: hidden; box-shadow: 0 12px 40px rgba(0,0,0,0.3); background: rgba(0,0,0,0.3); }
    .video-card video {width: 100%;height: auto;max-height: 700px;object-fit: contain;background: #000;}
+    .video-card video{width: 100%;height: 360px;object-fit: cover;background: #000;border-radius: 14px;}
+    .video-card{overflow: hidden;border-radius: 18px;}
     .video-caption { padding: 16px 20px; }
     .video-caption h3 { color: white; font-size: 0.95rem; font-weight: 700; margin-bottom: 4px; }
     .video-caption p { color: rgba(255,255,255,0.6); font-size: 0.82rem; }
@@ -363,7 +611,7 @@ nav{
     .cp-text p { color: rgba(255,255,255,0.6); font-size: 0.83rem; line-height: 1.7; margin: 0; }
     .carehome-img { border-radius: var(--radius); overflow: hidden; box-shadow: 0 16px 48px rgba(0,0,0,0.3); }
     .carehome-img img { width: 100%; display: block; object-fit: cover; }
-    
+
 /* CONTACT */
 #contact {
   background: radial-gradient(circle at top, #f8fafc 0%, #eef3f8 60%, #e9eef6 100%);
@@ -401,15 +649,6 @@ nav{
   right: -140px;
 }
 
-/* GRID */
-.contact-grid {
-  display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: 50px;
-  margin-top: 48px;
-  position: relative;
-  z-index: 2;
-}
 
 /* LEFT CARD — GLASS PREMIUM */
 .contact-info-card {
@@ -434,10 +673,10 @@ nav{
   pointer-events: none;
 }
 
-/* CONTACT ITEMS */
 /* =========================
    MODERN CONTACT (CLEAN VERSION)
 ========================= */
+/* GRID */
 
 #contact {
   background: radial-gradient(circle at top, #f8fafc, #eef3f8);
@@ -481,15 +720,22 @@ nav{
 
 /* ICON */
 .contact-icon {
-  width: 42px;
-  height: 42px;
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #e8eff7, #ffffff);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-  font-size: 1rem;
+
+  font-size: 18px;
+  color: white;
+
+  background: linear-gradient(135deg, var(--primary), var(--primary-mid));
+  box-shadow: 0 10px 25px rgba(28,58,94,0.25);
+}
+
+.contact-icon i {
+  font-size: 18px;
 }
 
 /* TEXT */
@@ -560,49 +806,51 @@ nav{
   box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
 
-   .video-modal {
-  display: none;
+.kids-video-box {
   position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.75);
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-}
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(.9);
 
-.video-box {
   width: 90%;
-  max-width: 700px;
-  background: black;
-  border-radius: 16px;
+  max-width: 800px;
+
+  background: #000;
+  border-radius: 18px;
   overflow: hidden;
-  position: relative;
+
+  opacity: 0;
+  visibility: hidden;
+
+  transition: all .4s ease;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.video-box video {
+/* ACTIVE STATE */
+.kids-video-box.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* VIDEO FIX */
+.kids-video-box video {
   width: 100%;
+  height: auto;
+  max-height: 80vh;   /* 👈 KEY FIX */
+  object-fit: contain; /* prevents cropping */
   display: block;
 }
 
-.close-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: white;
-  border: none;
-  border-radius: 50%;
-  width: 36px;
-  height: 36px;
-  cursor: pointer;
-  font-weight: bold;
-}
-    
 /* RESPONSIVE */
 @media (max-width: 900px) {
   .contact-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .carehome-grid {
     grid-template-columns: 1fr;
   }
@@ -632,7 +880,7 @@ nav{
   opacity: 1;
   transform: translateY(0);
 }
-    
+
     /* LOADER SCREEN */
 #loader {
   position: fixed;
@@ -679,29 +927,29 @@ linear-gradient(
 #f8fafc
 );
 }
+..fade-carousel .slide {
 .fade-carousel .slide {
   position: absolute;
   inset: 0;
-
   opacity: 0;
-  transition:
-    opacity 1.5s ease,
-    transform 8s ease;
-
-  transform: scale(1.05);
+  transform: scale(1.08);
+  transition: opacity 1s ease, transform 6s ease;
+  transition: opacity 0.8s ease;
 }
+
 .fade-carousel .slide.active {
   opacity: 1;
-  z-index: 2;
   transform: scale(1);
+  z-index: 2;
 }
+
 .fade-carousel img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  object-position: center;
+  object-fit: contain; /* fixes cropped bear */
 }
-
+    
 /* luxury gradient */
 .carousel-overlay {
   position: absolute;
@@ -768,81 +1016,281 @@ linear-gradient(
 .next {
   right: 20px;
 }
-    
+   @media (max-width: 600px) {
+  .fade-carousel {
+    height: 320px;
+  }
+
+  .carousel-overlay h3 {
+    font-size: 1.1rem;
+  }
+
+  .carousel-overlay p {
+    font-size: 0.85rem;
+  }
+} 
 /* SHOP SECTION */
-.shop-card{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:40px;
- align-items:center;
+/* AMAZON STYLE PRODUCT SECTION */
+
+.amazon-product{
+  display:grid;
+  grid-template-columns:1.3fr 0.8fr;
+  gap:50px;
+  padding:90px 7%;
+  background:#fff;
 }
 
-.shop-image img{
- width:100%;
- max-height:500px;
- object-fit:contain;
+.amazon-gallery{
+  display:flex;
+  flex-direction:column;
+}
+
+.main-image{
+  background:white;
+  border:1px solid #e5e7eb;
+  border-radius:20px;
+  padding:20px;
+  box-shadow:var(--card-shadow);
+}
+
+.main-image img{
+  width:100%;
+  height:550px;
+  object-fit:contain;
+}
+
+.thumbs{
+  display:flex;
+  gap:12px;
+  margin-top:15px;
+  flex-wrap:wrap;
+}
+
+.thumbs img{
+  width:80px;
+  height:80px;
+  object-fit:cover;
+  border:2px solid #e5e7eb;
+  border-radius:10px;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.thumbs img:hover{
+  border-color:var(--accent);
+  transform:translateY(-2px);
+}
+
+.amazon-buy{
+  background:white;
+  border:1px solid #e5e7eb;
+  border-radius:20px;
+  padding:30px;
+  box-shadow:var(--card-shadow);
+  position:sticky;
+  top:100px;
+  height:fit-content;
+}
+
+.amazon-buy h2{
+  font-size:2rem;
+  margin-bottom:10px;
+}
+
+.amazon-price{
+  font-size:2rem;
+  font-weight:800;
+  color:#B12704;
+  margin:15px 0;
+}
+
+.amazon-rating{
+  color:#f7b500;
+  font-size:1rem;
+}
+
+.amazon-buy select{
+  width:100%;
+  padding:14px 16px;
+  border-radius:14px;
+  border:1px solid #dbe2ea;
+  background:#f8fafc;
+  font-size:.95rem;
+  font-weight:600;
+  color:var(--text);
+  appearance:none;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.amazon-buy select:hover{
+  border-color:var(--primary);
+}
+
+.amazon-buy select:focus{
+  outline:none;
+  border-color:var(--accent);
+  box-shadow:0 0 0 4px rgba(192,57,43,.15);
+}
+
+.qty{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin:15px 0;
+}
+
+.qty button{
+  width:40px;
+  height:40px;
+  border:none;
+  border-radius:50%;
+  background:var(--primary);
+  color:white;
+  cursor:pointer;
+}
+
+.amazon-buy-btn{
+  width:100%;
+  padding:15px;
+  border:none;
+  border-radius:50px;
+  background:#FFD814;
+  color:#111;
+  font-weight:700;
+  margin-top:15px;
+  cursor:pointer;
+}
+
+.amazon-cart-btn{
+  width:100%;
+  padding:15px;
+  border:none;
+  border-radius:50px;
+  background:#FFA41C;
+  color:#111;
+  font-weight:700;
+  margin-top:10px;
+  cursor:pointer;
+}
+
+.stock{
+  color:#007600;
+  font-weight:700;
+  margin-top:15px;
 }
 
 @media(max-width:900px){
 
-.shop-card{
- grid-template-columns:1fr;
- text-align:center;
+  .amazon-product{
+    grid-template-columns:1fr;
+  }
+
+  .amazon-buy{
+    position:static;
+  }
+
+  .main-image img{
+    height:350px;
+  }
+}
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+    /* =========================
+   FOOTER
+========================= */
+
+footer{
+  background:#0f1c2e;
+  color:rgba(255,255,255,.8);
+  padding:70px 7% 25px;
 }
 
+.footer-inner{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr;
+  gap:50px;
+  max-width:1400px;
+  margin:auto;
 }
 
-/* CART UI */
-.cart-box {
-  margin-top: 25px;
-  padding: 22px;
-  border-radius: 16px;
-  background: white;
-  box-shadow: var(--card-shadow);
+.footer-brand img{
+  height:60px;
+  width:auto;
+  margin-bottom:15px;
 }
-.price {
-  font-size: 1.4rem;
-  font-weight: 800;
-  color: var(--primary);
-  margin-bottom: 14px;
+
+.footer-brand-name{
+  font-family:'Playfair Display',serif;
+  font-size:1.6rem;
+  font-weight:800;
+  color:white;
+  margin-bottom:12px;
 }
-.qty {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 16px;
+
+.footer-brand p{
+  max-width:400px;
+  line-height:1.8;
+  color:rgba(255,255,255,.65);
 }
-.qty button {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  border: none;
-  background: var(--primary);
-  color: white;
-  font-size: 18px;
-  cursor: pointer;
+
+.footer-nav h4{
+  color:white;
+  margin-bottom:18px;
+  font-size:1rem;
 }
-.shipping select {
-  width: 100%;
-  padding: 10px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  margin-top: 6px;
+
+.footer-nav ul{
+  list-style:none;
+  padding:0;
 }
-.buy-btn {
-  width: 100%;
-  padding: 14px;
-  background: var(--accent);
-  color: white;
-  border: none;
-  border-radius: 50px;
-  font-weight: 700;
-  cursor: pointer;
+
+.footer-nav li{
+  margin-bottom:10px;
 }
-    
+
+.footer-nav a{
+  color:rgba(255,255,255,.7);
+  text-decoration:none;
+  transition:.25s;
+}
+
+.footer-nav a:hover{
+  color:white;
+  padding-left:4px;
+}
+
+.footer-bottom{
+  margin-top:50px;
+  padding-top:20px;
+  border-top:1px solid rgba(255,255,255,.1);
+  text-align:center;
+}
+
+.footer-bottom p{
+  color:rgba(255,255,255,.5);
+  font-size:.85rem;
+}
+
+/* MOBILE */
+@media(max-width:900px){
+
+  .footer-inner{
+    grid-template-columns:1fr;
+    text-align:center;
+  }
+
+  .footer-brand p{
+    max-width:100%;
+  }
+
+}
 </style>
 </head>
 <body>
+
 <!-- LOADING SCREEN -->
 <div id="loader">
   <model-viewer 
@@ -876,45 +1324,51 @@ linear-gradient(
 </nav>
 
 <!-- HERO (IMAGE FIRST VERSION) -->
-<section id="hero">
+<section id="hero" class="hero-entrance">
 
-<div class="hero-content">
+  <!-- FULL SCREEN BEAR IMAGE FIRST -->
+  <div class="hero-image-first">
+    <img src="images/sitting-blue-bear.jpeg" alt="AiDiA Bear">
+  </div>
 
-<div class="hero-copy">
+  <!-- TEXT OVER IMAGE -->
+ <div class="hero-text-overlay">
 
-<span class="section-tag">
-AI Companion Bear
-</span>
+  <div class="hero-content">
 
-<h1>
-Never Feel Alone Again
-</h1>
+    <div class="hero-copy">
 
-<p class="hero-sub">
-AiDiA is an AI-powered companion that listens,
-learns, remembers and creates meaningful
-connections every day.
-</p>
+      <div class="hero-tag">
+        <span class="dot"></span>
+        More Than a Teddy. A Companion for Life.
+      </div>
 
-<div class="hero-btns">
+      <h1>Never Feel <em>Alone</em> Again</h1>
 
-<a href="#shop" class="btn-primary">
-Buy Now
-</a>
+      <p class="hero-sub">
+        AiDiA is an AI-powered companion bear that listens,
+        talks, learns, and genuinely connects.
+      </p>
 
-<a href="#contact" class="btn-outline">
-Learn More
-</a>
+      <div class="hero-btns">
+        <a href="#who" class="btn-primary">
+          Discover AiDiA
+        </a>
 
-</div>
+        <a href="#contact" class="btn-outline">
+          Care Home Enquiries
+        </a>
+      </div>
 
-</div>
+    </div>
 
-<div class="hero-bear">
-<img src="images/bear-white.png" alt="AiDiA Bear">
-</div>
+    <div class="hero-side-image">
+      <img src="images/child-with-bear.JPG" alt="Child with AiDiA">
+    </div>
 
-</div>
+  </div>
+
+ </div>
 </section>
 
 <!-- TRUST BAR -->
@@ -952,7 +1406,7 @@ Learn More
         <p>For those who live independently, AiDiA is a reliable daily companion — always ready to chat, listen, or simply be present when it matters.</p>
       </div>
     </div>
-    <div class="who-card fade-in">
+   <div class="who-card fade-in">
   <div class="who-card-img">
     <img src="images/aidia-kids.png" alt="Young person with AiDiA" />
     <div class="who-label">Also For</div>
@@ -960,26 +1414,29 @@ Learn More
 
   <div class="who-card-body">
     <h3>Teens & Children</h3>
+
     <p>
-      From helping your child learn to supporting emotional growth, AiDiA becomes a safe, friendly companion that grows with them.
+      From helping your child learn to supporting emotional growth.
     </p>
 
-    <!-- NEW PREMIUM CTA -->
-    <button class="who-video-btn" onclick="openKidsVideo()">
-      ▶ Watch How Kids Use AiDiA
-    </button>
-  </div>
-</div>
-    <!-- KIDS VIDEO MODAL -->
-<div id="kidsModal" class="video-modal">
-  <div class="video-box">
-    <button class="close-btn" onclick="closeKidsVideo()">✕</button>
+  <button
+class="who-video-btn"
+onclick="toggleKidsVideo(this)">
 
-    <video id="kidsVideo" controls>
-      <source src="videos/aidia-video3.mp4" type="video/mp4">
-    </video>
-  </div>
+🎬 Click Here To Watch
+
+</button>
+
+<div class="kids-video-box">
+  <video id="kidsVideo" controls>
+    <source src="videos/aidia-video3.mp4" type="video/mp4">
+  </video>
 </div>
+
+</div> 
+</div> 
+
+</div> 
 </section>
 
 <!-- ABOUT -->
@@ -1013,70 +1470,96 @@ Learn More
   </div>
 
   <!-- SLIDESHOW -->
+<section class="product-section">
+
+  <!-- ================= CAROUSEL ================= -->
   <div class="carousel fade-carousel">
 
-  <div class="slide active">
-    <img src="images/bear-white.png" alt="">
+    <div class="slide active"
+      data-title="Classic White AiDiA"
+      data-text="Pure, calm, comforting presence">
+      <img src="images/bear-white.png" alt="White AiDiA">
+    </div>
+
+    <div class="slide"
+      data-title="Blue Edition AiDiA"
+      data-text="Calming and emotionally warm companion">
+      <img src="images/bear-blue.png" alt="Blue AiDiA">
+    </div>
+
+    <div class="slide"
+      data-title="Together Always"
+      data-text="Designed for connection and comfort">
+      <img src="images/sitting-bears.JPG" alt="Together Bears">
+    </div>
+
+    <!-- ARROWS -->
+    <button class="carousel-btn prev">❮</button>
+    <button class="carousel-btn next">❯</button>
+
+    <!-- OVERLAY -->
+    <div class="carousel-overlay">
+      <h3 id="carouselTitle">AiDiA My BFF</h3>
+      <p id="carouselText">Always there. Always yours.</p>
+    </div>
+
   </div>
 
-  <div class="slide">
-    <img src="images/blue-and-white-bear.JPG" alt="">
+
+  <!-- ================= BUY BOX ================= -->
+  <div class="buy-section">
+
+    <h2>AiDiA My BFF</h2>
+
+    <div class="price">$249.99 USD</div>
+
+    <p class="description">
+      AI-powered companion teddy bear designed for comfort,
+      conversation, companionship and emotional support.
+    </p>
+
+    <hr>
+
+
+    <!-- QUANTITY -->
+    <div class="field">
+      <label>Quantity</label>
+
+      <div class="qty-box">
+        <button onclick="changeQty(-1)">−</button>
+        <span id="qtyValue">1</span>
+        <button onclick="changeQty(1)">+</button>
+      </div>
+    </div>
+
+
+    <!-- SHIPPING -->
+    <div class="field">
+      <label>Shipping</label>
+
+      <select id="countrySelect">
+        <option value="0">Jamaica</option>
+        <option value="15">USA</option>
+        <option value="18">UK</option>
+        <option value="20">Canada</option>
+        <option value="25">International</option>
+      </select>
+
+      <p id="shippingCost">Shipping: $0.00</p>
+    </div>
+
+
+    <!-- BUTTONS -->
+    <button class="buy-btn">Buy Now</button>
+    <button class="cart-btn">Add to Cart</button>
+
+    <p class="stock">✓ In Stock</p>
+
+    <p class="secure">Secure payment powered by Stripe 🔒</p>
+
   </div>
 
-  <div class="slide">
-    <img src="images/sitting-bears.JPG" alt="">
-  </div>
-
-  <div class="slide">
-    <img src="images/aidia-box.JPG" alt="">
-  </div>
-
-  <div class="slide">
-    <img src="images/white-and-blue-bear.JPG" alt="">
-  </div>
-
-  <button class="carousel-btn prev">❮</button>
-  <button class="carousel-btn next">❯</button>
-
-  <div class="carousel-overlay">
-    <h3>AiDiA My BFF</h3>
-    <p>Always there. Always yours.</p>
-  </div>
-
-</div>
 </section>
-  <!-- Shopping -->
-  <div class="cart-box">
-  <h3>Buy AiDiA My BFF</h3>
-
-  <div class="price">
-    $249.99 USD
-  </div>
-
-  <div class="qty">
-    <button onclick="changeQty(-1)">−</button>
-    <span id="qty">1</span>
-    <button onclick="changeQty(1)">+</button>
-  </div>
-
-  <div class="shipping">
-    <h4>Shipping Calculator</h4>
-    <select id="country">
-      <option>Jamaica</option>
-      <option>USA</option>
-      <option>UK</option>
-      <option>Canada</option>
-      <option>International</option>
-    </select>
-
-    <p id="shipCost">Shipping: $0.00</p>
-  </div>
-
-<button class="buy-btn" id="checkoutBtn">
-  Checkout Securely →
-</button>
-</div>
-  
 <!-- FEATURES -->
 <section id="features">
   <div class="features-layout">
@@ -1128,7 +1611,11 @@ Learn More
   <p class="section-sub">See for yourself how AiDiA moves, responds, and connects with the people who love it.</p>
   <div class="videos-grid">
     <div class="video-card fade-in">
-      <video controls playsinline preload="metadata">
+     <video
+controls
+playsinline
+preload="metadata"
+poster="images/video1-cover.jpg">
         <source src="videos/aidia-video1.mp4" type="video/mp4">
     </video>
       <div class="video-caption">
@@ -1137,7 +1624,11 @@ Learn More
       </div>
     </div>
     <div class="video-card fade-in">
-      <video controls playsinline preload="metadata">
+     <video
+controls
+playsinline
+preload="metadata"
+poster="images/video1-cover.jpg">
         <source src="videos/aidia-video2.mp4" type="video/mp4">
     </video>
       <div class="video-caption">
@@ -1252,7 +1743,7 @@ Learn More
     </div>
   </div>
 </section>
-  
+
   <!-- CONTACT -->
 <section id="contact">
   <span class="section-tag">Contact</span>
@@ -1348,65 +1839,7 @@ Learn More
 
   </div>
 </section>
-  
-<!-- shooping -->    
-<section id="shop" class="shop-section">
 
-<div class="shop-card">
-
-<div class="shop-image">
-
-<img
-id="bearImage"
-src="images/bear-white.png"
-alt="AiDiA Bear"
-/>
-
-</div>
-
-<div class="shop-info">
-
-<h2>AiDiA My BFF</h2>
-
-<p>
-Choose your favourite colour.
-</p>
-
-<label>Colour</label>
-
-<select id="bearColor">
-
-<option value="white">
-Classic White
-</option>
-
-<option value="blue">
-Royal Blue
-</option>
-
-</select>
-
-<div class="price">
-$249.99 USD
-</div>
-
-<div class="qty">
-<button onclick="changeQty(-1)">−</button>
-<span id="qty">1</span>
-<button onclick="changeQty(1)">+</button>
-</div>
-
-<button class="buy-btn">
-Buy Now
-</button>
-
-</div>
-
-</div>
-
-</section>
-</section>
-  
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
@@ -1438,29 +1871,17 @@ Buy Now
     <p>© 2026 AiDiA My BFF. All rights reserved. Bringing companionship to those who need it most.</p>
   </div>
 </footer>    
+
 <!-- SHOPPING -->
-     <script>
-
-const bearColor =
-document.getElementById("bearColor");
-
-const bearImage =
-document.getElementById("bearImage");
-
-bearColor.addEventListener("change",()=>{
-
-if(bearColor.value==="white"){
-bearImage.src="images/bear-white.png";
-}
-
-if(bearColor.value==="blue"){
-bearImage.src="images/bear-blue.png";
-}
-
-});
-
+      <script>
+const PRODUCT = {
+  name: "AiDiA My BFF Bear",
+  price: 249.99,
+  currency: "USD",
+  image: "images/bear-white.png"
+};
 </script>   
-  
+
 <!-- CONTACT -->
 <script>
   function handleSubmit(e) {
@@ -1475,7 +1896,7 @@ bearImage.src="images/bear-blue.png";
   const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.1 });
   document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
 </script> 
-      
+
 <!-- LOADING SCREEN -->
   <script>
 window.addEventListener("load", () => {
@@ -1490,83 +1911,218 @@ window.addEventListener("load", () => {
   }, 2500);
 });
 </script>
-  
-  <script>
-function openKidsVideo() {
-  document.getElementById("kidsModal").style.display = "flex";
-  document.getElementById("kidsVideo").play();
-}
 
-function closeKidsVideo() {
-  const modal = document.getElementById("kidsModal");
-  const video = document.getElementById("kidsVideo");
+  <!-- kID VIDEO -->
+<script>
 
-  modal.style.display = "none";
-  video.pause();
-  video.currentTime = 0;
+function toggleKidsVideo(btn){
+
+  const box =
+  document.querySelector(".kids-video-box");
+
+  const video =
+  document.getElementById("kidsVideo");
+
+  if(!box.classList.contains("active")){
+
+    box.classList.add("active");
+
+    video.currentTime = 0;
+
+    video.play();
+
+    btn.innerHTML =
+    "✕ Close Video";
+
+  }else{
+
+    video.pause();
+
+    video.currentTime = 0;
+
+    box.classList.remove("active");
+
+    btn.innerHTML =
+    "🎬 Click Here To Watch";
+
+  }
 }
 </script>
-      
+
+<script>
+
+window.addEventListener("scroll",()=>{
+
+  const box =
+  document.querySelector(".kids-video-box");
+
+  const video =
+  document.getElementById("kidsVideo");
+
+  if(box.classList.contains("active")){
+
+    video.pause();
+
+    video.currentTime = 0;
+
+    box.classList.remove("active");
+  }
+
+});
+</script>
+
 <!-- CAROUSEL -->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const slides = document.querySelectorAll(".fade-carousel .slide");
+  const carousel = document.querySelector(".fade-carousel");
+
+  const title = document.getElementById("carouselTitle");
+  const text = document.getElementById("carouselText");
+
   let current = 0;
+  let startX = 0;
+  let endX = 0;
+
   function showSlide(index) {
-    slides.forEach(slide => {
-      slide.classList.remove("active");
-    });
+    slides.forEach(s => s.classList.remove("active"));
     slides[index].classList.add("active");
+
+    // update caption
+    updateCaption(index);
+    // caption update (SAFE)
+    if (title && text) {
+      title.innerText = slides[index].dataset.title || "";
+      text.innerText = slides[index].dataset.text || "";
+    }
   }
+
+  // NEXT / PREV
   document.querySelector(".next").addEventListener("click", () => {
     current = (current + 1) % slides.length;
     showSlide(current);
   });
+
   document.querySelector(".prev").addEventListener("click", () => {
     current = (current - 1 + slides.length) % slides.length;
     showSlide(current);
   });
+
+  // 👉 SWIPE SUPPORT
+  carousel.addEventListener("touchstart", e => {
+    startX = e.touches[0].clientX;
+  });
+  // swipe support
+  let startX = 0;
+
+  if (carousel) {
+    carousel.addEventListener("touchstart", e => {
+      startX = e.touches[0].clientX;
+    });
+
+  carousel.addEventListener("touchend", e => {
+    endX = e.changedTouches[0].clientX;
+    carousel.addEventListener("touchend", e => {
+      const endX = e.changedTouches[0].clientX;
+      const diff = startX - endX;
+
+    const diff = startX - endX;
+      if (Math.abs(diff) > 40) {
+        if (diff > 0) current++;
+        else current--;
+
+    if (Math.abs(diff) > 40) {
+      if (diff > 0) {
+        current = (current + 1) % slides.length;
+      } else {
+        current = (current - 1 + slides.length) % slides.length;
+        if (current < 0) current = slides.length - 1;
+        if (current >= slides.length) current = 0;
+
+        showSlide(current);
+      }
+      showSlide(current);
+    }
+  });
+  // auto slide
+    });
+  }
+  
+  // autoplay
   setInterval(() => {
     current = (current + 1) % slides.length;
     showSlide(current);
   }, 5000);
+
+  // init
+  showSlide(0);
 });
 </script>
-      
-<!-- SHOPPING CART -->
- <script>
-document.getElementById("checkoutBtn").addEventListener("click", async () => {
-  const qty = parseInt(document.getElementById("qty").innerText);
-  const country = document.getElementById("country").value;
-  const response = await fetch("/create-checkout-session", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      quantity: qty,
-      country: country
-    })
-  });
-  const data = await response.json();
-  if (data.url) {
-    window.location.href = data.url;
-  } else {
-    alert("Checkout failed");
-  }
-});
-</script>
-  
-<!-- Quantity  -->
   <script>
-let qty = 1;
-function changeQty(change){
-  qty += change;
-  if(qty < 1){
-    qty = 1;
-  }
-  document.getElementById("qty").textContent = qty;
+function changeImage(src){
+  document.getElementById("mainProductImage").src = src;
 }
 </script>
+
+<!-- SHOPPING CART -->
+<script>
+let qty = 1;
+
+// QUANTITY SYSTEM
+function changeQty(amount) {
+  qty += amount;
+  if (qty < 1) qty = 1;
+  document.getElementById("qtyValue").innerText = qty;
+  updateShipping();
+}
+
+// SHIPPING SYSTEM
+// SHIPPING SYSTEM\\
+const countrySelect = document.getElementById("countrySelect");
+const shippingDisplay = document.getElementById("shippingCost");
+
+countrySelect.addEventListener("change", updateShipping);
+
+function updateShipping() {
+  const cost = parseFloat(countrySelect.value) || 0;
+  shippingDisplay.innerText = "Shipping: $" + cost.toFixed(2);
+}
+
+// SIMPLE CAROUSEL
+const slides = document.querySelectorAll(".slide");
+const title = document.getElementById("carouselTitle");
+const text = document.getElementById("carouselText");
+
+let index = 0;
+
+function showSlide(i) {
+  slides.forEach(s => s.classList.remove("active"));
+  slides[i].classList.add("active");
+
+  title.innerText = slides[i].dataset.title;
+  text.innerText = slides[i].dataset.text;
+}
+
+// NEXT / PREV
+document.querySelector(".next").onclick = () => {
+  index = (index + 1) % slides.length;
+  showSlide(index);
+};
+
+document.querySelector(".prev").onclick = () => {
+  index = (index - 1 + slides.length) % slides.length;
+  showSlide(index);
+};
+</script>
+  
+  <script>
+  document.querySelectorAll("video").forEach(video => {
+  video.addEventListener("loadedmetadata", () => {
+    if (video.duration > 60) {
+      video.currentTime = 60; // start at 1 min preview
+    }
+  });
+});
+  </script>
 </body>
 </html>
