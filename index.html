@@ -103,148 +103,70 @@ box-shadow: 0 2px 12px rgba(0,0,0,0.06);
   }
 }
 
-/* HERO SECTION (NEW CLEAN STACKED VERSION) */
-#hero{
-  min-height:100vh;
-  display:grid;
-  grid-template-columns:1fr 1.2fr;
-  align-items:center;
-  gap:60px;
-  padding:120px 7% 80px;
-  overflow:hidden;
-  position:relative;
-}
-
-/* text */
-.hero-text{
-  z-index:5;
-}
-
-.hero-text h1{
-  font-size:4.5rem;
-  line-height:1.05;
-  margin-bottom:20px;
-  font-family:'Playfair Display',serif;
-}
-
-.hero-text em{
-  color:var(--accent);
-  font-style:italic;
-}
-
-.hero-text p{
-  max-width:560px;
-  font-size:1.15rem;
-  color:var(--muted);
-}
-#hero {
-  position: relative;
-  overflow: hidden;
-}
-  
-/* showcase */
+/* HERO SHOWCASE - clean modern layout */
 .hero-showcase{
   position:relative;
-  height:700px;
+  height:600px;            /* reduced from 700px */
   display:flex;
   align-items:center;
   justify-content:center;
+  padding:20px;
 }
 
-.hero-bear {
-  position: relative;
-  z-index: 3;
-  transform: scale(1.15); /* make it bigger */
-  max-width: 520px;       /* adjust as needed */
-  width: 100%;
-  filter: drop-shadow(0 30px 60px rgba(0,0,0,0.25));
-}
-
-@keyframes floatBear{
-  0%,100%{
-    transform:translateY(0px);
-  }
-  50%{
-    transform:translateY(-15px);
-  }
-}
-
-/* floating photo card */
-.floating-image {
-  position: absolute;
-  z-index: 1;
-  width: 280px;           /* smaller than bear */
-  opacity: 0.9;
-  transform: translateY(-20px);
-}
-
-  box-shadow:
-  0 25px 60px rgba(0,0,0,.18);
-
-  backdrop-filter:blur(12px);
-
-  animation:floatCard 5s ease-in-out infinite;
-}
-
-.hero-floating-card img{
+/* 🧸 MAIN BEAR (bigger but controlled) */
+.hero-bear{
+  position:relative;
+  z-index:3;
   width:100%;
-  display:block;
+  max-width:560px;        /* main size control */
+  transform:scale(1.08);  /* slightly bigger, not crazy */
+  filter:drop-shadow(0 35px 70px rgba(0,0,0,0.25));
+  animation:floatBear 6s ease-in-out infinite;
 }
 
-@keyframes floatCard{
-  0%,100%{
-    transform:translateY(-50%);
-  }
-  50%{
-    transform:translateY(calc(-50% - 12px));
-  }
-}
-
-/* glow behind bear */
-#hero::before{
-  content:"";
+/* 🪄 FLOATING CARD (smaller + lighter presence) */
+.hero-floating-card{
   position:absolute;
-
-  width:700px;
-  height:700px;
-
-  background:
-  radial-gradient(
-    circle,
-    rgba(61,90,128,.25),
-    transparent 70%
-  );
-
-  right:5%;
-  top:50%;
-
-  transform:translateY(-50%);
-  filter:blur(40px);
+  z-index:2;
+  width:200px;            /* smaller than before */
+  right:6%;
+  top:18%;
+  opacity:0.85;
+  border-radius:18px;
+  box-shadow:0 20px 45px rgba(0,0,0,0.15);
+  backdrop-filter:blur(10px);
+  animation:floatCard 6s ease-in-out infinite;
 }
 
-/* mobile */
-@media(max-width:900px){
+/* subtle bear float */
+@keyframes floatBear{
+  0%,100%{ transform:translateY(0) scale(1.08); }
+  50%{ transform:translateY(-12px) scale(1.08); }
+}
 
-  #hero{
-    grid-template-columns:1fr;
-    text-align:center;
-  }
-
-  .hero-text h1{
-    font-size:2.8rem;
-  }
+/* softer card float */
+@keyframes floatCard{
+  0%,100%{ transform:translateY(-10px); }
+  50%{ transform:translateY(-25px); }
+}
+  @media(max-width:900px){
 
   .hero-showcase{
     height:auto;
+    padding:40px 0;
+  }
+
+  .hero-bear{
+    max-width:380px;
+    transform:scale(1);
   }
 
   .hero-floating-card{
     position:relative;
     right:auto;
     top:auto;
-    transform:none;
-    width:85%;
-    margin:-40px auto 0;
+    width:65%;
+    margin:20px auto 0;
   }
 }
 
@@ -522,26 +444,104 @@ line-height: 1.7;
 }
   
 /* ABOUT */
-    #about .container {
-  max-width: 800px;
-  text-align: center;
-  margin: 0 auto;
+/* ABOUT SECTION */
+#about{
+  padding:120px 7%;
+  background:#f9fafb;
 }
 
-#about .section-sub {
-  font-size: 1rem;
-  line-height: 1.8;
-  color: var(--muted);
+/* GRID */
+.about-grid{
+  display:grid;
+  grid-template-columns:1.3fr 1fr;
+  gap:70px;
+  align-items:center;
+  max-width:1200px;
+  margin:auto;
 }
-#about { background: var(--warm); }
-.about-grid{max-width:900px;margin:auto;display:block;text-align:center;}
-.about-img { border-radius: var(--radius); overflow: hidden; box-shadow: 0 16px 48px rgba(28,58,94,0.14); }
-.about-img img { width: 100%; display: block; object-fit: cover; }
-.about-text p { color: var(--muted); margin-bottom: 16px; font-size: 0.98rem; line-height: 1.85; }
-.about-quote { border-left: 4px solid var(--accent); padding: 16px 20px; background: white; border-radius: 0 12px 12px 0; margin: 22px 0; }
-.about-quote p { color: var(--text); font-style: italic; margin: 0; font-size: 1rem; }
-.about-quote cite { display: block; margin-top: 8px; font-size: 0.8rem; color: var(--muted); font-style: normal; font-weight: 600; }
 
+/* TEXT */
+.about-text .section-tag{
+  display:inline-block;
+  margin-bottom:15px;
+}
+
+.section-title{
+  font-size:2.8rem;
+  line-height:1.2;
+  margin-bottom:20px;
+  font-family:'Playfair Display',serif;
+}
+
+.about-text p{
+  font-size:1.05rem;
+  line-height:1.7;
+  color:#555;
+  margin-bottom:16px;
+}
+
+/* QUOTE */
+.about-quote{
+  margin-top:30px;
+  padding:20px 25px;
+  border-left:4px solid var(--accent);
+  background:white;
+  border-radius:12px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.06);
+}
+
+.about-quote p{
+  font-style:italic;
+  margin-bottom:10px;
+}
+
+/* RIGHT CARD */
+.about-card-inner{
+  background:white;
+  padding:30px;
+  border-radius:20px;
+  box-shadow:0 20px 50px rgba(0,0,0,0.08);
+}
+
+.about-card-inner h3{
+  margin-bottom:15px;
+}
+
+.about-card-inner ul{
+  list-style:none;
+  padding:0;
+}
+
+.about-card-inner li{
+  padding:10px 0;
+  border-bottom:1px solid #eee;
+  font-size:1rem;
+}
+
+/* MOBILE */
+@media(max-width:900px){
+  .about-grid{
+    grid-template-columns:1fr;
+    text-align:center;
+  }
+
+  .about-card-inner{
+    margin-top:30px;
+  }
+}
+  /* ===== SCROLL ANIMATION BASE ===== */
+.reveal{
+  opacity:0;
+  transform:translateY(40px);
+  transition:all 0.8s ease;
+  will-change:opacity, transform;
+}
+
+.reveal.active{
+  opacity:1;
+  transform:translateY(0);
+}
+  
 /* PRODUCT SHOWCASE */
 #products{
 background: var(--bg);
@@ -1287,7 +1287,7 @@ pointer-events: none;
 /* =========================
   FOOTER
 ========================= */
-footer{background:#0f1c2e;color:rgba(255,255,255,.8);padding:70px 7% 25px;}
+footer{background:#0f1c2e;color:rgba(255,255,255,.8);padding:90px 7% 40px;}
 .footer-inner{display:flex;flex-direction:column;gap:30px;text-align:center;max-width:1000px;margin:auto;}
 .footer-brand img{height:60px;width:auto;margin-bottom:15px;}
 .footer-brand-name{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:800;color:white;margin-bottom:12px;}
@@ -1317,12 +1317,26 @@ font-size:.85rem;
 @media(max-width:900px){
 
 .footer-inner{
-grid-template-columns:1fr;
-text-align:center;
+max-width:1200px;
+margin:auto;
+
+display:grid;
+grid-template-columns:
+repeat(auto-fit,minmax(250px,1fr));
+
+gap:40px;
+}
+.footer-brand{
+max-width:420px;
 }
 
-.footer-brand p{
-max-width:100%;
+.footer-nav ul{
+padding:0;
+margin:0;
+}
+
+.footer-nav li{
+margin-bottom:12px;
 }
 
 }
@@ -1582,10 +1596,7 @@ html {
     >
 
     <div class="hero-floating-card">
-      <img
-        src="images/child-with-bear.JPG"
-        alt="Child with AiDiA"
-      >
+      <img src="images/child-with-bear.JPG"alt="Child with AiDiA Bear">
     </div>
 
   </div>
@@ -1659,41 +1670,57 @@ onclick="toggleKidsVideo(this)">
 
 </div> 
 </section>
-
+  
 <!-- ABOUT -->
-<section id="about">
+<section id="about" class="reveal">
+
   <div class="about-grid">
-    <div class="about-text">
+
+    <!-- LEFT TEXT -->
+    <div class="about-text reveal">
       <span class="section-tag">About AiDiA</span>
-      <h2 class="section-title">Built on the belief that no one should feel alone</h2>
-      <p>Loneliness is one of the most serious challenges facing people today — from elderly residents in care facilities, to individuals living alone, to teenagers who feel disconnected from the world around them.</p>
-      <p>AiDiA was created to address that gap. Combining the comfort of a soft, tactile companion with advanced conversational AI, AiDiA offers something genuinely new: a presence that listens without judgement, engages without tiring, and cares without condition.</p>
-      <div class="about-quote">
-        <p>"Not just a teddy. A companion for every chapter of life — always there, always yours."</p>
+
+      <h2 class="section-title">
+        More than a teddy. A true companion.
+      </h2>
+
+      <p>
+        AiDiA was created to bring comfort, conversation, and connection to people who need it most.
+        From elderly individuals living alone to children and teens, AiDiA provides a warm presence that listens, responds, and learns.
+      </p>
+
+      <p>
+        Unlike ordinary toys, AiDiA combines soft physical comfort with advanced conversational intelligence — designed to reduce loneliness and create meaningful daily interaction.
+      </p>
+
+      <p>
+        Our mission is simple: no one should feel alone when they don’t have to be.
+      </p>
+
+      <div class="about-quote reveal">
+        <p>
+          “Not just a teddy. A companion for every chapter of life — always there, always yours.”
+        </p>
         <cite>— The AiDiA Team</cite>
       </div>
-      <p>From care homes to family homes, AiDiA is transforming what it means to have company.</p>
     </div>
-  <div class="container">
 
-    <span class="section-tag">About AiDiA</span>
+    <!-- RIGHT VISUAL / CARD -->
+    <div class="about-card reveal">
+      <div class="about-card-inner">
+        <h3>Why AiDiA?</h3>
 
-    <h2 class="section-title">More than a teddy. A true companion.</h2>
+        <ul>
+          <li>💬 Natural conversation AI</li>
+          <li>🧸 Soft emotional comfort companion</li>
+          <li>🧠 Learns and adapts over time</li>
+          <li>🏡 Designed for homes & care environments</li>
+        </ul>
+      </div>
+    </div>
 
-    <p class="section-sub">
-      AiDiA was created to bring comfort, conversation, and connection to people who need it most.
-      From elderly individuals living alone, to children and teens, AiDiA provides a warm presence that listens, responds, and learns.
-    </p>
+  </div>
 
-    <p class="section-sub">
-      Unlike ordinary toys, AiDiA combines soft physical comfort with advanced conversational intelligence — designed to reduce loneliness and create meaningful daily interaction.
-    </p>
-
-    <p class="section-sub">
-      Our mission is simple: no one should feel alone when they don’t have to be.
-    </p>
-
-</div>
 </section>
 
 <!-- PRODUCT SHOWCASE -->
@@ -1715,10 +1742,13 @@ AiDiA comes in two beautiful versions — both packed with the same powerful AI 
     <img src="images/bear-white.png" alt="White AiDiA">
   </div>
   <div class="slide" data-title="Blue Edition AiDiA" data-text="Calming and emotionally warm companion">
-    <img src="images/bear-blue.jpeg" alt="Blue AiDiA">
+    <img src="images/sitting-blue-bea.jpeg" alt="Blue AiDiA">
   </div>
   <div class="slide" data-title="Together Always" data-text="Designed for connection and comfort">
     <img src="images/sitting-bears.JPG" alt="Together Bears">
+  </div>
+   <div class="slide" data-title="BFF" data-text="Designed for connection and comfort">
+    <img src="images/white-and-blue-bear.JPG" alt="Together Bears">
   </div>
   <button class="carousel-btn prev">&#10094;</button>
   <button class="carousel-btn next">&#10095;</button>
@@ -2305,22 +2335,64 @@ showSlide(0);
 
 <!-- SHOPPING CART -->
 <script>
-function changeQty(amount){
-  qty = Math.max(1, qty + amount);
-  document.getElementById("qtyValue").textContent = qty;
+document.addEventListener("DOMContentLoaded", () => {
+
+let qty = 1;
+
+window.changeQty = function(amount){
+  qty += amount;
+
+  if(qty < 1) qty = 1;
+
+  const qtyEl = document.getElementById("qtyValue");
+
+  if(qtyEl){
+    qtyEl.textContent = qty;
+  }
+
   updateShipping();
-  updatePrice();
-}
+};
+
+const countrySelect = document.getElementById("countrySelect");
+const shippingDisplay = document.getElementById("shippingCost");
 
 function updateShipping(){
-  const select = document.getElementById("countrySelect");
-  const display = document.getElementById("shippingCost");
-  const cost = parseFloat(select.value || 0);
 
-  display.textContent = "Shipping: $" + cost.toFixed(2);
+  if(!countrySelect || !shippingDisplay) return;
+
+  const cost = parseFloat(countrySelect.value) || 0;
+
+  shippingDisplay.textContent =
+    "Shipping: $" + cost.toFixed(2);
 }
 
-document.addEventListener("DOMContentLoaded", updateShipping);
+if(countrySelect){
+  countrySelect.addEventListener(
+    "change",
+    updateShipping
+  );
+}
+
+updateShipping();
+
+});
+</script>
+  
+ <!-- About --> 
+  <script>
+const reveals = document.querySelectorAll('.reveal');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add('active');
+    }
+  });
+}, {
+  threshold: 0.15
+});
+
+reveals.forEach(el => observer.observe(el));
 </script>
 </body>
 </html>
