@@ -4,7 +4,6 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>AiDiA My BFF – Your Companion, Always There</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -85,26 +84,75 @@ box-shadow: 0 2px 12px rgba(0,0,0,0.06);
 .nav-links a:hover { color: var(--primary-mid); }
 .nav-cta {background: var(--accent); color: #fff;padding: 10px 22px; border-radius: 50px;font-weight: 700; font-size: 0.85rem; text-decoration: none;box-shadow: 0 4px 14px rgba(192,57,43,0.30);transition: transform 0.2s, box-shadow 0.2s;}
 .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 7px 20px rgba(192,57,43,0.40); }
-  @media(max-width:900px){nav{flex-direction:column;padding:12px;gap:12px;}
-.nav-links{flex-wrap:wrap;justify-content:center;gap:10px;}
-.nav-links a{padding:10px 14px;background:#f1f5f9;border-radius:999px;}
-}
-  @media(max-width:900px){nav{flex-direction:column;padding:12px;gap:12px;}
-.nav-links{flex-wrap:wrap;justify-content:center;gap:10px;}
-.nav-links a{padding:10px 14px;background:#f1f5f9;border-radius:999px;}
+@media(max-width:900px){
+  nav{
+    flex-direction:column;
+    gap:10px;
+  }
+
+  .nav-links{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:8px;
+  }
+
+  .nav-links a{
+    font-size:0.75rem;
+    padding:8px 12px;
+  }
 }
 
 /* HERO SECTION (NEW CLEAN STACKED VERSION) */
-#hero{padding:120px 20px 80px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;}
-.hero-image-first{width:100%;max-width:650px;margin-bottom:25px;}
-.hero-image-first img{width:100%;height:auto;object-fit:contain;border-radius:24px;box-shadow:0 20px 60px rgba(0,0,0,.15);}
-#hero h1{font-size:clamp(2rem,5vw,4rem);margin-bottom:15px;}
-.hero-sub{max-width:700px;margin:auto;font-size:1.1rem;}
+  #hero{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:140px 7% 100px;
+  position:relative;
+  overflow:hidden;
+}
+  
+.hero-content {
+  margin-top: 20px;
+  max-width: 700px;
+}
+  
+/* soft animated background glow */
+#hero::before{
+  content:"";
+  position:absolute;
+  width:600px;
+  height:600px;
+  background: radial-gradient(circle, rgba(61,90,128,0.25), transparent 70%);
+  top:-200px;
+  left:-200px;
+  filter: blur(40px);
+  animation: floatGlow 8s ease-in-out infinite;
+}
 
-/* BEAR IMAGE */
-.hero-image-first{position:relative;z-index:2;display:flex;justify-content:center;align-items:center;}
-.hero-image-first img{height:70vh;max-width:95%;object-fit:contain;object-position:center bottom;}
+@keyframes floatGlow{
+  0%,100%{transform:translate(0,0);}
+  50%{transform:translate(80px,40px);}
+}
 
+.hero-images{
+  display:flex;
+  gap:20px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+
+.hero-images img{
+  width:100%;
+  max-width:420px;
+  border-radius:20px;
+  object-fit:cover;
+}
+  
 /* DARK OVERLAY */
 .hero-image-first::after {content: "";position: absolute;inset: 0;background: radial-gradient(circle, rgba(0,0,0,0.2), rgba(0,0,0,0.55));}
 
@@ -124,25 +172,27 @@ text-decoration: none;
 }
 
 /* MOBILE */
-@media(max-width:600px){
-  .hero-top-text h1{
-    font-size:1.6rem;
 @media (max-width: 768px) {
   #hero {
     padding-top: 110px;
-}
+  }
 
-  .hero-image-first img{
-    height:55vh;
   .hero-image-first img {
     height: 60vh;
+    width: 100%;
+    object-fit: cover;
   }
 
   .hero-btns {
     flex-direction: column;
     align-items: center;
+  }
+
+  .hero-copy h1 {
+    font-size: 2rem;
+  }
 }
-}
+  
 /* TRUST BAR */
 #trust {
 background: var(--primary);
@@ -154,13 +204,31 @@ gap: 36px;
 flex-wrap: wrap;
 }
 
-.trust-item {
-display: flex;
-align-items: center;
-gap: 8px;
-color: rgba(255, 255, 255, 0.85);
-font-size: 0.84rem;
-font-weight: 600;
+.trust-item{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  white-space: nowrap;
+}
+@media (max-width: 600px) {
+  #trust {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: flex-start;
+    scroll-snap-type: x mandatory;
+  }
+
+  .trust-item {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    padding: 6px 10px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 999px;
+  }
+
+  #trust::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 /* =========================
@@ -195,36 +263,20 @@ font-size:2.3rem;
 
 }
 /* SECTIONS */
-section{
-padding: 70px 7%;
-}
-
-section + section{
-margin-top: 10px;
-}
+section{padding:80px 7%;}
+section + section{margin-top: 10px;}
 
 /* better visual flow */
-.section-tag{
-margin-bottom: 10px;
-}
-
-.section-title{
-margin-bottom: 12px;
-}
-
-.section-sub{
-margin-bottom: 25px;
-}
+.section-tag{margin-bottom: 10px;}
+.section-title{margin-bottom: 12px;}
+.section-sub{margin-bottom: 25px;}
 
 /* WHO IT'S FOR */
-#who {background: var(--white);
-}
-.who-grid{display:flex;flex-direction:column;gap:24px;max-width:900px;margin:48px auto 0;
-}
-.who-card {border-radius: var(--radius);overflow: hidden;box-shadow: var(--card-shadow);border: 1px solid rgba(28,58,94,0.08);transition: transform 0.25s, box-shadow 0.25s;background: white;
-}
-.who-card:hover {transform: translateY(-6px);box-shadow: 0 16px 48px rgba(28,58,94,0.15);
-}
+#who {background: var(--white);}
+.who-grid{display:flex;flex-direction:column;gap:24px;max-width:900px;margin:48px auto 0;}
+.who-card {border-radius: var(--radius);overflow: hidden;box-shadow: var(--card-shadow);border: 1px solid rgba(28,58,94,0.08);transition: transform 0.25s, box-shadow 0.25s;background: white;}
+.who-card:hover {transform: translateY(-6px);box-shadow: 0 16px 48px rgba(28,58,94,0.15);}
+  
 /* ✅ FIXED IMAGE CONTAINER */
 .who-card-img {
 position: relative;
@@ -553,6 +605,11 @@ border: 1px solid rgba(0,0,0,0.05);
 .contact-detail:hover {
 background: rgba(61,90,128,0.06);
 transform: translateY(-2px);
+}
+  .form-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
 }
 
 /* ICON */
@@ -1074,18 +1131,56 @@ max-width:100%;
 }
 
 }
-  .loader-spinner{
-width:40px;
-height:40px;
-border:4px solid rgba(255,255,255,.2);
-border-top:4px solid white;
-border-radius:50%;
-animation:spin 1s linear infinite;
+ #loader{
+  position:fixed;
+  inset:0;
+  background:#0f1c2e;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+  color:white;
 }
 
 @keyframes spin{
 from{transform:rotate(0deg);}
 to{transform:rotate(360deg);}
+}
+  /* =========================
+   PREMIUM MOTION SYSTEM
+========================= */
+
+:root{
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-smooth: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* smoother page feel */
+html {
+  scroll-behavior: smooth;
+}
+
+/* universal animation base */
+.reveal{
+  opacity:0;
+  transform: translateY(30px);
+  transition: all 0.8s var(--ease-out);
+}
+
+.reveal.active{
+  opacity:1;
+  transform: translateY(0);
+}
+
+/* hover lift system */
+.hover-lift{
+  transition: transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out);
+}
+
+.hover-lift:hover{
+  transform: translateY(-8px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.12);
 }
 </style>
 </head>
@@ -1093,21 +1188,17 @@ to{transform:rotate(360deg);}
 
 <!-- LOADING SCREEN -->
 <div id="loader">
+  <model-viewer
+    src="models/Bear.glb"
+    camera-controls
+    auto-rotate
+    autoplay
+    shadow-intensity="1"
+    exposure="1"
+    style="width:280px;height:280px;background:transparent;">
+  </model-viewer>
 
-<div id="loader">
-
-<model-viewer
-src="models/Bear.glb"
-camera-controls
-auto-rotate
-autoplay
-shadow-intensity="1"
-exposure="1"
-style="width:280px;height:280px;background:transparent;">
-</model-viewer>
-
-<h2>Loading AiDiA...</h2>
-
+  <h2>Loading AiDiA...</h2>
 </div>
 <!-- NAV -->
 <nav>
@@ -1124,70 +1215,30 @@ style="width:280px;height:280px;background:transparent;">
 </ul>
 <a href="#contact" class="nav-cta">Get in Touch</a>
 </nav>
-
-<!-- HERO (IMAGE FIRST VERSION) -->
+  
 <!-- HERO (CLEAN CENTER VERSION) -->
-<section id="hero" class="hero-entrance">
-
-  <!-- TEXT ABOVE BEAR -->
-  <div class="hero-top-text">
-    <div class="hero-tag">
-      <span class="dot"></span>
-      More Than a Teddy. A Companion for Life.
-    </div>
- <!-- HERO IMAGE -->
-<div class="hero-image-first">
-  <img src="images/sitting-blue-bear.jpeg" alt="AiDiA Bear">
-</div>
-
-    <h1>Never Feel <em>Alone</em> Again</h1>
-  </div>
-<!-- HERO TEXT -->
-<div class="hero-text-overlay">
-
-  <!-- BEAR IMAGE -->
-  <div class="hero-image-first">
+<section id="hero">
+  <div class="hero-images">
+    <img src="images/sitting-blue-bear.jpeg" alt="AiDiA Bear">
     <img src="images/child-with-bear.JPG" alt="Child with AiDiA Bear">
   </div>
-  <div class="hero-content">
 
-  <!-- TEXT UNDER BEAR -->
-  <div class="hero-bottom-text">
-    <div class="hero-copy">
+  <div class="hero-content">
+    <div class="hero-tag">
+      More Than a Teddy. A Companion for Life.
+    </div>
+
+    <h1>Never Feel <em>Alone</em> Again</h1>
 
     <p class="hero-sub">
-      AiDiA is an AI-powered companion bear that listens,
-      talks, learns, and genuinely connects.
+      AiDiA is an AI-powered companion bear that listens, talks, learns, and connects emotionally.
     </p>
-      <div class="hero-tag">
-        <span class="dot"></span>
-        More Than a Teddy. A Companion for Life.
-      </div>
-
-      <h1>Never Feel <em>Alone</em> Again</h1>
-
-      <p class="hero-sub">
-        AiDiA is an AI-powered companion bear that listens,
-        talks, learns, and genuinely connects.
-      </p>
-
-      <div class="hero-btns">
-        <a href="#products" class="btn-primary">
-          Shop AiDiA
-        </a>
-
-        <a href="#contact" class="btn-outline">
-          Care Home Enquiries
-        </a>
-      </div>
 
     <div class="hero-btns">
-      <a href="#who" class="btn-primary">Discover AiDiA</a>
+      <a href="#products" class="btn-primary">Shop AiDiA</a>
       <a href="#contact" class="btn-outline">Care Home Enquiries</a>
-</div>
-
-</div>
-
+    </div>
+  </div>
 </section>
 
 <!-- TRUST BAR -->
@@ -1305,94 +1356,67 @@ AiDiA comes in two beautiful versions — both packed with the same powerful AI 
 </div>
 
 <!-- SLIDESHOW -->
-<section class="product-section">
+<div class="amazon-product">
 
-<!-- ================= CAROUSEL ================= -->
-<div class="carousel fade-carousel">
-
-<div class="slide active"
-data-title="Classic White AiDiA"
-data-text="Pure, calm, comforting presence">
-<img src="images/bear-white.png" alt="White AiDiA">
+<!-- CAROUSEL -->
+<div class="fade-carousel">
+  <div class="slide active" data-title="Classic White AiDiA" data-text="Pure, calm, comforting presence">
+    <img src="images/bear-white.png" alt="White AiDiA">
+  </div>
+  <div class="slide" data-title="Blue Edition AiDiA" data-text="Calming and emotionally warm companion">
+    <img src="images/bear-blue.jpeg" alt="Blue AiDiA">
+  </div>
+  <div class="slide" data-title="Together Always" data-text="Designed for connection and comfort">
+    <img src="images/sitting-bears.JPG" alt="Together Bears">
+  </div>
+  <button class="carousel-btn prev">&#10094;</button>
+  <button class="carousel-btn next">&#10095;</button>
+  <div class="carousel-overlay">
+    <h3 id="carouselTitle">AiDiA My BFF</h3>
+    <p id="carouselText">Always there. Always yours.</p>
+  </div>
 </div>
 
-<div class="slide"
-data-title="Blue Edition AiDiA"
-data-text="Calming and emotionally warm companion">
-<img src="images/bear-blue.jpeg" alt="Blue AiDiA">
+<!-- BUY BOX -->
+<div class="amazon-buy">
+  <h2>AiDiA My BFF</h2>
+  <div class="price">$249.99 USD</div>
+  <p class="description">AI-powered companion teddy bear designed for comfort, conversation, and emotional support.</p>
+  <hr>
+
+  <div class="variant-select">
+    <label>Choose Your Bear</label>
+    <button onclick="selectVariant('white', this)">White</button>
+    <button onclick="selectVariant('blue', this)">Blue</button>
+  </div>
+
+  <div class="field">
+    <label>Quantity</label>
+    <div class="qty-box">
+      <button onclick="changeQty(-1)">&#8722;</button>
+      <span id="qtyValue">1</span>
+      <button onclick="changeQty(1)">+</button>
+    </div>
+  </div>
+
+  <div class="field">
+    <label>Shipping</label>
+    <select id="countrySelect" onchange="updateShipping()">
+      <option value="0">Jamaica</option>
+      <option value="15">USA</option>
+      <option value="18">UK</option>
+      <option value="20">Canada</option>
+      <option value="25">International</option>
+    </select>
+    <p id="shippingCost">Shipping: $0.00</p>
+  </div>
+
+  <button class="buy-btn">Buy Now</button>
+  <button class="cart-btn">Add to Cart</button>
+  <p class="stock">In Stock</p>
+  <p class="secure">Secure payment powered by Stripe</p>
 </div>
 
-<div class="slide"
-data-title="Together Always"
-data-text="Designed for connection and comfort">
-<img src="images/sitting-bears.JPG" alt="Together Bears">
-</div>
-
-<!-- ARROWS -->
-<button class="carousel-btn prev">❮</button>
-<button class="carousel-btn next">❯</button>
-
-<!-- OVERLAY -->
-<div class="carousel-overlay">
-<h3 id="carouselTitle">AiDiA My BFF</h3>
-<p id="carouselText">Always there. Always yours.</p>
-</div>
-
-</div>
-
-
-<!-- ================= BUY BOX ================= -->
-<div class="buy-section">
-
-<h2>AiDiA My BFF</h2>
-
-<div class="price">$249.99 USD</div>
-
-<p class="description">
-AI-powered companion teddy bear designed for comfort,
-conversation, companionship and emotional support.
-</p>
-
-<hr>
-
-
-<!-- QUANTITY -->
-<div class="field">
-<label>Quantity</label>
-
-<div class="qty-box">
-<button onclick="changeQty(-1)">−</button>
-<span id="qtyValue">1</span>
-<button onclick="changeQty(1)">+</button>
-</div>
-</div>
-
-
-<!-- SHIPPING -->
-<div class="field">
-<label>Shipping</label>
-
-<select id="countrySelect">
-<option value="0">Jamaica</option>
-<option value="15">USA</option>
-<option value="18">UK</option>
-<option value="20">Canada</option>
-<option value="25">International</option>
-</select>
-
-<p id="shippingCost">Shipping: $0.00</p>
-</div>
-
-
-<!-- BUTTONS -->
-<button class="buy-btn">Buy Now</button>
-<button class="cart-btn">Add to Cart</button>
-
-<p class="stock">✓ In Stock</p>
-
-<p class="secure">Secure payment powered by Stripe 🔒</p>
-
-</div>
 
 </section>
 <!-- FEATURES -->
@@ -1580,97 +1604,72 @@ poster="images/video1-cover.jpg">
 </section>
 
 <!-- CONTACT -->
-<section id="contact">
-<span class="section-tag">Contact</span>
-<h2 class="section-title">Get In Touch</h2>
-<p class="section-sub">
-We'd love to hear from you — whether you're a family member, care home, or partner.
-</p>
-
-<div class="contact-grid">
-
-<!-- LEFT CARD -->
 <div class="contact-info-card fade-in">
-<div class="contact-header">
-<h3>Contact Information</h3>
-<p>We usually respond within 24 hours.</p>
+  <div class="contact-header">
+    <h3>Contact Information</h3>
+    <p>We usually respond within 24 hours.</p>
+  </div>
+  <div class="contact-list">
+    <div class="contact-detail">
+      <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+      <div>
+        <strong>Email</strong>
+        <a href="mailto:aidiateddy@gmail.com">aidiateddy@gmail.com</a>
+      </div>
+    </div>
+    <div class="contact-detail">
+      <div class="contact-icon"><i class="fas fa-hospital"></i></div>
+      <div>
+        <strong>Care Homes</strong>
+        <a href="mailto:aidiateddy@gmail.com?subject=Care%20Enquiry">Request Info</a>
+      </div>
+    </div>
+    <div class="contact-detail">
+      <div class="contact-icon"><i class="fas fa-truck"></i></div>
+      <div>
+        <strong>Shipping</strong>
+        <span>Worldwide delivery available</span>
+      </div>
+    </div>
+    <div class="contact-divider"></div>
+    <div class="contact-detail">
+      <div class="contact-icon"><i class="fab fa-instagram"></i></div>
+      <div>
+        <strong>Instagram</strong>
+        <a href="https://instagram.com/aidiateddybear" target="_blank">@AiDiAMyBFF</a>
+      </div>
+    </div>
+    <div class="contact-detail">
+      <div class="contact-icon"><i class="fab fa-tiktok"></i></div>
+      <div>
+        <strong>TikTok</strong>
+        <a href="https://tiktok.com/@aidiateddybear" target="_blank">@AiDiATeddyBear</a>
+      </div>
+    </div>
+    <div class="contact-detail">
+      <div class="contact-icon"><i class="fab fa-facebook"></i></div>
+      <div>
+        <strong>Facebook</strong>
+        <a href="https://facebook.com/aidiateddybear" target="_blank">@AiDiATeddyBear</a>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class="contact-list">
-
-<div class="contact-detail">
-<div class="contact-icon"><i class="fas fa-envelope"></i></div>
-<div>
-<strong>Email</strong>
-<a href="mailto:aidiateddy@gmail.com">aidiateddy@gmail.com</a>
-</div>
-</div>
-
-<div class="contact-detail">
-<div class="contact-icon"><i class="fas fa-hospital"></i></div>
-<div>
-<strong>Care Homes</strong>
-<a href="mailto:aidiateddy@gmail.com?subject=Care%20Enquiry">Request Info</a>
-</div>
-</div>
-
-<div class="contact-detail">
-<div class="contact-icon"><i class="fas fa-truck"></i></div>
-<div>
-<strong>Shipping</strong>
-<span>Worldwide delivery available</span>
-</div>
-</div>
-
-<div class="contact-divider"></div>
-
-<div class="contact-detail">
-<div class="contact-icon"><i class="fab fa-instagram"></i></div>
-<div>
-<strong>Instagram</strong>
-<a href="https://instagram.com/aidiateddybear" target="_blank">@AiDiAMyBFF</a>
-</div>
-</div>
-
-<div class="contact-detail">
-<div class="contact-icon"><i class="fab fa-tiktok"></i></div>
-<div>
-<strong>TikTok</strong>
-<a href="https://tiktok.com/@aidiateddybear" target="_blank">@AiDiATeddyBear</a>
-</div>
-</div>
-
-<div class="contact-detail">
-<div class="contact-icon"><i class="fab fa-facebook"></i></div>
-<div>
-<strong>Facebook</strong>
-<a href="https://facebook.com/aidiateddybear" target="_blank">@AiDiATeddyBear</a>
-</div>
-</div>
-
-</div>
-</div>
-
-<!-- RIGHT FORM -->
 <form class="contact-form fade-in" onsubmit="handleSubmit(event)">
-<div class="form-header">
-<h3>Send a Message</h3>
-<p>Tell us how we can help you.</p>
-</div>
-
-<div class="form-row">
-<input type="text" placeholder="First Name" required>
-<input type="text" placeholder="Last Name" required>
-</div>
-
-<input type="email" placeholder="Email Address" required>
-
-<textarea placeholder="Your Message" required></textarea>
-
-<button type="submit" class="form-submit">
-Send Message →
-</button>
+  <div class="form-header">
+    <h3>Send a Message</h3>
+    <p>Tell us how we can help you.</p>
+  </div>
+  <div class="form-row">
+    <input type="text" placeholder="First Name" required>
+    <input type="text" placeholder="Last Name" required>
+  </div>
+  <input type="email" placeholder="Email Address" required>
+  <textarea placeholder="Your Message" required></textarea>
+  <button type="submit" class="form-submit">Send Message</button>
 </form>
+
 
 </div>
 </section>
@@ -1709,13 +1708,43 @@ Send Message →
 
 <!-- SHOPPING -->
 <script>
+  let qty = 1;
 const PRODUCT = {
-name: "AiDiA My BFF Bear",
-price: 249.99,
-currency: "USD",
-image: "images/bear-white.png"
+  name: "AiDiA My BFF Bear",
+  price: 249.99,
+  currency: "USD",
+  variants: {
+    white: {
+      name: "AiDiA White Bear",
+      image: "images/bear-white.png"
+    },
+    blue: {
+      name: "AiDiA Blue Bear",
+      image: "images/bear-blue.jpeg"
+    }
+  },
+  selectedVariant: "white"
 };
-</script>   
+function updatePrice(){
+  const base = PRODUCT.price;
+  const total = (base * qty).toFixed(2);
+
+  const priceEl = document.querySelector(".price");
+  if (priceEl) priceEl.textContent = `$${total} USD`;
+}
+  </script>
+  
+  <script>
+function selectVariant(type){
+  PRODUCT.selectedVariant = type;
+
+  const mainSlideImg = document.querySelector(".fade-carousel .slide.active img");
+
+  if(mainSlideImg){
+    mainSlideImg.src = PRODUCT.variants[type].image;
+  }
+}
+</script>
 
 <!-- CONTACT -->
 <script>
@@ -1734,16 +1763,10 @@ document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
 
 <!-- LOADING SCREEN -->
 <script>
-window.addEventListener("load", () => {
-setTimeout(() => {
-const loader = document.getElementById("loader");
-loader.style.opacity = "0";
-loader.style.transition = "1s ease";
-
-setTimeout(() => {
-loader.style.display = "none";
-}, 1000);
-}, 2500);
+video.addEventListener("loadedmetadata", () => {
+  if (video.duration > 60 && !video.paused) {
+    video.currentTime = 60;
+  }
 });
 </script>
 
@@ -1875,62 +1898,22 @@ showSlide(0);
 
 <!-- SHOPPING CART -->
 <script>
-let qty = 1;
-
-// QUANTITY SYSTEM
-function changeQty(amount) {
-qty += amount;
-if (qty < 1) qty = 1;
-document.getElementById("qtyValue").innerText = qty;
-updateShipping();
+function changeQty(amount){
+  qty = Math.max(1, qty + amount);
+  document.getElementById("qtyValue").textContent = qty;
+  updateShipping();
+  updatePrice();
 }
 
-// SHIPPING SYSTEM\\
-const countrySelect = document.getElementById("countrySelect");
-const shippingDisplay = document.getElementById("shippingCost");
+function updateShipping(){
+  const select = document.getElementById("countrySelect");
+  const display = document.getElementById("shippingCost");
+  const cost = parseFloat(select.value || 0);
 
-countrySelect.addEventListener("change", updateShipping);
-
-function updateShipping() {
-const cost = parseFloat(countrySelect.value) || 0;
-shippingDisplay.innerText = "Shipping: $" + cost.toFixed(2);
+  display.textContent = "Shipping: $" + cost.toFixed(2);
 }
 
-// SIMPLE CAROUSEL
-const slides = document.querySelectorAll(".slide");
-const title = document.getElementById("carouselTitle");
-const text = document.getElementById("carouselText");
-
-let index = 0;
-
-function showSlide(i) {
-slides.forEach(s => s.classList.remove("active"));
-slides[i].classList.add("active");
-
-title.innerText = slides[i].dataset.title;
-text.innerText = slides[i].dataset.text;
-}
-
-// NEXT / PREV
-document.querySelector(".next").onclick = () => {
-index = (index + 1) % slides.length;
-showSlide(index);
-};
-
-document.querySelector(".prev").onclick = () => {
-index = (index - 1 + slides.length) % slides.length;
-showSlide(index);
-};
-</script>
-
-<script>
-document.querySelectorAll("video").forEach(video => {
-video.addEventListener("loadedmetadata", () => {
-if (video.duration > 60) {
-video.currentTime = 60; // start at 1 min preview
-}
-});
-});
+document.addEventListener("DOMContentLoaded", updateShipping);
 </script>
 </body>
 </html>
