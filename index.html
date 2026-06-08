@@ -282,6 +282,177 @@ flex-wrap: wrap;
     display: none;
   }
 }
+  .hero-btns{
+  display:flex;
+  gap:18px;
+  margin-top:30px;
+  flex-wrap:wrap;
+}
+
+/* BASE GLASS STYLE */
+.btn-primary,
+.btn-outline{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:14px 26px;
+  border-radius:14px;
+
+  font-weight:600;
+  font-family:'Inter', sans-serif;
+  letter-spacing:.2px;
+
+  text-decoration:none;
+
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  border:1px solid rgba(255,255,255,0.25);
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.12);
+
+  transition: all .3s ease;
+}
+.hero-btns{
+  display:flex;
+  gap:18px;
+  margin-top:30px;
+  flex-wrap:wrap;
+}
+
+/* ===== BASE COMPANION BUTTON ===== */
+.btn-primary,
+.btn-outline{
+  position:relative;
+
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:14px 26px;
+  border-radius:16px;
+
+  font-family:'Inter', sans-serif;
+  font-weight:600;
+  letter-spacing:.3px;
+
+  text-decoration:none;
+
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+
+  transition: all .35s ease;
+
+  overflow:hidden;
+
+  z-index:1;
+}
+
+/* ===== PRIMARY (AI CORE ACTION) ===== */
+.btn-primary{
+  color:#fff;
+
+  background: rgba(61, 90, 128, 0.35);
+
+  border:1px solid rgba(120, 180, 255, 0.35);
+
+  box-shadow:
+    0 0 0 1px rgba(120,180,255,0.08),
+    0 15px 40px rgba(0,0,0,0.18),
+    0 0 25px rgba(61,90,128,0.25);
+}
+
+/* glowing energy layer */
+.btn-primary::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(120,180,255,0.35),
+    transparent 60%
+  );
+
+  opacity:0;
+  transition:opacity .35s ease;
+  z-index:-1;
+}
+
+/* ===== OUTLINE (SECONDARY COMPANION ACTION) ===== */
+.btn-outline{
+  color: var(--accent);
+
+  background: rgba(255,255,255,0.06);
+
+  border:1px solid rgba(120,180,255,0.25);
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.12);
+}
+
+/* subtle inner glow line */
+.btn-outline::before{
+  content:"";
+  position:absolute;
+  inset:0;
+
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(120,180,255,0.15),
+    transparent
+  );
+
+  transform:translateX(-100%);
+  transition:transform .6s ease;
+  z-index:-1;
+}
+
+/* ===== HOVER INTERACTION (COMPANION RESPONSE) ===== */
+.btn-primary:hover,
+.btn-outline:hover{
+  transform: translateY(-3px) scale(1.02);
+
+  box-shadow:
+    0 25px 60px rgba(0,0,0,0.22),
+    0 0 35px rgba(61,90,128,0.35);
+}
+
+/* activate glow */
+.btn-primary:hover::before{
+  opacity:1;
+}
+
+.btn-outline:hover::before{
+  transform:translateX(100%);
+}
+
+/* ===== ACTIVE (PRESS FEEDBACK) ===== */
+.btn-primary:active,
+.btn-outline:active{
+  transform: scale(0.97);
+}
+
+/* ===== OPTIONAL: “LIVING AI PULSE” ===== */
+.btn-primary{
+  animation: aiPulse 6s ease-in-out infinite;
+}
+
+@keyframes aiPulse{
+  0%,100%{
+    box-shadow:
+      0 15px 40px rgba(0,0,0,0.18),
+      0 0 20px rgba(61,90,128,0.15);
+  }
+  50%{
+    box-shadow:
+      0 20px 55px rgba(0,0,0,0.22),
+      0 0 40px rgba(120,180,255,0.25);
+  }
+}
   
 /* SECTIONS */
 section{padding:80px 7%;}
@@ -1258,10 +1429,78 @@ html {
   transform: translateY(-8px);
   box-shadow: 0 20px 60px rgba(0,0,0,0.12);
 }
+  .variant-select button{
+  padding:10px 16px;
+  margin-right:10px;
+  margin-top:8px;
+
+  border-radius:12px;
+  border:1px solid rgba(61,90,128,0.25);
+
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  color:#333;
+  font-weight:600;
+
+  cursor:pointer;
+
+  transition: all .25s ease;
+}
+
+.variant-select button:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+}
+
+/* ACTIVE SELECTED STATE */
+.variant-select button.active{
+  background: rgba(61,90,128,0.35);
+  color:#fff;
+  border:1px solid rgba(120,180,255,0.5);
+  box-shadow: 0 0 20px rgba(61,90,128,0.25);
+}
+
+/* BUY BUTTONS */
+.buy-btn,
+.cart-btn{
+  width:100%;
+  padding:14px;
+  margin-top:10px;
+
+  border-radius:14px;
+  font-weight:700;
+
+  cursor:pointer;
+
+  transition: all .3s ease;
+}
+
+.buy-btn{
+  background: rgba(61,90,128,0.85);
+  color:#fff;
+  border:none;
+
+  box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+}
+
+.buy-btn:hover{
+  transform: translateY(-3px);
+}
+
+.cart-btn{
+  background: rgba(255,255,255,0.08);
+  border:1px solid rgba(61,90,128,0.35);
+  color: var(--accent);
+}
+
+.cart-btn:hover{
+  transform: translateY(-3px);
+}
 </style>
 </head>
 <body>
-
 
 <!-- PREMIUM SCREEN LOADER -->
 <div id="loader">
@@ -1334,7 +1573,7 @@ html {
   <div class="hero-showcase">
 
     <img
-      src="images/bear-blue.jpeg"
+      src="images/sitting-blue-bear.jpeg"
       class="hero-bear"
       alt="AiDiA Bear"
     >
@@ -1520,14 +1759,13 @@ AiDiA comes in two beautiful versions — both packed with the same powerful AI 
     <p id="shippingCost">Shipping: $0.00</p>
   </div>
 
-  <button class="buy-btn">Buy Now</button>
+  <button class="buy-btn" id="buyNowBtn">Buy Now</button>
   <button class="cart-btn">Add to Cart</button>
   <p class="stock">In Stock</p>
   <p class="secure">Secure payment powered by Stripe</p>
 </div>
-
-
 </section>
+  
 <!-- FEATURES -->
 <section id="features">
 <div class="features-layout">
@@ -1817,31 +2055,92 @@ poster="images/video1-cover.jpg">
 
 <!-- SHOPPING -->
 <script>
-  let qty = 1;
-const PRODUCT = {
-  name: "AiDiA My BFF Bear",
-  price: 249.99,
-  currency: "USD",
-  variants: {
-    white: {
-      name: "AiDiA White Bear",
-      image: "images/bear-white.png"
-    },
-    blue: {
-      name: "AiDiA Blue Bear",
-      image: "images/bear-blue.jpeg"
-    }
-  },
-  selectedVariant: "white"
-};
-function updatePrice(){
-  const base = PRODUCT.price;
-  const total = (base * qty).toFixed(2);
+let selectedVariant = "white";
+let quantity = 1;
 
-  const priceEl = document.querySelector(".price");
-  if (priceEl) priceEl.textContent = `$${total} USD`;
+function selectVariant(color, btn){
+  selectedVariant = color;
+
+  // remove active from all
+  document.querySelectorAll(".variant-select button")
+    .forEach(b => b.classList.remove("active"));
+
+  // set active
+  btn.classList.add("active");
+
+  // OPTIONAL: change product image in carousel
+  const whiteSlide = document.querySelector('.slide[data-title="Classic White AiDiA"] img');
+  const blueSlide  = document.querySelector('.slide[data-title="Blue Edition AiDiA"] img');
+
+  if(color === "white"){
+    document.getElementById("carouselTitle").innerText = "Classic White AiDiA";
+    document.getElementById("carouselText").innerText = "Pure, calm, comforting presence";
+  } else {
+    document.getElementById("carouselTitle").innerText = "Blue Edition AiDiA";
+    document.getElementById("carouselText").innerText = "Calming and emotionally warm companion";
+  }
+
+  console.log("Selected variant:", selectedVariant);
 }
-  </script>
+
+function changeQty(val){
+  quantity = Math.max(1, quantity + val);
+  document.getElementById("qtyValue").innerText = quantity;
+}
+
+function updateShipping(){
+  const select = document.getElementById("countrySelect");
+  const cost = parseFloat(select.value);
+
+  document.getElementById("shippingCost").innerText =
+    "Shipping: $" + cost.toFixed(2);
+}
+
+/* BUY BUTTON ACTION */
+<script>
+let selectedVariant = "white";
+let quantity = 1;
+
+function selectVariant(color, btn){
+  selectedVariant = color;
+
+  document.querySelectorAll(".variant-select button")
+    .forEach(b => b.classList.remove("active"));
+
+  btn.classList.add("active");
+}
+
+function changeQty(val){
+  quantity = Math.max(1, quantity + val);
+  document.getElementById("qtyValue").innerText = quantity;
+}
+
+/* STRIPE CHECKOUT TRIGGER */
+document.getElementById("buyNowBtn").addEventListener("click", async () => {
+
+  const orderData = {
+    product: "AiDiA My BFF Bear",
+    variant: selectedVariant,
+    quantity: quantity
+  };
+
+  const res = await fetch("/create-checkout-session", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(orderData)
+  });
+
+  const data = await res.json();
+
+  if(data.url){
+    window.location.href = data.url; // Redirect to Stripe Checkout
+  } else {
+    alert("Checkout failed. Try again.");
+  }
+});
+</script>
   
   <script>
 function selectVariant(type){
