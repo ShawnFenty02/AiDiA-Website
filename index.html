@@ -1131,21 +1131,76 @@ max-width:100%;
 }
 
 }
- #loader{
+/* PREMIUM LOADER STYLES */
+#loader{
   position:fixed;
   inset:0;
-  background:#0f1c2e;
+  background: radial-gradient(circle at top, #1C3A5E, #0b1522);
   display:flex;
-  flex-direction:column;
   align-items:center;
   justify-content:center;
-  z-index:9999;
-  color:white;
+  z-index:99999;
+  overflow:hidden;
 }
 
-@keyframes spin{
-from{transform:rotate(0deg);}
-to{transform:rotate(360deg);}
+/* glow orb background */
+.loader-glow{
+  position:absolute;
+  width:600px;
+  height:600px;
+  background: radial-gradient(circle, rgba(129,178,154,0.25), transparent 60%);
+  filter: blur(60px);
+  animation: floatGlow 6s ease-in-out infinite;
+}
+
+@keyframes floatGlow{
+  0%,100%{transform:translate(-20px,-20px) scale(1);}
+  50%{transform:translate(40px,60px) scale(1.2);}
+}
+
+.loader-content{
+  position:relative;
+  text-align:center;
+  color:white;
+  z-index:2;
+  animation: fadeUp 1.2s ease;
+}
+
+@keyframes fadeUp{
+  from{opacity:0; transform:translateY(20px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+.loader-content h2{
+  font-family:'Playfair Display', serif;
+  margin-top:10px;
+  font-size:1.4rem;
+}
+
+.loader-content p{
+  font-size:0.9rem;
+  opacity:0.8;
+}
+
+/* progress bar */
+.loader-bar{
+  width:220px;
+  height:6px;
+  background:rgba(255,255,255,0.15);
+  border-radius:999px;
+  margin:20px auto 0;
+  overflow:hidden;
+}
+
+.loader-progress{
+  width:0%;
+  height:100%;
+  background:linear-gradient(90deg,#81B29A,#3D5A80);
+  animation: loadBar 3s ease forwards;
+}
+
+@keyframes loadBar{
+  to{width:100%;}
 }
   /* =========================
    PREMIUM MOTION SYSTEM
@@ -1186,19 +1241,30 @@ html {
 </head>
 <body>
 
-<!-- LOADING SCREEN -->
-<div id="loader">
-  <model-viewer
-    src="models/Bear.glb"
-    camera-controls
-    auto-rotate
-    autoplay
-    shadow-intensity="1"
-    exposure="1"
-    style="width:280px;height:280px;background:transparent;">
-  </model-viewer>
 
-  <h2>Loading AiDiA...</h2>
+<!-- PREMIUM SCREEN LOADER -->
+<div id="loader">
+  <div class="loader-glow"></div>
+
+  <div class="loader-content">
+    <model-viewer
+      src="models/Bear.glb"
+      auto-rotate
+      camera-controls="false"
+      disable-zoom
+      shadow-intensity="1"
+      style="width:260px;height:260px;">
+    </model-viewer>
+
+    <h2>AiDiA is waking up...</h2>
+    <p>Your companion is getting ready 💙</p>
+
+    <div class="loader-bar">
+      <div class="loader-progress"></div>
+    </div>
+  </div>
+
+  <audio id="startupSound" src="sounds/soft-startup.mp3" preload="auto"></audio>
 </div>
 <!-- NAV -->
 <nav>
@@ -1763,13 +1829,30 @@ document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
 
 <!-- LOADING SCREEN -->
 <script>
-video.addEventListener("loadedmetadata", () => {
-  if (video.duration > 60 && !video.paused) {
-    video.currentTime = 60;
+window.addEventListener("load", () => {
+  const loader = document.getElementById("loader");
+  const sound = document.getElementById("startupSound");
+
+  // play sound (must be user-allowed by browser)
+  if (sound) {
+    sound.volume = 0.4;
+    sound.play().catch(() => {
+      // ignore autoplay block
+    });
   }
+
+  // fade out loader after animation
+  setTimeout(() => {
+    loader.style.transition = "0.8s ease";
+    loader.style.opacity = "0";
+
+    setTimeout(() => {
+      loader.style.display = "none";
+    }, 800);
+  }, 3200);
 });
 </script>
-
+  
 <!-- kID VIDEO -->
 <script>
 
@@ -1808,7 +1891,6 @@ btn.innerHTML =
 </script>
 
 <script>
-
 window.addEventListener("scroll",()=>{
 
 const box =
