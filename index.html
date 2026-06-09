@@ -1630,33 +1630,27 @@ html {
 <body>
 
 <!-- PREMIUM SCREEN LOADER -->
-<div id="loader">
-  <div class="loader-glow"></div>
-
-  <div class="loader-content">
-
-    <model-viewer
-      id="bearModel"
-      src="models/Bear.glb"
-      auto-rotate
-      camera-controls="false"
-      disable-zoom
-      interaction-prompt="none"
-      shadow-intensity="1"
-      exposure="1"
-      style="
-        width:220px;
-        height:220px;
-        margin:0 auto 20px;
-      ">
-    </model-viewer>
+<img
+  src="images/sitting-blue-bear.jpeg"
+  alt="AiDiA Blue Bear"
+  style="
+    width:220px;
+    height:220px;
+    object-fit:contain;
+    margin:0 auto 20px;
+    filter: drop-shadow(0 0 20px rgba(129,178,154,.35));
+    animation: bearFloat 5s ease-in-out infinite;
+  "
+/>
 
     <h2>AiDiA is waking up...</h2>
     <p>Your companion is getting ready 💙</p>
 
-    <div class="loader-bar">
-      <div class="loader-progress" id="loaderProgress"></div>
-    </div>
+  <div class="loader-bar">
+  <div class="loader-progress" id="loaderProgress"></div>
+</div>
+
+<p id="loaderText">Preparing AiDiA... 0%</p>
 
     <p id="loaderText">Loading AiDiA...</p>
 
@@ -2374,6 +2368,139 @@ document.addEventListener("DOMContentLoaded", () => {
     buyBtn.addEventListener("click", checkoutCart);
   }
 });
+  document.addEventListener("DOMContentLoaded", () => {
+
+  // shipping init
+  updateShipping();
+
+  const country = document.getElementById("countrySelect");
+  if(country){
+    country.addEventListener("change", updateShipping);
+  }
+
+  // checkout button
+  const buyBtn = document.getElementById("buyNowBtn");
+  if(buyBtn){
+    buyBtn.addEventListener("click", checkoutCart);
+  }
+});
+  /* =========================
+   8. APPLE STYLE LOADER
+========================= */
+
+const loader = {
+  total: 0,
+  loaded: 0
+};
+
+function updateLoaderUI() {
+
+  const percent = Math.floor(
+    (loader.loaded / loader.total) * 100
+  );
+
+  const bar = document.getElementById("loaderProgress");
+  const text = document.getElementById("loaderText");
+
+  if(bar){
+    bar.style.width = percent + "%";
+  }
+
+  if(text){
+    text.textContent = `Preparing AiDiA... ${percent}%`;
+  }
+
+  if(percent >= 100){
+
+    setTimeout(() => {
+
+      const screen =
+        document.getElementById("loader");
+
+      if(screen){
+        screen.classList.add("hidden");
+      }
+
+    }, 300);
+  }
+}
+
+function preloadAsset(src){
+
+  return new Promise(resolve => {
+
+    if(!src){
+      resolve();
+      return;
+    }
+
+    const isVideo =
+      src.match(/\.(mp4|webm|ogg)$/i);
+
+    if(isVideo){
+
+      const video =
+        document.createElement("video");
+
+      video.preload = "metadata";
+      video.src = src;
+
+      video.onloadeddata = resolve;
+      video.onerror = resolve;
+
+    } else {
+
+      const img = new Image();
+
+      img.src = src;
+
+      img.onload = resolve;
+      img.onerror = resolve;
+    }
+  });
+}
+
+async function startLoader(){
+
+  const imageAssets =
+    [...document.images]
+      .map(img => img.src);
+
+  const videoAssets =
+    [...document.querySelectorAll("video source")]
+      .map(v => v.src);
+
+  const assets =
+    [...imageAssets, ...videoAssets];
+
+  loader.total = assets.length;
+
+  if(loader.total === 0){
+
+    document
+      .getElementById("loader")
+      ?.classList.add("hidden");
+
+    return;
+  }
+
+  await Promise.all(
+    assets.map(async src => {
+
+      await preloadAsset(src);
+
+      loader.loaded++;
+
+      updateLoaderUI();
+
+    })
+  );
+}
+
+window.addEventListener(
+  "load",
+  startLoader
+);
 </script>
 </body>
 </html>
