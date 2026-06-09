@@ -104,129 +104,144 @@ box-shadow: 0 2px 12px rgba(0,0,0,0.06);
 }
 
 /* HERO SHOWCASE - clean modern layout */
-.hero-apple{
+#hero{
   min-height:100vh;
-  display:flex;
+  display:grid;
+  grid-template-columns:1fr 1.2fr;
   align-items:center;
-  justify-content:center;
-  text-align:center;
-  padding:140px 7% 100px;
-  position:relative;
+  gap:60px;
+  padding:120px 7% 80px;
   overflow:hidden;
-  background: radial-gradient(circle at top, #ffffff 0%, #f5f7fb 60%, #eef3f8 100%);
+  position:relative;
 }
 
-/* CENTER LAYOUT */
-.hero-center{
-  max-width:900px;
-  margin:auto;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:20px;
+/* text */
+.hero-text{
+  z-index:5;
 }
 
-/* TAG */
-.hero-tag{
-  font-size:0.9rem;
-  color:var(--primary-mid);
-  font-weight:600;
-  letter-spacing:1px;
-}
-
-/* TITLE (APPLE STYLE BIG TYPE) */
-.hero-apple h1{
-  font-size:4.8rem;
+.hero-text h1{
+  font-size:4.5rem;
   line-height:1.05;
-  font-family:'Playfair Display', serif;
-  margin:10px 0;
+  margin-bottom:20px;
+  font-family:'Playfair Display',serif;
 }
 
-/* TEXT */
-.hero-apple p{
-  max-width:650px;
-  font-size:1.2rem;
+.hero-text em{
+  color:var(--accent);
+  font-style:italic;
+}
+
+.hero-text p{
+  max-width:560px;
+  font-size:1.15rem;
   color:var(--muted);
 }
 
-/* BUTTONS */
-.hero-btns{
-  display:flex;
-  gap:16px;
-  margin-top:20px;
-  flex-wrap:wrap;
-  justify-content:center;
-}
-
-/* ===== VISUAL SECTION ===== */
-.hero-visual{
+/* showcase */
+.hero-showcase{
   position:relative;
-  margin-top:60px;
+  height:700px;
   display:flex;
-  justify-content:center;
   align-items:center;
+  justify-content:center;
 }
 
-/* MAIN BEAR */
 .hero-bear{
   width:100%;
-  max-width:520px;
-  height:auto;
-  filter:drop-shadow(0 40px 80px rgba(0,0,0,0.18));
-  animation: floatSlow 8s ease-in-out infinite;
+  max-width:650px;
+  object-fit:contain;
+  filter:drop-shadow(0 30px 50px rgba(0,0,0,.18));
+  animation:floatBear 6s ease-in-out infinite;
 }
 
-/* SOFT APPLE GLOW */
-.hero-glow{
-  position:absolute;
-  width:600px;
-  height:600px;
-  background: radial-gradient(circle, rgba(61,90,128,0.18), transparent 60%);
-  filter: blur(50px);
-  z-index:-1;
-  animation: glowPulse 8s ease-in-out infinite;
+@keyframes floatBear{
+  0%,100%{
+    transform:translateY(0px);
+  }
+  50%{
+    transform:translateY(-15px);
+  }
 }
 
-/* FLOATING CARD (SUBTLE) */
+/* floating photo card */
 .hero-floating-card{
   position:absolute;
-  right:-40px;
-  bottom:40px;
-  width:170px;
-  border-radius:18px;
+  right:-20px;
+  top:50%;
+  transform:translateY(-50%);
+  width:320px;
+  background:white;
+  border-radius:28px;
   overflow:hidden;
-  box-shadow:0 20px 50px rgba(0,0,0,0.12);
-  opacity:0.9;
+
+  box-shadow:
+  0 25px 60px rgba(0,0,0,.18);
+
+  backdrop-filter:blur(12px);
+
+  animation:floatCard 5s ease-in-out infinite;
 }
 
-/* ANIMATIONS (VERY SUBTLE LIKE APPLE) */
-@keyframes floatSlow{
-  0%,100%{ transform:translateY(0); }
-  50%{ transform:translateY(-12px); }
+.hero-floating-card img{
+  width:100%;
+  display:block;
 }
 
-@keyframes glowPulse{
-  0%,100%{ transform:scale(1); opacity:0.6; }
-  50%{ transform:scale(1.1); opacity:0.9; }
+@keyframes floatCard{
+  0%,100%{
+    transform:translateY(-50%);
+  }
+  50%{
+    transform:translateY(calc(-50% - 12px));
+  }
 }
 
-/* MOBILE */
+/* glow behind bear */
+#hero::before{
+  content:"";
+  position:absolute;
+
+  width:700px;
+  height:700px;
+
+  background:
+  radial-gradient(
+    circle,
+    rgba(61,90,128,.25),
+    transparent 70%
+  );
+
+  right:5%;
+  top:50%;
+
+  transform:translateY(-50%);
+  filter:blur(40px);
+}
+
+/* mobile */
 @media(max-width:900px){
 
-  .hero-apple h1{
+  #hero{
+    grid-template-columns:1fr;
+    text-align:center;
+  }
+
+  .hero-text h1{
     font-size:2.8rem;
   }
 
-  .hero-bear{
-    max-width:360px;
+  .hero-showcase{
+    height:auto;
   }
 
   .hero-floating-card{
     position:relative;
     right:auto;
-    bottom:auto;
-    margin-top:20px;
-    width:70%;
+    top:auto;
+    transform:none;
+    width:85%;
+    margin:-40px auto 0;
   }
 }
   
@@ -1620,36 +1635,46 @@ html {
 </nav>
   
 <!-- HERO (CLEAN CENTER VERSION) -->
-<section id="hero" class="hero-apple">
+<section id="hero">
 
-  <div class="hero-center">
-
-    <span class="hero-tag reveal">
-      Introducing AiDiA
+  <div class="hero-text">
+    <span class="hero-tag">
+      More Than a Teddy. A Companion for Life.
     </span>
 
-    <h1 class="reveal">
+    <h1>
       Never Feel <em>Alone</em> Again
     </h1>
 
-    <p class="reveal">
-      A next-generation AI companion designed to comfort, talk, and grow with you — like a presence that truly understands you.
+    <p>
+      AiDiA is an AI-powered companion bear that listens,
+      talks, learns and genuinely connects.
     </p>
 
-    <div class="hero-btns reveal">
-      <a href="#products" class="btn-primary">Explore AiDiA</a>
-      <a href="#contact" class="btn-outline">Request Demo</a>
+    <div class="hero-btns">
+      <a href="#products" class="btn-primary">
+        Discover AiDiA
+      </a>
+
+      <a href="#contact" class="btn-outline">
+        Care Home Enquiries
+      </a>
     </div>
+  </div>
 
-    <!-- VISUAL FOCUS -->
-    <div class="hero-visual reveal">
-      <img src="images/sitting-blue-bear.jpeg" class="hero-bear" alt="AiDiA Bear">
+  <div class="hero-showcase">
 
-      <div class="hero-glow"></div>
+    <img
+      src="images/bear-blue.jpeg"
+      class="hero-bear"
+      alt="AiDiA Bear"
+    >
 
-      <div class="hero-floating-card">
-        <img src="images/child-with-bear.JPG" alt="">
-      </div>
+    <div class="hero-floating-card">
+      <img
+        src="images/child-with-bear.JPG"
+        alt="Child with AiDiA"
+      >
     </div>
 
   </div>
@@ -1794,7 +1819,7 @@ AiDiA comes in two beautiful versions — both packed with the same powerful AI 
     <img src="images/bear-white.png" alt="White AiDiA">
   </div>
   <div class="slide" data-title="Blue Edition AiDiA" data-text="Calming and emotionally warm companion">
-    <img src="images/sitting-blue-bea.jpeg" alt="Blue AiDiA">
+    <img src="images/sitting-blue-bear.jpeg" alt="Blue AiDiA">
   </div>
   <div class="slide" data-title="Together Always" data-text="Designed for connection and comfort">
     <img src="images/sitting-bears.JPG" alt="Together Bears">
