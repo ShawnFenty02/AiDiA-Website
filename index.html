@@ -1596,33 +1596,34 @@ html {
 
 <!-- PREMIUM SCREEN LOADER -->
 <div id="loader">
-  <div class="loader-glow"></div>
+  <div class="loader-glow">
+    
+  </div>
 
   <div class="loader-content">
-   <model-viewer
+  <model-viewer
   id="bearModel"
   src="models/Bear.glb"
+  loading="lazy"
+  reveal="interaction"
   auto-rotate
-  camera-controls="false"
-  disable-zoom
-  shadow-intensity="1"
-  style="width:260px;height:260px;">
-</model-viewer>
+  camera-controls
+></model-viewer>
 
     <h2>AiDiA is waking up...</h2>
     <p>Your companion is getting ready 💙</p>
 
         <div class="loader-bar">
-  <div class="loader-progress" id="loaderProgress"></div>
+  <div class="loader-progress" id="loaderProgress">
 </div>
 
 <p id="loaderText">Loading AiDiA...</p>
       </div>
-    </div>
   </div>
 
   <audio id="startupSound" src="sounds/soft-startup.mp3" preload="auto"></audio>
 </div>
+  
 <!-- NAV -->
 <nav>
 <div class="nav-logo">
