@@ -2257,13 +2257,14 @@ document.addEventListener("DOMContentLoaded", () => {
       quantity: quantity
     };
 
-    const res = await fetch("/api/create-checkout-session", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(orderData)
-    });
+    fetch("/api/create-checkout-session", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    variant: selectedVariant,
+    quantity: quantity
+  })
+});
 
     const data = await res.json();
 
