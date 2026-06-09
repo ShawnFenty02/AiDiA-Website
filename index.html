@@ -1596,32 +1596,21 @@ html {
 
 <!-- PREMIUM SCREEN LOADER -->
 <div id="loader">
-  <div class="loader-glow">
-    
-  </div>
+  <div class="loader-glow"></div>
 
   <div class="loader-content">
-  <model-viewer
-  id="bearModel"
-  src="models/Bear.glb"
-  loading="lazy"
-  reveal="interaction"
-  auto-rotate
-  camera-controls
-></model-viewer>
+    
+    <img src="images/bear-loading.gif" width="180" alt="loading">
 
     <h2>AiDiA is waking up...</h2>
     <p>Your companion is getting ready 💙</p>
 
-        <div class="loader-bar">
-  <div class="loader-progress" id="loaderProgress">
-</div>
+    <div class="loader-bar">
+      <div class="loader-progress" id="loaderProgress"></div>
+    </div>
 
-<p id="loaderText">Loading AiDiA...</p>
-      </div>
+    <p id="loaderText">Loading AiDiA...</p>
   </div>
-
-  <audio id="startupSound" src="sounds/soft-startup.mp3" preload="auto"></audio>
 </div>
   
 <!-- NAV -->
@@ -2277,46 +2266,34 @@ document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
 
 <!-- LOADING SCREEN -->
 <script>
-window.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("load", () => {
   const loader = document.getElementById("loader");
-  const model = document.getElementById("bearModel");
-  const progressBar = document.getElementById("loaderProgress");
-  #loaderText {margin-top: 10px;font-size: 0.9rem;opacity: 0.8;}
-  const sound = document.getElementById("startupSound");
-.loader-progress {
-  transition: width 0.2s ease;
-}
-  // fake smooth progress until real load finishes
-  const fakeProgress = setInterval(() => {
-    if (progress < 85) {
-      progress += Math.random() * 8;
-      progressBar.style.width = progress + "%";
-    }
+  const progress = document.getElementById("loaderProgress");
+  const text = document.getElementById("loaderText");
+
+  let p = 0;
+
+  const fakeLoad = setInterval(() => {
+    p += Math.random() * 10;
+    if (p > 90) p = 90;
+    progress.style.width = p + "%";
   }, 150);
 
-  // play sound
-  if (sound) {
-    sound.volume = 0.4;
-    sound.play().catch(() => {});
-  }
+  setTimeout(() => {
+    progress.style.width = "100%";
+    text.textContent = "AiDiA is ready 💙";
 
-  // REAL MODEL LOAD EVENT
-  model.addEventListener("load", () => {
-    progress = 100;
-    progressBar.style.width = "100%";
-    text.innerText = "AiDiA is ready 💙";
-
-    clearInterval(fakeProgress);
+    clearInterval(fakeLoad);
 
     setTimeout(() => {
-      loader.style.transition = "0.6s ease";
       loader.style.opacity = "0";
+      loader.style.transition = "0.5s ease";
 
       setTimeout(() => {
-        loader.style.display = "none";
-      }, 600);
+        loader.remove();
+      }, 500);
     }, 400);
-  });
+  }, 2500);
 });
 </script> 
   
