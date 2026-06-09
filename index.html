@@ -2207,12 +2207,17 @@ poster="images/video1-cover.jpg">
 </div>
 </footer>    
 
-<!-- SHOPPING -->
 <script>
+/* =========================
+   1. GLOBAL STATE
+========================= */
 let selectedVariant = "white";
 let quantity = 1;
+let cart = [];
 
-/* VARIANT SELECT */
+/* =========================
+   2. VARIANT SYSTEM
+========================= */
 function selectVariant(color, btn){
   selectedVariant = color;
 
@@ -2221,338 +2226,154 @@ function selectVariant(color, btn){
 
   btn.classList.add("active");
 
+  const title = document.getElementById("carouselTitle");
+  const text = document.getElementById("carouselText");
+
+  if(!title || !text) return;
+
   if(color === "white"){
-    document.getElementById("carouselTitle").innerText = "Classic White AiDiA";
-    document.getElementById("carouselText").innerText = "Pure, calm, comforting presence";
+    title.innerText = "Classic White AiDiA";
+    text.innerText = "Pure, calm, comforting presence";
   } else {
-    document.getElementById("carouselTitle").innerText = "Blue Edition AiDiA";
-    document.getElementById("carouselText").innerText = "Calming and emotionally warm companion";
+    title.innerText = "Blue Edition AiDiA";
+    text.innerText = "Calming and emotionally warm companion";
   }
 }
 
-/* QUANTITY */
+/* =========================
+   3. QUANTITY + SHIPPING
+========================= */
 function changeQty(val){
   quantity = Math.max(1, quantity + val);
-  document.getElementById("qtyValue").innerText = quantity;
+  const el = document.getElementById("qtyValue");
+  if(el) el.innerText = quantity;
 }
 
-/* SHIPPING */
 function updateShipping(){
   const select = document.getElementById("countrySelect");
-  const cost = parseFloat(select.value);
+  const display = document.getElementById("shippingCost");
 
-  document.getElementById("shippingCost").innerText =
-    "Shipping: $" + cost.toFixed(2);
+  if(!select || !display) return;
+
+  const cost = parseFloat(select.value) || 0;
+  display.innerText = "Shipping: $" + cost.toFixed(2);
 }
 
-/* STRIPE CHECKOUT */
-document.addEventListener("DOMContentLoaded", () => {
-  const btn = document.getElementById("buyNowBtn");
+/* =========================
+   4. CART SYSTEM (DRAWER)
+========================= */
+function toggleCart(){
+  const drawer = document.getElementById("cartDrawer");
+  if(drawer) drawer.classList.toggle("open");
+}
 
-  btn.addEventListener("click", async () => {
-
-    const orderData = {
-      product: "AiDiA My BFF Bear",
-      variant: selectedVariant,
-      quantity: quantity
-    };
-
-    fetch("/api/create-checkout-session", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({
+function addToCart(){
+  cart.push({
+    name: "AiDiA My BFF Bear",
     variant: selectedVariant,
-    quantity: quantity
-  })
-});
-
-    const data = await res.json();
-
-    if(data.url){
-      window.location.href = data.url;
-    } else {
-      alert("Checkout failed. Try again.");
-    }
+    quantity: quantity,
+    price: 249.99
   });
-});
-</script>
-  
- <script> 
- let selectedVariant = "white";
 
-function selectVariant(color, btn){
-  selectedVariant = color;
+  updateCartUI();
+}
 
-  document.querySelectorAll(".variant-select button")
-    .forEach(b => b.classList.remove("active"));
+function updateCartUI(){
+  const count = document.getElementById("cartCount");
+  const items = document.getElementById("cartItems");
+  const total = document.getElementById("cartTotal");
 
-  btn.classList.add("active");
+  if(!count || !items || !total) return;
 
-  // update carousel text only
-  if(color === "white"){
-    document.getElementById("carouselTitle").innerText = "Classic White AiDiA";
-    document.getElementById("carouselText").innerText = "Pure, calm, comforting presence";
+  let totalQty = 0;
+  let totalPrice = 0;
+
+  items.innerHTML = "";
+
+  cart.forEach(item => {
+    totalQty += item.quantity;
+    totalPrice += item.price * item.quantity;
+
+    items.innerHTML += `
+      <div style="padding:10px;border-bottom:1px solid #334155">
+        <b>${item.name}</b><br>
+        Variant: ${item.variant}<br>
+        Qty: ${item.quantity}
+      </div>
+    `;
+  });
+
+  count.innerText = totalQty;
+  total.innerText = "Total: $" + totalPrice.toFixed(2);
+}
+
+/* =========================
+   5. STRIPE CHECKOUT (CART)
+========================= */
+async function checkoutCart(){
+
+  if(cart.length === 0){
+    alert("Your cart is empty");
+    return;
+  }
+
+  const res = await fetch("/api/create-checkout-session", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ cart })
+  });
+
+  const data = await res.json();
+
+  if(data.url){
+    window.location.href = data.url;
   } else {
-    document.getElementById("carouselTitle").innerText = "Blue Edition AiDiA";
-    document.getElementById("carouselText").innerText = "Calming and emotionally warm companion";
+    alert("Checkout failed. Try again.");
   }
 }
-</script>
-  
-<!-- CONTACT -->
-<script>
-function handleSubmit(e) {
-e.preventDefault();
-const btn = e.target.querySelector('.form-submit');
-const orig = btn.textContent;
-btn.textContent = '✅ Sent! We\'ll be in touch soon.';
-btn.style.background = '#81B29A';
-btn.disabled = true;
-setTimeout(() => { btn.textContent = orig; btn.style.background = ''; btn.disabled = false; e.target.reset(); }, 4000);
-}
-const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.1 });
-document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
-</script> 
 
-<!-- LOADING SCREEN -->
-<script>
-window.addEventListener("DOMContentLoaded", () => {
+/* =========================
+   6. AI RECOMMENDER (OPTIONAL)
+========================= */
+function recommendBear(){
+  const mood = document.getElementById("moodSelect")?.value;
 
-  const loader = document.getElementById("loader");
-  const model = document.getElementById("bearModel");
-  const progressBar = document.getElementById("loaderProgress");
-  const text = document.getElementById("loaderText");
+  if(mood === "calm") return "blue";
+  if(mood === "comfort") return "white";
+  if(mood === "gift") return "white";
 
-  let fakeProgress = 0;
-
-  const fakeTimer = setInterval(() => {
-
-    if(fakeProgress < 80){
-      fakeProgress += 2;
-      progressBar.style.width = fakeProgress + "%";
-    }
-
-  }, 100);
-
-  model.addEventListener("progress", (event) => {
-
-    const percent =
-      Math.round(event.detail.totalProgress * 100);
-
-    if(percent > fakeProgress){
-      progressBar.style.width = percent + "%";
-    }
-
-  });
-
-  model.addEventListener("load", () => {
-
-    clearInterval(fakeTimer);
-
-    progressBar.style.width = "100%";
-
-    text.textContent = "AiDiA is ready 💙";
-
-    setTimeout(() => {
-
-      loader.style.opacity = "0";
-
-      setTimeout(() => {
-        loader.remove();
-      }, 600);
-
-    }, 500);
-
-  });
-
-});
-</script> 
-  
-<!-- kID VIDEO -->
-<script>
-
-function toggleKidsVideo(btn){
-
-const box =
-document.querySelector(".kids-video-box");
-
-const video =
-document.getElementById("kidsVideo");
-
-if(!box.classList.contains("active")){
-
-box.classList.add("active");
-
-video.currentTime = 0;
-
-video.play();
-
-btn.innerHTML =
-"✕ Close Video";
-
-}else{
-
-video.pause();
-
-video.currentTime = 0;
-
-box.classList.remove("active");
-
-btn.innerHTML =
-"🎬 Click Here To Watch";
-
-}
-}
-</script>
-
-<script>
-window.addEventListener("scroll",()=>{
-
-const box =
-document.querySelector(".kids-video-box");
-
-const video =
-document.getElementById("kidsVideo");
-
-if(box.classList.contains("active")){
-
-video.pause();
-
-video.currentTime = 0;
-
-box.classList.remove("active");
+  return selectedVariant;
 }
 
-});
-</script>
+function autoSuggest(){
+  const pick = recommendBear();
+  const buttons = document.querySelectorAll(".variant-select button");
 
-<!-- CAROUSEL -->
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-const slides = document.querySelectorAll(".fade-carousel .slide");
-const carousel = document.querySelector(".fade-carousel");
-
-const title = document.getElementById("carouselTitle");
-const text = document.getElementById("carouselText");
-
-let current = 0;
-
-function showSlide(index) {
-slides.forEach(s => s.classList.remove("active"));
-slides[index].classList.add("active");
-
-// caption update (SAFE)
-if (title && text) {
-title.innerText = slides[index].dataset.title || "";
-text.innerText = slides[index].dataset.text || "";
-}
+  if(pick === "blue" && buttons[1]) buttons[1].click();
+  if(pick === "white" && buttons[0]) buttons[0].click();
 }
 
-document.querySelector(".next").addEventListener("click", () => {
-current = (current + 1) % slides.length;
-showSlide(current);
-});
-
-document.querySelector(".prev").addEventListener("click", () => {
-current = (current - 1 + slides.length) % slides.length;
-showSlide(current);
-});
-
-// swipe support
-let startX = 0;
-
-if (carousel) {
-carousel.addEventListener("touchstart", e => {
-startX = e.touches[0].clientX;
-});
-
-carousel.addEventListener("touchend", e => {
-const endX = e.changedTouches[0].clientX;
-const diff = startX - endX;
-
-if (Math.abs(diff) > 40) {
-if (diff > 0) current++;
-else current--;
-
-if (current < 0) current = slides.length - 1;
-if (current >= slides.length) current = 0;
-
-showSlide(current);
-}
-});
-}
-
-// autoplay
-setInterval(() => {
-current = (current + 1) % slides.length;
-showSlide(current);
-}, 5000);
-
-// init
-showSlide(0);
-});
-</script>
-
-<!-- SHOPPING CART -->
-<script>
+/* =========================
+   7. INIT (ONLY ONCE)
+========================= */
 document.addEventListener("DOMContentLoaded", () => {
 
-let qty = 1;
-
-window.changeQty = function(amount){
-  qty += amount;
-
-  if(qty < 1) qty = 1;
-
-  const qtyEl = document.getElementById("qtyValue");
-
-  if(qtyEl){
-    qtyEl.textContent = qty;
-  }
-
+  // shipping init
   updateShipping();
-};
 
-const countrySelect = document.getElementById("countrySelect");
-const shippingDisplay = document.getElementById("shippingCost");
+  const country = document.getElementById("countrySelect");
+  if(country){
+    country.addEventListener("change", updateShipping);
+  }
 
-function updateShipping(){
-
-  if(!countrySelect || !shippingDisplay) return;
-
-  const cost = parseFloat(countrySelect.value) || 0;
-
-  shippingDisplay.textContent =
-    "Shipping: $" + cost.toFixed(2);
-}
-
-if(countrySelect){
-  countrySelect.addEventListener(
-    "change",
-    updateShipping
-  );
-}
-
-updateShipping();
-
+  // checkout button
+  const buyBtn = document.getElementById("buyNowBtn");
+  if(buyBtn){
+    buyBtn.addEventListener("click", checkoutCart);
+  }
 });
-</script>
-  
- <!-- About --> 
-  <script>
-const reveals = document.querySelectorAll('.reveal');
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if(entry.isIntersecting){
-      entry.target.classList.add('active');
-    }
-  });
-}, {
-  threshold: 0.15
-});
-
-reveals.forEach(el => observer.observe(el));
 </script>
 </body>
 </html>
