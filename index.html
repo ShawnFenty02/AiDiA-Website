@@ -1417,6 +1417,14 @@ margin-bottom:12px;
   z-index:99999;
   overflow:hidden;
 }
+  #loaderBear {
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+  border-radius: 20px;
+  display: block;
+  margin: 0 auto;
+}
 
 /* glow orb background */
 .loader-glow{
@@ -2473,7 +2481,6 @@ function preloadAsset(src){
 }
 
 async function startLoader() {
-
   const assets = [
     "images/sitting-blue-bear.jpeg",
     "images/aidia-logo.png",
@@ -2481,17 +2488,22 @@ async function startLoader() {
   ];
 
   loader.total = assets.length;
+  loader.loaded = 0;
 
-  await Promise.all(
-    assets.map(async (src) => {
-      await preloadAsset(src);
-      loader.loaded++;
-      updateLoaderUI();
-    })
-  );
+  for (let src of assets) {
+    await preloadAsset(src);
+    loader.loaded++;
+    updateLoaderUI();
+  }
 
-}
+  // FORCE COMPLETE
+  updateLoaderUI();
 
+   setTimeout(() => {
+  const screen = document.getElementById("loader");
+  if (screen) screen.classList.add("hidden");
+}, 8000);
+  
 window.addEventListener(
   "load",
   startLoader
