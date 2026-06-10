@@ -104,15 +104,13 @@ box-shadow: 0 2px 12px rgba(0,0,0,0.06);
 }
 
 /* HERO SHOWCASE - clean modern layout */
-#hero{
-  min-height:100vh;
-  display:grid;
-  grid-template-columns:1fr 1.2fr;
-  align-items:center;
-  gap:60px;
-  padding:120px 7% 80px;
-  overflow:hidden;
-  position:relative;
+.hero {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: radial-gradient(circle at top, #f5f5f7, #ffffff);
 }
 
 /* text */
@@ -456,58 +454,98 @@ section + section{margin-top: 10px;}
 .section-sub{margin-bottom: 25px;}
 
 /* WHO IT'S FOR */
-#who {background: var(--white);}
-.who-grid{display:flex;flex-direction:column;gap:24px;max-width:900px;margin:48px auto 0;}
-.who-card {border-radius: var(--radius);overflow: hidden;box-shadow: var(--card-shadow);border: 1px solid rgba(28,58,94,0.08);transition: transform 0.25s, box-shadow 0.25s;background: white;}
-.who-card:hover {transform: translateY(-6px);box-shadow: 0 16px 48px rgba(28,58,94,0.15);}
-  
-/* ✅ FIXED IMAGE CONTAINER */
+#who {
+  background: var(--white);
+}
+
+.who-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  max-width: 920px;
+  margin: 56px auto 0;
+}
+
+/* CARD */
+.who-card {
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: white;
+
+  /* softer Apple-style elevation */
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+
+  /* lighter border (barely visible) */
+  border: 1px solid rgba(0,0,0,0.04);
+
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+/* subtle hover (Apple-style) */
+.who-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 50px rgba(0,0,0,0.10);
+}
+
+/* IMAGE AREA */
 .who-card-img {
-position: relative;
-height: 320px;
-display: flex;
-align-items: center;
-justify-content: center;
-background: linear-gradient(135deg, #ffffff, #f1f5f9);
-border-bottom: 1px solid rgba(0,0,0,0.05);
+  position: relative;
+  height: 320px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #fafafa; /* cleaner than gradient */
 }
 
-/* ✅ FIXED IMAGE */
+/* IMAGE */
 .who-card-img img {
-max-width: 100%;
-max-height: 100%;
-object-fit: contain;
-object-position: center;
-padding: 10px;
+  max-width: 92%;
+  max-height: 92%;
+  object-fit: contain;
+  padding: 8px;
 }
 
-/* who is it for*/
+/* LABEL (Apple-style micro badge) */
 .who-label {
-position: absolute;
-top: 12px;
-left: 12px;
-background: white;
-border-radius: 50px;
-padding: 4px 12px;
-font-size: 0.72rem;
-font-weight: 700;
-color: var(--primary);
-box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-z-index: 2;
+  position: absolute;
+  top: 14px;
+  left: 14px;
+
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(10px);
+
+  border-radius: 999px;
+  padding: 4px 10px;
+
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+
+  color: #1d1d1f;
+
+  border: 1px solid rgba(0,0,0,0.06);
 }
+
+/* BODY */
 .who-card-body {
-padding: 22px;
+  padding: 24px;
 }
+
+/* TITLE (more Apple-like weight control) */
 .who-card-body h3 {
-font-family: 'Playfair Display', serif;
-font-size: 1.1rem;
-font-weight: 700;
-margin-bottom: 8px;
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
 }
+
+/* TEXT */
 .who-card-body p {
-font-size: 0.86rem;
-color: var(--muted);
-line-height: 1.7;
+  font-size: 14px;
+  color: #6e6e73;
+  line-height: 1.6;
 }
 
 /* ABOUT SECTION */
@@ -770,18 +808,97 @@ grid-template-columns: 1fr;
 .step p { font-size: 0.82rem; color: var(--muted); line-height: 1.7; }
 
 /* CARE HOMES */
-#carehomes { background: linear-gradient(135deg, #1C2B3A 0%, #2d4a68 100%); color: white; }
-#carehomes .section-tag { background: rgba(129,178,154,0.2); color: #81B29A; }
-#carehomes .section-title { color: white; }
-#carehomes .section-sub { color: rgba(255,255,255,0.65); }
-.carehome-grid{display:flex;flex-direction:column;gap:30px;max-width:1000px;margin:48px auto 0;}
-.carehome-points { display: flex; flex-direction: column; gap: 18px; }
-.carehome-point { display: flex; gap: 16px; align-items: flex-start; background: rgba(255,255,255,0.07); border-radius: 14px; padding: 20px; border: 1px solid rgba(255,255,255,0.10); }
-.cp-icon { font-size: 1.5rem; flex-shrink: 0; }
-.cp-text strong { display: block; color: white; font-size: 0.9rem; margin-bottom: 4px; }
-.cp-text p { color: rgba(255,255,255,0.6); font-size: 0.83rem; line-height: 1.7; margin: 0; }
-.carehome-img { border-radius: var(--radius); overflow: hidden; box-shadow: 0 16px 48px rgba(0,0,0,0.3); }
-.carehome-img img { width: 100%; display: block; object-fit: cover; }
+.carehome-grid{
+  display:grid;
+  grid-template-columns:1.2fr 1fr;
+  gap:60px;
+  align-items:center;
+  max-width:1200px;
+  margin:auto;
+}
+
+.carehome-content{
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+
+.carehome-points{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  margin-top:10px;
+}
+
+.carehome-point{
+  display:flex;
+  gap:14px;
+  align-items:flex-start;
+  padding:16px;
+  border-radius:14px;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.08);
+  transition:0.25s ease;
+}
+
+#carehomes .carehome-point{
+  background:rgba(255,255,255,0.08);
+  backdrop-filter:blur(10px);
+}
+
+.carehome-point:hover{
+  transform:translateY(-3px);
+}
+
+.cp-icon{
+  font-size:1.4rem;
+  width:40px;
+  height:40px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(255,255,255,0.1);
+  border-radius:10px;
+}
+
+.cp-text strong{
+  display:block;
+  font-size:0.95rem;
+  margin-bottom:4px;
+}
+
+.cp-text p{
+  font-size:0.85rem;
+  opacity:0.75;
+  line-height:1.5;
+}
+
+/* IMAGE */
+.carehome-img img{
+  width:100%;
+  border-radius:18px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.25);
+}
+
+/* CTA */
+.carehome-cta{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:15px;
+}
+
+/* MOBILE */
+@media(max-width:900px){
+  .carehome-grid{
+    grid-template-columns:1fr;
+    text-align:center;
+  }
+
+  .carehome-cta{
+    justify-content:center;
+  }
+}
 
 /* CONTACT */
 #contact {background: radial-gradient(circle at top, #f8fafc 0%, #eef3f8 60%, #e9eef6 100%);position: relative;overflow: hidden;}
@@ -1364,62 +1481,152 @@ pointer-events: none;
 }
   
 /* =========================
-  FOOTER
+   APPLE-STYLE FOOTER
 ========================= */
-footer{background:#0f1c2e;color:rgba(255,255,255,.8);padding:90px 7% 40px;}
-.footer-inner{display:flex;flex-direction:column;gap:30px;text-align:center;max-width:1000px;margin:auto;}
-.footer-brand img{height:60px;width:auto;margin-bottom:15px;}
-.footer-brand-name{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:800;color:white;margin-bottom:12px;}
-.footer-brand p{max-width:400px;line-height:1.8;color:rgba(255,255,255,.65);}
-.footer-nav h4{color:white;margin-bottom:18px;font-size:1rem;}
-.footer-nav ul{list-style:none;padding:0;}
-.footer-nav li{margin-bottom:10px;}
-.footer-nav a{color:rgba(255,255,255,.7);text-decoration:none;transition:.25s;}
-.footer-nav a:hover{
-color:white;
-padding-left:4px;
+
+.apple-footer {
+  background: #f5f5f7;
+  padding: 80px 0 40px;
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+  color: #1d1d1f;
 }
 
-.footer-bottom{
-margin-top:50px;
-padding-top:20px;
-border-top:1px solid rgba(255,255,255,.1);
-text-align:center;
+.apple-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
 }
 
-.footer-bottom p{
-color:rgba(255,255,255,.5);
-font-size:.85rem;
+.apple-footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 60px;
+}
+
+.apple-footer-brand img {
+  height: 32px;
+  margin-bottom: 12px;
+}
+
+.apple-tagline {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #6e6e73;
+  margin-bottom: 16px;
+  max-width: 280px;
+}
+
+.apple-badges span {
+  display: inline-block;
+  font-size: 12px;
+  color: #6e6e73;
+  margin-right: 10px;
+}
+
+.apple-col h4 {
+  font-size: 12px;
+  font-weight: 600;
+  color: #6e6e73;
+  margin-bottom: 12px;
+  letter-spacing: 0.02em;
+}
+
+.apple-col a {
+  display: block;
+  font-size: 14px;
+  color: #1d1d1f;
+  text-decoration: none;
+  margin-bottom: 10px;
+  opacity: 0.75;
+  transition: 0.2s ease;
+}
+
+.apple-col a:hover {
+  opacity: 1;
+}
+
+.apple-divider {
+  height: 1px;
+  background: rgba(0,0,0,0.08);
+  margin: 50px 0 20px;
+}
+
+.apple-footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #6e6e73;
+}
+
+.apple-social a {
+  margin-left: 16px;
+  color: #6e6e73;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.apple-social a:hover {
+  color: #1d1d1f;
+}
+
+/* DIVIDER */
+.apple-divider{
+  height:1px;
+  background:rgba(255,255,255,0.08);
+  margin:50px 0 20px;
+}
+
+/* BOTTOM */
+.apple-footer-bottom{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:20px;
+  max-width:1200px;
+  margin:auto;
+  font-size:0.8rem;
+  color:rgba(255,255,255,0.5);
+}
+
+/* SOCIAL */
+.apple-social{
+  display:flex;
+  gap:18px;
+}
+
+.apple-social a{
+  color:rgba(255,255,255,0.5);
+  text-decoration:none;
+  transition:0.2s;
+}
+
+.apple-social a:hover{
+  color:#fff;
 }
 
 /* MOBILE */
 @media(max-width:900px){
+  .apple-footer-grid{
+    grid-template-columns:1fr;
+    text-align:center;
+  }
 
-.footer-inner{
-max-width:1200px;
-margin:auto;
+  .apple-footer-brand{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
 
-display:grid;
-grid-template-columns:
-repeat(auto-fit,minmax(250px,1fr));
+  .apple-footer-bottom{
+    justify-content:center;
+    text-align:center;
+  }
 
-gap:40px;
+  .apple-col a:hover{
+    transform:none;
+  }
 }
-.footer-brand{
-max-width:420px;
-}
-
-.footer-nav ul{
-padding:0;
-margin:0;
-}
-
-.footer-nav li{
-margin-bottom:12px;
-}
-
-}
-
   /* =========================
    PREMIUM MOTION SYSTEM
 ========================= */
@@ -1588,8 +1795,8 @@ html {
     </div>
 
   </div>
-
 </section>
+  
 <!-- TRUST BAR -->
 <div id="trust">
 <div class="trust-item">🔒 Safe &amp; Private AI</div>
@@ -1600,62 +1807,75 @@ html {
 </div>
 
 <!-- WHO IT'S FOR -->
-<section id="who">
-<span class="section-tag">Who It's For</span>
-<h2 class="section-title">A companion for those who need it most</h2>
-<p class="section-sub">AiDiA is designed with empathy at its core — for anyone who benefits from a warm, always-available presence.</p>
-<div class="who-grid">
-<div class="who-card fade-in">
-<div class="who-card-img">
-<img src="images/aidia-elderly.png" alt="Care home resident with AiDiA"/>
-<div class="who-label">Primary Audience</div>
-</div>
-<div class="who-card-body">
-<h3>Care Home Residents</h3>
-<p>AiDiA provides meaningful daily interaction for residents — reducing loneliness, stimulating memory, and offering comfort between staff visits.</p>
-</div>
-</div>
-<div class="who-card fade-in">
-<div class="who-card-img">
-<img src="images/aidia-marketing-blue.png" alt="AiDiA companion for people living alone"/>
-<div class="who-label">Primary Audience</div>
-</div>
-<div class="who-card-body">
-<h3>People Living Alone</h3>
-<p>For those who live independently, AiDiA is a reliable daily companion — always ready to chat, listen, or simply be present when it matters.</p>
-</div>
-</div>
-<div class="who-card fade-in">
-<div class="who-card-img">
-<img src="images/aidia-kids.png" alt="Young person with AiDiA" />
-<div class="who-label">Also For</div>
-</div>
+<section id="who" class="apple-section">
 
-<div class="who-card-body">
-<h3>Teens & Children</h3>
+  <span class="section-tag">Who It's For</span>
 
-<p>
-From helping your child learn to supporting emotional growth.
-</p>
+  <h2 class="section-title">
+    A companion for those who need it most
+  </h2>
 
-<button
-class="who-video-btn"
-onclick="toggleKidsVideo(this)">
+  <p class="section-sub">
+    AiDiA is designed with empathy at its core — for anyone who benefits from a warm, always-available presence.
+  </p>
 
-🎬 Click Here To Watch
+  <div class="who-grid">
 
-</button>
+    <!-- CARD 1 -->
+    <div class="who-card fade-in">
+      <div class="who-card-img">
+        <img src="images/aidia-elderly.png" alt="Care home resident with AiDiA"/>
+        <div class="who-label subtle">Care Homes</div>
+      </div>
 
-<div class="kids-video-box">
-<video id="kidsVideo" controls>
-<source src="videos/aidia-video3.mp4" type="video/mp4">
-</video>
-</div>
+      <div class="who-card-body">
+        <h3>Care Home Residents</h3>
+        <p>Daily interaction that reduces loneliness, supports memory, and adds comfort between staff visits.</p>
+      </div>
+    </div>
 
-</div> 
-</div> 
+    <!-- CARD 2 -->
+    <div class="who-card fade-in">
+      <div class="who-card-img">
+        <img src="images/aidia-marketing-blue.png" alt="Person living alone with AiDiA"/>
+        <div class="who-label subtle">Independent Living</div>
+      </div>
 
-</div> 
+      <div class="who-card-body">
+        <h3>People Living Alone</h3>
+        <p>A steady presence for conversation, reflection, and companionship throughout the day.</p>
+      </div>
+    </div>
+
+    <!-- CARD 3 -->
+    <div class="who-card fade-in">
+      <div class="who-card-img">
+        <img src="images/aidia-kids.png" alt="Young person with AiDiA" />
+        <div class="who-label subtle">Family Use</div>
+      </div>
+
+      <div class="who-card-body">
+        <h3>Teens & Children</h3>
+
+        <p>
+          Supports learning, emotional growth, and safe interaction for younger users.
+        </p>
+
+        <button class="who-video-link" onclick="toggleKidsVideo(this)">
+          Watch how it works
+        </button>
+
+        <div class="kids-video-box">
+          <video id="kidsVideo" controls>
+            <source src="videos/aidia-video3.mp4" type="video/mp4">
+          </video>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
 </section>
   
 <!-- ABOUT -->
@@ -1842,11 +2062,11 @@ AiDiA comes in two beautiful versions — both packed with the same powerful AI 
 <div class="videos-grid">
 <div class="video-card fade-in">
 <video
-controls
-playsinline
-preload="metadata"
-poster="images/white-and-blue-bear.JPG"
-<source src="videos/aidia-video1.mp4" type="video/mp4">
+  controls
+  playsinline
+  preload="metadata"
+  poster="images/white-and-blue-bear.JPG">
+  <source src="videos/aidia-video1.mp4" type="video/mp4">
 </video>
 <div class="video-caption">
 <h3>AiDiA in Action</h3>
@@ -1855,11 +2075,11 @@ poster="images/white-and-blue-bear.JPG"
 </div>
 <div class="video-card fade-in">
 <video
-controls
-playsinline
-preload="metadata"
-poster="images/white-and-blue-bear.JPG"
-<source src="videos/aidia-video2.mp4" type="video/mp4">
+  controls
+  playsinline
+  preload="metadata"
+  poster="images/white-and-blue-bear.JPG">
+  <source src="videos/aidia-video2.mp4" type="video/mp4">
 </video>
 <div class="video-caption">
 <h3>AiDiA — Your BFF</h3>
@@ -1932,46 +2152,79 @@ poster="images/white-and-blue-bear.JPG"
 
 <!-- CARE HOMES -->
 <section id="carehomes">
-<div class="carehome-grid">
-<div>
-<span class="section-tag">For Care Homes</span>
-<h2 class="section-title">A wellbeing solution your residents will love</h2>
-<p class="section-sub" style="margin-bottom:30px;">AiDiA supports care teams by providing residents with consistent, meaningful companionship — at any hour of the day.</p>
-<div class="carehome-points">
-<div class="carehome-point fade-in">
-<span class="cp-icon">📉</span>
-<div class="cp-text">
-<strong>Reduces Loneliness &amp; Isolation</strong>
-<p>Residents interact with AiDiA between staff visits, reducing reported feelings of loneliness and boredom.</p>
-</div>
-</div>
-<div class="carehome-point fade-in">
-<span class="cp-icon">🧩</span>
-<div class="cp-text">
-<strong>Supports Cognitive Engagement</strong>
-<p>Conversation, stories, and games keep minds active — supporting cognitive wellbeing and mental stimulation.</p>
-</div>
-</div>
-<div class="carehome-point fade-in">
-<span class="cp-icon">👥</span>
-<div class="cp-text">
-<strong>Complements Your Care Team</strong>
-<p>AiDiA extends your team's capacity — giving residents more quality engagement without extra staff cost.</p>
-</div>
-</div>
-<div class="carehome-point fade-in">
-<span class="cp-icon">📦</span>
-<div class="cp-text">
-<strong>Bulk &amp; Pilot Packages Available</strong>
-<p>Flexible pricing for care facilities. Contact us to discuss a pilot programme or multi-unit order.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="carehome-img fade-in">
-<img src="images/aidia-elderly2.png" alt="AiDiA in a care home setting"/>
-</div>
-</div>
+
+  <div class="carehome-grid">
+
+    <!-- LEFT -->
+    <div class="carehome-content">
+
+      <span class="section-tag">For Care Homes</span>
+
+      <h2 class="section-title">
+        A wellbeing solution your residents will love
+      </h2>
+
+      <p class="section-sub">
+        AiDiA supports care teams by providing residents with consistent,
+        meaningful companionship — at any hour of the day.
+      </p>
+
+      <div class="carehome-points">
+
+        <div class="carehome-point fade-in">
+          <span class="cp-icon">📉</span>
+          <div class="cp-text">
+            <strong>Reduces Loneliness & Isolation</strong>
+            <p>Residents interact with AiDiA between staff visits, reducing loneliness and boredom.</p>
+          </div>
+        </div>
+
+        <div class="carehome-point fade-in">
+          <span class="cp-icon">🧠</span>
+          <div class="cp-text">
+            <strong>Supports Cognitive Engagement</strong>
+            <p>Conversation, stories, and games keep minds active and mentally stimulated.</p>
+          </div>
+        </div>
+
+        <div class="carehome-point fade-in">
+          <span class="cp-icon">👥</span>
+          <div class="cp-text">
+            <strong>Complements Your Care Team</strong>
+            <p>Extends staff capacity by offering additional daily interaction for residents.</p>
+          </div>
+        </div>
+
+        <div class="carehome-point fade-in">
+          <span class="cp-icon">📦</span>
+          <div class="cp-text">
+            <strong>Bulk & Pilot Packages</strong>
+            <p>Flexible pricing for care facilities. Contact us for pilot programmes or deployments.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- NEW CTA (IMPORTANT UPGRADE) -->
+      <div class="carehome-cta">
+        <a href="#contact" class="btn-primary">
+          Request Care Home Demo
+        </a>
+
+        <a href="#contact" class="btn-outline">
+          Download Information Pack
+        </a>
+      </div>
+
+    </div>
+
+    <!-- RIGHT -->
+    <div class="carehome-img fade-in">
+      <img src="images/aidia-elderly2.png" alt="AiDiA in a care home setting"/>
+    </div>
+
+  </div>
+
 </section>
 
  <!-- CONTACT -->
@@ -2077,65 +2330,103 @@ poster="images/white-and-blue-bear.JPG"
   </div>
 
 </section>
+<footer class="apple-footer">
 
-<!-- FOOTER -->
-<footer>
-<div class="footer-inner">
-<div class="footer-brand">
-<img src="images/aidia-logo.png" alt="AiDiA Logo">
-<div class="footer-brand-name">AiDiA My BFF</div>
-<p>An AI companion designed for those who need a caring, always-present presence in their lives.</p>
-</div>
-<div class="footer-nav">
-<h4>Navigate</h4>
-<ul>
-<li><a href="#who">Who It's For</a></li>
-<li><a href="#products">The Bear</a></li>
-<li><a href="#features">Features</a></li>
-<li><a href="#carehomes">Care Homes</a></li>
-</ul>
-</div>
-<div class="footer-nav">
-<h4>Contact</h4>
-<ul>
-<li><a href="#contact">General Enquiries</a></li>
-<li><a href="#contact">Care Home Packages</a></li>
-<li><a href="#contact">Partnerships</a></li>
-<li><a href="#contact">Press &amp; Media</a></li>
-</ul>
-</div>
-</div>
-<div class="footer-bottom">
-<p>© 2026 AiDiA My BFF. All rights reserved. Bringing companionship to those who need it most.</p>
-</div>
-</footer>    
+  <div class="apple-container">
 
+    <!-- TOP GRID -->
+    <div class="apple-footer-grid">
+
+      <!-- BRAND -->
+      <div class="apple-footer-brand">
+        <img src="images/aidia-logo.png" alt="AiDiA Logo">
+
+        <p class="apple-tagline">
+          AiDiA My BFF — an AI companion designed to bring comfort, conversation, and connection.
+        </p>
+
+        <div class="apple-badges">
+          <span>Privacy Focused</span>
+          <span>Care Ready</span>
+          <span>Worldwide Shipping</span>
+        </div>
+      </div>
+
+      <!-- COLUMNS -->
+      <div class="apple-col">
+        <h4>Product</h4>
+        <a href="#who">Who It's For</a>
+        <a href="#products">AiDiA Bear</a>
+        <a href="#features">Features</a>
+        <a href="#carehomes">Care Homes</a>
+      </div>
+
+      <div class="apple-col">
+        <h4>Company</h4>
+        <a href="#contact">Contact</a>
+        <a href="#contact">Partnerships</a>
+        <a href="#contact">Press & Media</a>
+      </div>
+
+      <div class="apple-col">
+        <h4>Legal</h4>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Refund Policy</a>
+      </div>
+
+    </div>
+
+    <!-- DIVIDER -->
+    <div class="apple-divider"></div>
+
+    <!-- BOTTOM -->
+    <div class="apple-footer-bottom">
+
+      <p>© 2026 AiDiA My BFF. All rights reserved.</p>
+
+      <div class="apple-social">
+        <a href="#">Instagram</a>
+        <a href="#">TikTok</a>
+        <a href="#">Facebook</a>
+      </div>
+
+    </div>
+
+  </div>
+
+</footer>
+  
 <script>
 /* =========================
-   1. GLOBAL STATE
+   AiDiA - Production JS
+   CLEAN SINGLE FILE
 ========================= */
+
 let selectedVariant = "white";
 let quantity = 1;
 let cart = [];
-    console.log("SCRIPT RUNNING");
+
+let slides = [];
+let currentSlide = 0;
 
 /* =========================
-   2. VARIANT SYSTEM
+   VARIANT SYSTEM
 ========================= */
-function selectVariant(color, btn){
+function selectVariant(color, btn) {
   selectedVariant = color;
 
   document.querySelectorAll(".variant-select button")
     .forEach(b => b.classList.remove("active"));
 
-  btn.classList.add("active");
+  if (btn) btn.classList.add("active");
 
   const title = document.getElementById("carouselTitle");
   const text = document.getElementById("carouselText");
 
-  if(!title || !text) return;
+  if (!title || !text) return;
 
-  if(color === "white"){
+  if (color === "white") {
     title.innerText = "Classic White AiDiA";
     text.innerText = "Pure, calm, comforting presence";
   } else {
@@ -2145,284 +2436,234 @@ function selectVariant(color, btn){
 }
 
 /* =========================
-   3. QUANTITY + SHIPPING
+   QUANTITY + SHIPPING
 ========================= */
-function changeQty(val){
+function changeQty(val) {
+  quantity = Math.max(1, quantity + val);
 
-  quantity += val;
-
-  if(quantity < 1){
-    quantity = 1;
-  }
-
-  const el =
-    document.getElementById("qtyValue");
-
-  if(el){
-    el.textContent = quantity;
-  }
-
+  const el = document.getElementById("qtyValue");
+  if (el) el.textContent = quantity;
 }
 
-function updateShipping(){
+function updateShipping() {
   const select = document.getElementById("countrySelect");
   const display = document.getElementById("shippingCost");
 
-  if(!select || !display) return;
+  if (!select || !display) return;
 
-  const cost = parseFloat(select.value) || 0;
-  display.innerText = "Shipping: $" + cost.toFixed(2);
+  const cost = parseFloat(select.value || "0");
+  display.innerText = `Shipping: $${cost.toFixed(2)}`;
 }
 
 /* =========================
-   4. CART SYSTEM (DRAWER)
+   CART SYSTEM
 ========================= */
-function toggleCart(){
-  const drawer = document.getElementById("cartDrawer");
-  if(drawer) drawer.classList.toggle("open");
+ let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+/* =========================
+   SAVE CART (IMPORTANT)
+========================= */
+function saveCart() {
+  localStorage.setItem("cart", JSON.stringify(cart));
 }
 
-function addToCart(){
-  cart.push({
-    name: "AiDiA My BFF Bear",
-    variant: selectedVariant,
-    quantity: quantity,
-    price: 249.99
-  });
+/* =========================
+   ADD TO CART (MERGE ITEMS)
+========================= */
+function addToCart() {
+  const existingItem = cart.find(
+    item => item.variant === selectedVariant
+  );
 
+  if (existingItem) {
+    existingItem.quantity += quantity;
+  } else {
+    cart.push({
+      id: Date.now(),
+      name: "AiDiA My BFF Bear",
+      variant: selectedVariant,
+      quantity: quantity,
+      price: 249.99
+    });
+  }
+
+  saveCart();
   updateCartUI();
 }
 
-function updateCartUI(){
+/* =========================
+   UI RENDER
+========================= */
+function updateCartUI() {
   const count = document.getElementById("cartCount");
   const items = document.getElementById("cartItems");
   const total = document.getElementById("cartTotal");
 
-  if(!count || !items || !total) return;
+  if (!count || !items || !total) return;
 
   let totalQty = 0;
   let totalPrice = 0;
 
   items.innerHTML = "";
 
-  cart.forEach(item => {
+  cart.forEach((item, index) => {
     totalQty += item.quantity;
     totalPrice += item.price * item.quantity;
 
     items.innerHTML += `
-      <div style="padding:10px;border-bottom:1px solid #334155">
-        <b>${item.name}</b><br>
-        Variant: ${item.variant}<br>
-        Qty: ${item.quantity}
+      <div class="cart-item">
+        <div>
+          <b>${item.name}</b>
+          <p>Variant: ${item.variant}</p>
+        </div>
+
+        <div class="cart-controls">
+          <button onclick="changeQty(${index}, -1)">-</button>
+          <span>${item.quantity}</span>
+          <button onclick="changeQty(${index}, 1)">+</button>
+        </div>
+
+        <div>
+          $${(item.price * item.quantity).toFixed(2)}
+        </div>
+
+        <button onclick="removeItem(${index})">Remove</button>
       </div>
     `;
   });
 
-  count.innerText = totalQty;
-  total.innerText = "Total: $" + totalPrice.toFixed(2);
+  count.textContent = totalQty;
+  total.textContent = `Total: $${totalPrice.toFixed(2)}`;
+
+  saveCart();
 }
 
 /* =========================
-   5. STRIPE CHECKOUT (CART)
+   UPDATE QTY
 ========================= */
-async function checkoutCart(){
+function changeQty(index, delta) {
+  cart[index].quantity += delta;
 
-  if(cart.length === 0){
+  if (cart[index].quantity <= 0) {
+    cart.splice(index, 1);
+  }
+
+  updateCartUI();
+}
+
+/* =========================
+   REMOVE ITEM
+========================= */
+function removeItem(index) {
+  cart.splice(index, 1);
+  updateCartUI();
+}
+/* =========================
+   STRIPE CHECKOUT
+========================= */
+async function checkoutCart() {
+  if (cart.length === 0) {
     alert("Your cart is empty");
     return;
   }
-const stripe = Stripe("pk_live_xxxxxxxxx");
-  const res = await fetch("/api/create-checkout-session", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ cart })
-  });
 
-  const data = await res.json();
+  try {
+    const stripe = Stripe("pk_live_xxxxxxxxx");
 
-  if(data.url){
-    window.location.href = data.url;
-  } else {
-    alert("Checkout failed. Try again.");
+    const res = await fetch("/api/create-checkout-session", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ cart })
+    });
+
+    const data = await res.json();
+
+    if (data.url) {
+      window.location.href = data.url;
+    } else {
+      alert("Checkout failed.");
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Server error during checkout.");
   }
 }
 
 /* =========================
-   6. AI RECOMMENDER (OPTIONAL)
+   CAROUSEL
 ========================= */
-function recommendBear(){
-  const mood = document.getElementById("moodSelect")?.value;
+function showSlide(index) {
+  if (!slides.length) return;
 
-  if(mood === "calm") return "blue";
-  if(mood === "comfort") return "white";
-  if(mood === "gift") return "white";
+  slides.forEach(s => s.classList.remove("active"));
+  slides[index].classList.add("active");
 
-  return selectedVariant;
+  const title = document.getElementById("carouselTitle");
+  const text = document.getElementById("carouselText");
+
+  if (title) title.textContent = slides[index].dataset.title;
+  if (text) text.textContent = slides[index].dataset.text;
 }
 
-function autoSuggest(){
-  const pick = recommendBear();
-  const buttons = document.querySelectorAll(".variant-select button");
+function nextSlide() {
+  if (!slides.length) return;
 
-  if(pick === "blue" && buttons[1]) buttons[1].click();
-  if(pick === "white" && buttons[0]) buttons[0].click();
+  currentSlide = (currentSlide + 1) % slides.length;
+  showSlide(currentSlide);
+}
+
+function prevSlide() {
+  if (!slides.length) return;
+
+  currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+  showSlide(currentSlide);
 }
 
 /* =========================
-   7. INIT (ONLY ONCE)
+   KIDS VIDEO TOGGLE
+========================= */
+function toggleKidsVideo(btn) {
+  const box = btn?.parentElement?.querySelector(".kids-video-box");
+  if (box) box.classList.toggle("active");
+}
+
+/* =========================
+   CONTACT FORM
+========================= */
+function handleSubmit(e) {
+  e.preventDefault();
+  alert("Thank you. We'll contact you soon.");
+}
+
+/* =========================
+   INIT
 ========================= */
 document.addEventListener("DOMContentLoaded", () => {
-
-  slides = document.querySelectorAll(".slide");
+  slides = Array.from(document.querySelectorAll(".slide"));
 
   updateShipping();
 
-  const country =
-    document.getElementById("countrySelect");
+  const country = document.getElementById("countrySelect");
+  country?.addEventListener("change", updateShipping);
 
-  if(country){
-    country.addEventListener(
-      "change",
-      updateShipping
-    );
-  }
+  const buyBtn = document.getElementById("buyNowBtn");
 
-  const buyBtn =
-    document.getElementById("buyNowBtn");
+  buyBtn?.addEventListener("click", () => {
+    cart = [{
+      name: "AiDiA My BFF Bear",
+      variant: selectedVariant,
+      quantity,
+      price: 249.99
+    }];
 
-  if(buyBtn){
+    checkoutCart();
+  });
 
-    buyBtn.addEventListener("click", () => {
-
-      cart = [{
-        name: "AiDiA My BFF Bear",
-        variant: selectedVariant,
-        quantity: quantity,
-        price: 249.99
-      }];
-
-      checkoutCart();
-
-    });
-
-  }
-
-  document.querySelector(".next")
-    ?.addEventListener("click", nextSlide);
-
-  document.querySelector(".prev")
-    ?.addEventListener("click", prevSlide);
+  document.querySelector(".next")?.addEventListener("click", nextSlide);
+  document.querySelector(".prev")?.addEventListener("click", prevSlide);
 
   showSlide(0);
-
 });
-  
-} // ✅ THIS WAS MISSING
-
-function preloadAsset(src){
-
-  return new Promise(resolve => {
-
-    if(!src){
-      resolve();
-      return;
-    }
-
-    const isVideo =
-      src.match(/\.(mp4|webm|ogg)$/i);
-
-    if(isVideo){
-
-      const video =
-        document.createElement("video");
-
-      video.preload = "metadata";
-      video.src = src;
-
-      video.onloadeddata = resolve;
-      video.onerror = resolve;
-
-    } else {
-
-      const img = new Image();
-
-      img.src = src;
-
-      img.onload = resolve;
-      img.onerror = resolve;
-    }
-  });
-}
-
-    function handleSubmit(e){
-  e.preventDefault();
-
-  alert(
-    "Thank you. We'll contact you soon."
-  );
-}
-function nextSlide(){ }
-function prevSlide(){ }
-function toggleKidsVideo(btn){
-  const box =
-    btn.parentElement.querySelector(".kids-video-box");
-
-  box.classList.toggle("active");
-}
-  const slides =
-  document.querySelectorAll(".slide");
-let slides = [];
-let currentSlide = 0;
-
-function showSlide(index){
-
-  if(!slides.length) return;
-
-  slides.forEach(slide =>
-    slide.classList.remove("active")
-  );
-
-  slides[index].classList.add("active");
-
-  const title =
-    document.getElementById("carouselTitle");
-
-  const text =
-    document.getElementById("carouselText");
-
-  if(title){
-    title.textContent =
-      slides[index].dataset.title;
-  }
-
-  if(text){
-    text.textContent =
-      slides[index].dataset.text;
-  }
-}
-
-function nextSlide(){
-
-  if(!slides.length) return;
-
-  currentSlide =
-    (currentSlide + 1) % slides.length;
-
-  showSlide(currentSlide);
-}
-
-function prevSlide(){
-
-  if(!slides.length) return;
-
-  currentSlide =
-    (currentSlide - 1 + slides.length) %
-    slides.length;
-
-  showSlide(currentSlide);
-}
 </script>
 </body>
 </html>
