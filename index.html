@@ -2371,37 +2371,30 @@ function autoSuggest(){
 ========================= */
 document.addEventListener("DOMContentLoaded", () => {
 
-  // shipping init
   updateShipping();
 
   const country = document.getElementById("countrySelect");
-  if(country){
+  if (country) {
     country.addEventListener("change", updateShipping);
   }
 
-  // checkout button
   const buyBtn = document.getElementById("buyNowBtn");
-  if(buyBtn){
-  buyBtn.addEventListener("click", () => {
 
-  cart = [{
-    name: "AiDiA My BFF Bear",
-    variant: selectedVariant,
-    quantity: quantity,
-    price: 249.99
-  }];
+  if (buyBtn) {
+    buyBtn.addEventListener("click", () => {
 
-  checkoutCart();
+      cart = [{
+        name: "AiDiA My BFF Bear",
+        variant: selectedVariant,
+        quantity: quantity,
+        price: 249.99
+      }];
+
+      checkoutCart();
+    });
+  }
+
 });
-    const mainBear =
-document.querySelector(".slide.active img");
-
-if(color === "white"){
-  mainBear.src = "images/bear-white.png";
-}
-else{
-  mainBear.src = "images/sitting-blue-bear.jpeg";
-}
   
   /* =========================
    8. APPLE STYLE LOADER
@@ -2504,10 +2497,15 @@ async function startLoader() {
   if (screen) screen.classList.add("hidden");
 }, 8000);
   
-window.addEventListener(
-  "load",
-  startLoader
-);
+window.addEventListener("load", () => {
+  startLoader();
+
+  // safety fallback (IMPORTANT)
+  setTimeout(() => {
+    const screen = document.getElementById("loader");
+    if (screen) screen.classList.add("hidden");
+  }, 8000);
+});
     function handleSubmit(e){
   e.preventDefault();
 
