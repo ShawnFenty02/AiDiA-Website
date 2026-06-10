@@ -848,7 +848,20 @@ overflow: hidden;
 }
 
 /* layout */
-.contact-grid{display:flex;flex-direction:column;gap:30px;max-width:1000px;margin:40px auto 0;}
+.contact-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:40px;
+max-width:1200px;
+margin:auto;
+align-items:start;
+}
+
+@media(max-width:900px){
+  .contact-grid{
+    grid-template-columns:1fr;
+  }
+}
 
 /* LEFT CARD */
 .contact-info-card {
@@ -1765,9 +1778,11 @@ AiDiA comes in two beautiful versions — both packed with the same powerful AI 
     </select>
     <p id="shippingCost">Shipping: $0.00</p>
   </div>
+<button class="buy-btn" id="buyNowBtn">
+  Buy Now
+</button>
 
-  <button class="buy-btn" id="buyNowBtn">
- <button class="cart-btn" onclick="addToCart()">
+<button class="cart-btn" onclick="addToCart()">
   Add to Cart
 </button>
   <p class="stock">In Stock</p>
@@ -1959,75 +1974,108 @@ poster="images/video1-cover.jpg">
 </div>
 </section>
 
-<!-- CONTACT -->
-<div class="contact-info-card fade-in">
-  <div class="contact-header">
-    <h3>Contact Information</h3>
-    <p>We usually respond within 24 hours.</p>
-  </div>
-  <div class="contact-list">
-    <div class="contact-detail">
-      <div class="contact-icon"><i class="fas fa-envelope"></i></div>
-      <div>
-        <strong>Email</strong>
-        <a href="mailto:aidiateddy@gmail.com">aidiateddy@gmail.com</a>
-      </div>
-    </div>
-    <div class="contact-detail">
-      <div class="contact-icon"><i class="fas fa-hospital"></i></div>
-      <div>
-        <strong>Care Homes</strong>
-        <a href="mailto:aidiateddy@gmail.com?subject=Care%20Enquiry">Request Info</a>
-      </div>
-    </div>
-    <div class="contact-detail">
-      <div class="contact-icon"><i class="fas fa-truck"></i></div>
-      <div>
-        <strong>Shipping</strong>
-        <span>Worldwide delivery available</span>
-      </div>
-    </div>
-    <div class="contact-divider"></div>
-    <div class="contact-detail">
-      <div class="contact-icon"><i class="fab fa-instagram"></i></div>
-      <div>
-        <strong>Instagram</strong>
-        <a href="https://instagram.com/aidiateddybear" target="_blank">@AiDiAMyBFF</a>
-      </div>
-    </div>
-    <div class="contact-detail">
-      <div class="contact-icon"><i class="fab fa-tiktok"></i></div>
-      <div>
-        <strong>TikTok</strong>
-        <a href="https://tiktok.com/@aidiateddybear" target="_blank">@AiDiATeddyBear</a>
-      </div>
-    </div>
-    <div class="contact-detail">
-      <div class="contact-icon"><i class="fab fa-facebook"></i></div>
-      <div>
-        <strong>Facebook</strong>
-        <a href="https://facebook.com/aidiateddybear" target="_blank">@AiDiATeddyBear</a>
-      </div>
-    </div>
-  </div>
-</div>
+<<!-- CONTACT -->
+<section id="contact">
 
-<form class="contact-form fade-in" onsubmit="handleSubmit(event)">
-  <div class="form-header">
-    <h3>Send a Message</h3>
-    <p>Tell us how we can help you.</p>
-  </div>
-  <div class="form-row">
-    <input type="text" placeholder="First Name" required>
-    <input type="text" placeholder="Last Name" required>
-  </div>
-  <input type="email" placeholder="Email Address" required>
-  <textarea placeholder="Your Message" required></textarea>
-  <button type="submit" class="form-submit">Send Message</button>
-</form>
+  <div class="contact-grid">
 
+    <!-- LEFT SIDE -->
+    <div class="contact-info-card fade-in">
 
-</div>
+      <div class="contact-header">
+        <h3>Contact Information</h3>
+        <p>We usually respond within 24 hours.</p>
+      </div>
+
+      <div class="contact-list">
+
+        <div class="contact-detail">
+          <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+          <div>
+            <strong>Email</strong>
+            <a href="mailto:aidiateddy@gmail.com">
+              aidiateddy@gmail.com
+            </a>
+          </div>
+        </div>
+
+        <div class="contact-detail">
+          <div class="contact-icon"><i class="fas fa-hospital"></i></div>
+          <div>
+            <strong>Care Homes</strong>
+            <a href="mailto:aidiateddy@gmail.com?subject=Care%20Enquiry">
+              Request Info
+            </a>
+          </div>
+        </div>
+
+        <div class="contact-detail">
+          <div class="contact-icon"><i class="fas fa-truck"></i></div>
+          <div>
+            <strong>Shipping</strong>
+            <span>Worldwide delivery available</span>
+          </div>
+        </div>
+
+        <div class="contact-detail">
+          <div class="contact-icon"><i class="fab fa-instagram"></i></div>
+          <div>
+            <strong>Instagram</strong>
+            <a href="https://instagram.com/aidiateddybear" target="_blank">
+              @AiDiAMyBFF
+            </a>
+          </div>
+        </div>
+
+        <div class="contact-detail">
+          <div class="contact-icon"><i class="fab fa-tiktok"></i></div>
+          <div>
+            <strong>TikTok</strong>
+            <a href="https://tiktok.com/@aidiateddybear" target="_blank">
+              @AiDiATeddyBear
+            </a>
+          </div>
+        </div>
+
+        <div class="contact-detail">
+          <div class="contact-icon"><i class="fab fa-facebook"></i></div>
+          <div>
+            <strong>Facebook</strong>
+            <a href="https://facebook.com/aidiateddybear" target="_blank">
+              @AiDiATeddyBear
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <form class="contact-form fade-in" onsubmit="handleSubmit(event)">
+
+      <div class="form-header">
+        <h3>Send a Message</h3>
+        <p>Tell us how we can help you.</p>
+      </div>
+
+      <div class="form-row">
+        <input type="text" placeholder="First Name" required>
+        <input type="text" placeholder="Last Name" required>
+      </div>
+
+      <input type="email" placeholder="Email Address" required>
+
+      <textarea placeholder="Your Message" required></textarea>
+
+      <button type="submit" class="form-submit">
+        Send Message
+      </button>
+
+    </form>
+
+  </div>
+
 </section>
 
 <!-- FOOTER -->
@@ -2183,7 +2231,7 @@ async function checkoutCart(){
     alert("Your cart is empty");
     return;
   }
-const stripe = Stripe("sk_live_51H8a");
+const stripe = Stripe("pk_live_xxxxxxxxx");
   const res = await fetch("/api/create-checkout-session", {
     method: "POST",
     headers: {
@@ -2249,8 +2297,6 @@ document.addEventListener("DOMContentLoaded", () => {
       checkoutCart();
     });
   }
-
-});
   
 } // ✅ THIS WAS MISSING
 
@@ -2296,9 +2342,56 @@ function preloadAsset(src){
     "Thank you. We'll contact you soon."
   );
 }
-    nextSlide()
-prevSlide()
-    function toggleKidsVideo()
+function nextSlide(){ }
+function prevSlide(){ }
+function toggleKidsVideo(btn){
+  const box =
+    btn.parentElement.querySelector(".kids-video-box");
+
+  box.classList.toggle("active");
+}
+  const slides =
+  document.querySelectorAll(".slide");
+
+let currentSlide = 0;
+
+function showSlide(index){
+
+  slides.forEach(slide =>
+    slide.classList.remove("active")
+  );
+
+  slides[index].classList.add("active");
+
+  document.getElementById("carouselTitle")
+    .textContent =
+    slides[index].dataset.title;
+
+  document.getElementById("carouselText")
+    .textContent =
+    slides[index].dataset.text;
+}
+
+function nextSlide(){
+  currentSlide =
+    (currentSlide + 1) % slides.length;
+
+  showSlide(currentSlide);
+}
+
+function prevSlide(){
+  currentSlide =
+    (currentSlide - 1 + slides.length) %
+    slides.length;
+
+  showSlide(currentSlide);
+}
+
+document.querySelector(".next")
+?.addEventListener("click", nextSlide);
+
+document.querySelector(".prev")
+?.addEventListener("click", prevSlide);
 </script>
 </body>
 </html>
