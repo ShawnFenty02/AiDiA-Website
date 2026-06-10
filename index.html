@@ -112,6 +112,10 @@ box-shadow: 0 2px 12px rgba(0,0,0,0.06);
   text-align: center;
   background: radial-gradient(circle at top, #f5f5f7, #ffffff);
 }
+ #hero {
+  position: relative;
+  padding-top: 110px;
+}
 
 /* text */
 .hero-text{
@@ -1981,9 +1985,8 @@ AiDiA comes in two beautiful versions — both packed with the same powerful AI 
   <div class="field">
     <label>Quantity</label>
     <div class="qty-box">
-      <button onclick="changeQty(-1)">&#8722;</button>
-      <span id="qtyValue">1</span>
-      <button onclick="changeQty(1)">+</button>
+   <button onclick="changeProductQty(-1)">−</button>
+<button onclick="changeProductQty(1)">+</button>
     </div>
   </div>
 
@@ -2405,8 +2408,6 @@ AiDiA comes in two beautiful versions — both packed with the same powerful AI 
 
 let selectedVariant = "white";
 let quantity = 1;
-let cart = [];
-
 let slides = [];
 let currentSlide = 0;
 
@@ -2438,13 +2439,12 @@ function selectVariant(color, btn) {
 /* =========================
    QUANTITY + SHIPPING
 ========================= */
-function changeQty(val) {
+function changeProductQty(val) {
   quantity = Math.max(1, quantity + val);
 
   const el = document.getElementById("qtyValue");
   if (el) el.textContent = quantity;
 }
-
 function updateShipping() {
   const select = document.getElementById("countrySelect");
   const display = document.getElementById("shippingCost");
@@ -2458,7 +2458,9 @@ function updateShipping() {
 /* =========================
    CART SYSTEM
 ========================= */
- let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let selectedVariant = "white";
+let quantity = 1;
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 /* =========================
    SAVE CART (IMPORTANT)
@@ -2646,23 +2648,45 @@ document.addEventListener("DOMContentLoaded", () => {
   const country = document.getElementById("countrySelect");
   country?.addEventListener("change", updateShipping);
 
-  const buyBtn = document.getElementById("buyNowBtn");
+ buyBtn?.addEventListener("click", () => {
+  cart = [{
+    name: "AiDiA My BFF Bear",
+    variant: selectedVariant,
+    quantity,
+    price: 249.99
+  }];
 
-  buyBtn?.addEventListener("click", () => {
-    cart = [{
-      name: "AiDiA My BFF Bear",
-      variant: selectedVariant,
-      quantity,
-      price: 249.99
-    }];
+function changeQty(index, delta) {
+  cart[index].quantity += delta;
 
-    checkoutCart();
-  });
+  if (cart[index].quantity <= 0) {
+    cart.splice(index, 1);
+  }
 
+  saveCart();
+  updateCartUI();
+}
   document.querySelector(".next")?.addEventListener("click", nextSlide);
   document.querySelector(".prev")?.addEventListener("click", prevSlide);
 
   showSlide(0);
+});
+ const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("active");
+      entry.target.classList.add("visible");
+    }
+  });
+}, {
+  threshold: 0.15
+});
+
+document.querySelectorAll(".reveal, .fade-in").forEach(el => {
+  observer.observe(el);
+});
+document.querySelectorAll(".reveal, .fade-in").forEach(el => {
+  observer.observe(el);
 });
 </script>
 </body>
