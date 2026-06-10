@@ -1845,7 +1845,7 @@ AiDiA comes in two beautiful versions — both packed with the same powerful AI 
 controls
 playsinline
 preload="metadata"
-poster="images/video1-cover.jpg">
+poster="images/white-and-blue-bear.JPG"
 <source src="videos/aidia-video1.mp4" type="video/mp4">
 </video>
 <div class="video-caption">
@@ -1858,7 +1858,7 @@ poster="images/video1-cover.jpg">
 controls
 playsinline
 preload="metadata"
-poster="images/video1-cover.jpg">
+poster="images/white-and-blue-bear.JPG"
 <source src="videos/aidia-video2.mp4" type="video/mp4">
 </video>
 <div class="video-caption">
@@ -1974,7 +1974,7 @@ poster="images/video1-cover.jpg">
 </div>
 </section>
 
-  <!-- CONTACT -->
+ <!-- CONTACT -->
 <section id="contact">
 
   <div class="contact-grid">
@@ -2275,16 +2275,25 @@ function autoSuggest(){
 ========================= */
 document.addEventListener("DOMContentLoaded", () => {
 
+  slides = document.querySelectorAll(".slide");
+
   updateShipping();
 
-  const country = document.getElementById("countrySelect");
-  if (country) {
-    country.addEventListener("change", updateShipping);
+  const country =
+    document.getElementById("countrySelect");
+
+  if(country){
+    country.addEventListener(
+      "change",
+      updateShipping
+    );
   }
 
-  const buyBtn = document.getElementById("buyNowBtn");
+  const buyBtn =
+    document.getElementById("buyNowBtn");
 
-  if (buyBtn) {
+  if(buyBtn){
+
     buyBtn.addEventListener("click", () => {
 
       cart = [{
@@ -2295,8 +2304,20 @@ document.addEventListener("DOMContentLoaded", () => {
       }];
 
       checkoutCart();
+
     });
+
   }
+
+  document.querySelector(".next")
+    ?.addEventListener("click", nextSlide);
+
+  document.querySelector(".prev")
+    ?.addEventListener("click", prevSlide);
+
+  showSlide(0);
+
+});
   
 } // ✅ THIS WAS MISSING
 
@@ -2352,10 +2373,12 @@ function toggleKidsVideo(btn){
 }
   const slides =
   document.querySelectorAll(".slide");
-
+let slides = [];
 let currentSlide = 0;
 
 function showSlide(index){
+
+  if(!slides.length) return;
 
   slides.forEach(slide =>
     slide.classList.remove("active")
@@ -2363,16 +2386,27 @@ function showSlide(index){
 
   slides[index].classList.add("active");
 
-  document.getElementById("carouselTitle")
-    .textContent =
-    slides[index].dataset.title;
+  const title =
+    document.getElementById("carouselTitle");
 
-  document.getElementById("carouselText")
-    .textContent =
-    slides[index].dataset.text;
+  const text =
+    document.getElementById("carouselText");
+
+  if(title){
+    title.textContent =
+      slides[index].dataset.title;
+  }
+
+  if(text){
+    text.textContent =
+      slides[index].dataset.text;
+  }
 }
 
 function nextSlide(){
+
+  if(!slides.length) return;
+
   currentSlide =
     (currentSlide + 1) % slides.length;
 
@@ -2380,18 +2414,15 @@ function nextSlide(){
 }
 
 function prevSlide(){
+
+  if(!slides.length) return;
+
   currentSlide =
     (currentSlide - 1 + slides.length) %
     slides.length;
 
   showSlide(currentSlide);
 }
-
-document.querySelector(".next")
-?.addEventListener("click", nextSlide);
-
-document.querySelector(".prev")
-?.addEventListener("click", prevSlide);
 </script>
 </body>
 </html>
