@@ -1756,8 +1756,7 @@ html {
 </nav>
   
 <!-- HERO (CLEAN CENTER VERSION) -->
-<section id="hero">
-
+<section id="hero" class="hero">
   <div class="hero-text">
     <span class="hero-tag">
       More Than a Teddy. A Companion for Life.
@@ -2405,8 +2404,6 @@ AiDiA comes in two beautiful versions — both packed with the same powerful AI 
    AiDiA - Production JS
    CLEAN SINGLE FILE
 ========================= */
-
-let selectedVariant = "white";
 let quantity = 1;
 let slides = [];
 let currentSlide = 0;
@@ -2414,7 +2411,7 @@ let currentSlide = 0;
 /* =========================
    VARIANT SYSTEM
 ========================= */
-function selectVariant(color, btn) {
+window.selectVariant = function(color, btn){
   selectedVariant = color;
 
   document.querySelectorAll(".variant-select button")
@@ -2445,7 +2442,7 @@ function changeProductQty(val) {
   const el = document.getElementById("qtyValue");
   if (el) el.textContent = quantity;
 }
-function updateShipping() {
+window.updateShipping = function(){
   const select = document.getElementById("countrySelect");
   const display = document.getElementById("shippingCost");
 
@@ -2458,10 +2455,9 @@ function updateShipping() {
 /* =========================
    CART SYSTEM
 ========================= */
-let selectedVariant = "white";
-let quantity = 1;
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
+window.selectedVariant = "white";
+window.quantity = 1;
+window.cart = [];
 /* =========================
    SAVE CART (IMPORTANT)
 ========================= */
@@ -2472,7 +2468,7 @@ function saveCart() {
 /* =========================
    ADD TO CART (MERGE ITEMS)
 ========================= */
-function addToCart() {
+window.addToCart = function(){
   const existingItem = cart.find(
     item => item.variant === selectedVariant
   );
@@ -2624,7 +2620,7 @@ function prevSlide() {
 /* =========================
    KIDS VIDEO TOGGLE
 ========================= */
-function toggleKidsVideo(btn) {
+window.toggleKidsVideo = function(btn){
   const box = btn?.parentElement?.querySelector(".kids-video-box");
   if (box) box.classList.toggle("active");
 }
@@ -2632,7 +2628,7 @@ function toggleKidsVideo(btn) {
 /* =========================
    CONTACT FORM
 ========================= */
-function handleSubmit(e) {
+window.handleSubmit = function(e){
   e.preventDefault();
   alert("Thank you. We'll contact you soon.");
 }
@@ -2654,7 +2650,7 @@ document.addEventListener("DOMContentLoaded", () => {
     variant: selectedVariant,
     quantity,
     price: 249.99
-  }];
+});
 
 function changeQty(index, delta) {
   cart[index].quantity += delta;
@@ -2687,6 +2683,12 @@ document.querySelectorAll(".reveal, .fade-in").forEach(el => {
 });
 document.querySelectorAll(".reveal, .fade-in").forEach(el => {
   observer.observe(el);
+});
+</script>
+  <script>
+document.querySelectorAll('.fade-in').forEach(el => {
+  el.style.opacity = '1';
+  el.style.transform = 'none';
 });
 </script>
 </body>
