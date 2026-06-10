@@ -2252,46 +2252,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
   
-  /* =========================
-   8. APPLE STYLE LOADER
-========================= */
-
-const loader = {
-  total: 0,
-  loaded: 0
-};
-
-function updateLoaderUI() {
-
-  const percent = Math.floor(
-    (loader.loaded / loader.total) * 100
-  );
-
-  const bar = document.getElementById("loaderProgress");
-  const text = document.getElementById("loaderText");
-
-  if (bar) {
-    bar.style.width = percent + "%";
-  }
-
-  if (text) {
-    text.textContent = `Preparing AiDiA... ${percent}%`;
-  }
-
-  if (percent >= 100) {
-
-    setTimeout(() => {
-      const screen = document.getElementById("loader");
-
-      if (screen) {
-        screen.classList.add("hidden");
-
-        setTimeout(() => {
-          screen.remove();
-        }, 700);
-      }
-    }, 300);
-  }
 } // ✅ THIS WAS MISSING
 
 function preloadAsset(src){
@@ -2329,39 +2289,6 @@ function preloadAsset(src){
   });
 }
 
-async function startLoader() {
-  const assets = [
-    "images/sitting-blue-bear.jpeg",
-    "images/aidia-logo.png",
-    "images/bear-white.png"
-  ];
-
-  loader.total = assets.length;
-  loader.loaded = 0;
-
-  for (let src of assets) {
-    await preloadAsset(src);
-    loader.loaded++;
-    updateLoaderUI();
-  }
-
-  // FORCE COMPLETE
-  updateLoaderUI();
-
-   setTimeout(() => {
-  const screen = document.getElementById("loader");
-  if (screen) screen.classList.add("hidden");
-}, 8000);
-  
-window.addEventListener("load", () => {
-  startLoader();
-
-  // safety fallback (IMPORTANT)
-  setTimeout(() => {
-    const screen = document.getElementById("loader");
-    if (screen) screen.classList.add("hidden");
-  }, 8000);
-});
     function handleSubmit(e){
   e.preventDefault();
 
