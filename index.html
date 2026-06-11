@@ -66,40 +66,167 @@ html { scroll-behavior: smooth; }
 body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
 
 /* NAV */
+/* =========================
+   NAVBAR BASE
+========================= */
 nav {
-position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-display: flex; align-items: center; justify-content: space-between;
-padding: 14px 7%;
-background: rgba(255,255,255,0.97);
-backdrop-filter: blur(12px);
-border-bottom: 1px solid rgba(28,58,94,0.10);
-box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 14px 7%;
+  background: rgba(255,255,255,0.97);
+  backdrop-filter: blur(12px);
+
+  border-bottom: 1px solid rgba(28,58,94,0.10);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
 }
-.nav-logo { display: flex; align-items: center; gap: 10px; }
-.nav-logo img { height: 46px; width: auto; }
-.nav-logo-text { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 800; color: var(--primary); }
-.nav-logo-text span { color: var(--accent); }
-.nav-links { display: flex; gap: 28px; list-style: none; }
-.nav-links a { text-decoration: none; color: var(--text); font-size: 0.88rem; font-weight: 600; transition: color 0.2s; }
-.nav-links a:hover { color: var(--primary-mid); }
-.nav-cta {background: var(--accent); color: #fff;padding: 10px 22px; border-radius: 50px;font-weight: 700; font-size: 0.85rem; text-decoration: none;box-shadow: 0 4px 14px rgba(192,57,43,0.30);transition: transform 0.2s, box-shadow 0.2s;}
-.nav-cta:hover { transform: translateY(-2px); box-shadow: 0 7px 20px rgba(192,57,43,0.40); }
-@media(max-width:900px){
-  nav{
-    flex-direction:column;
-    gap:10px;
+
+/* =========================
+   LOGO
+========================= */
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-logo img {
+  height: 46px;
+  width: auto;
+}
+
+.nav-logo-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.nav-logo-text span {
+  color: var(--accent);
+}
+
+/* =========================
+   NAV LINKS (DESKTOP)
+========================= */
+.nav-links {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--text);
+  font-size: 0.88rem;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover {
+  color: var(--primary-mid);
+}
+
+/* =========================
+   RIGHT SIDE ACTIONS
+   (CART + BUY NOW)
+========================= */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* BUY NOW BUTTON */
+.nav-cta {
+  background: var(--accent);
+  color: #fff;
+  padding: 10px 22px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-decoration: none;
+
+  box-shadow: 0 4px 14px rgba(192,57,43,0.30);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.nav-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 20px rgba(192,57,43,0.40);
+}
+
+/* =========================
+   CART ICON + BADGE
+========================= */
+.cart-icon {
+  position: relative;
+  cursor: pointer;
+  font-size: 22px;
+}
+
+#cart-count {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+
+  background: var(--accent);
+  color: #fff;
+
+  font-size: 12px;
+  width: 18px;
+  height: 18px;
+
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+@media (max-width: 900px) {
+
+  nav {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 5%;
   }
 
-  .nav-links{
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
-    gap:8px;
+  .nav-logo {
+    justify-content: center;
+    width: 100%;
   }
 
-  .nav-links a{
-    font-size:0.75rem;
-    padding:8px 12px;
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .nav-links a {
+    font-size: 0.75rem;
+    padding: 6px 10px;
+  }
+
+  .nav-actions {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .nav-cta {
+    padding: 8px 18px;
+    font-size: 0.8rem;
   }
 }
 
@@ -108,7 +235,7 @@ box-shadow: 0 2px 12px rgba(0,0,0,0.06);
   display:grid;
   grid-template-columns:1fr 1fr;
   align-items:center;
-  gap:60px;
+ gap:30px;
 
   min-height:100vh;
   padding:140px 7% 80px;
@@ -125,6 +252,10 @@ box-shadow: 0 2px 12px rgba(0,0,0,0.06);
 /* text */
 .hero-text{
   z-index:5;
+  opacity:0;
+  transform:translateY(30px);
+  animation:heroTextReveal 1s ease forwards;
+  animation-delay:1s;
 }
 
 .hero-text h1{
@@ -144,6 +275,16 @@ box-shadow: 0 2px 12px rgba(0,0,0,0.06);
   font-size:1.15rem;
   color:var(--muted);
 }
+  @keyframes heroTextReveal{
+  from{
+    opacity:0;
+    transform:translateY(30px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
 
 /* showcase */
 .hero-showcase{
@@ -157,17 +298,23 @@ box-shadow: 0 2px 12px rgba(0,0,0,0.06);
 .hero-bear{
   width:100%;
   max-width:500px;
+
+  opacity:0;
+  transform:scale(.9);
+  animation:bearReveal 1s ease forwards;
 }
 
-@keyframes floatBear{
-  0%,100%{
-    transform:translateY(0px);
+@keyframes bearReveal{
+  from{
+    opacity:0;
+    transform:scale(.9);
   }
-  50%{
-    transform:translateY(-15px);
+  to{
+    opacity:1;
+    transform:scale(1);
   }
 }
-
+  
 /* floating photo card */
 .hero-floating-card{
   position:absolute;
@@ -234,19 +381,18 @@ box-shadow: 0 2px 12px rgba(0,0,0,0.06);
   }
 
   .hero-showcase{
-    margin-top:40px;
+    margin-top:18px;
   }
 
 }
 
-  .hero-floating-card{
-    position:relative;
-    right:auto;
-    top:auto;
-    transform:none;
-    width:85%;
-    margin:-40px auto 0;
-  }
+ .hero-floating-card{
+  position:relative;
+  right:auto;
+  top:auto;
+  transform:none;
+  width:85%;
+  margin:-40px auto 0;
 }
   
 /* TRUST BAR */
@@ -289,7 +435,7 @@ flex-wrap: wrap;
   .hero-btns{
   display:flex;
   gap:18px;
-  margin-top:30px;
+  margin-top:18px;
   flex-wrap:wrap;
 }
 
@@ -322,7 +468,7 @@ flex-wrap: wrap;
 .hero-btns{
   display:flex;
   gap:18px;
-  margin-top:30px;
+  margin-top:18px;
   flex-wrap:wrap;
 }
 
@@ -600,7 +746,7 @@ section + section{margin-top: 10px;}
 
 /* QUOTE */
 .about-quote{
-  margin-top:30px;
+  margin-top:18px;
   padding:20px 25px;
   border-left:4px solid var(--accent);
   background:white;
@@ -644,7 +790,7 @@ section + section{margin-top: 10px;}
   }
 
   .about-card-inner{
-    margin-top:30px;
+    margin-top:18px;
   }
 }
   /* ===== SCROLL ANIMATION BASE ===== */
@@ -775,7 +921,7 @@ grid-template-columns: 1fr;
 
 }
 /* FEATURES */
-#features { background: white; }
+#features{background:white;padding:80px 7%;margin:0;}
 .features-layout{display:flex;flex-direction:column;gap:30px;max-width:1000px;margin:48px auto 0;}
 .features-img { border-radius: var(--radius); overflow: hidden; box-shadow: var(--card-shadow); }
 .features-img img { width: 100%; display: block; }
@@ -794,7 +940,7 @@ grid-template-columns: 1fr;
 #videos .section-tag { background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.9); }
 #videos .section-title { color: white; }
 #videos .section-sub { color: rgba(255,255,255,0.65); }
-.videos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 48px; }
+.videos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 18px; }
 .video-card video{width: 100%;height: 360px;object-fit: cover;background: #000;border-radius: 14px;}
 .video-card{overflow: hidden;border-radius: 18px;}
 .video-caption { padding: 16px 20px; }
@@ -814,7 +960,7 @@ grid-template-columns: 1fr;
 
 /* HOW IT WORKS */
 #how { background: white; }
-.steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; margin-top: 48px; position: relative; }
+.steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; margin-top: 18px; position: relative; }
 .steps-grid::before { content: ''; position: absolute; top: 34px; left: 12%; right: 12%; height: 2px; background: linear-gradient(90deg, var(--primary-light), var(--accent2), var(--primary-light)); }
 .step { text-align: center; position: relative; }
 .step-num { width: 68px; height: 68px; border-radius: 50%; background: white; border: 3px solid var(--primary-mid); color: var(--primary); font-size: 1.25rem; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; position: relative; z-index: 1; box-shadow: 0 4px 16px rgba(28,58,94,0.14); }
@@ -825,7 +971,7 @@ grid-template-columns: 1fr;
 .carehome-grid{
   display:grid;
   grid-template-columns:1.2fr 1fr;
-  gap:60px;
+ gap:30px;
   align-items:center;
   max-width:1200px;
   margin:auto;
@@ -1105,29 +1251,35 @@ transform: translateY(-2px);
 box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
 
-.kids-video-box {
-position: fixed;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%) scale(.9);
-
-width: 90%;
-max-width: 800px;
-
-background: #000;
-border-radius: 18px;
-overflow: hidden;
-
-opacity: 0;
-visibility: hidden;
-
-transition: all .4s ease;
-
-display: flex;
-align-items: center;
-justify-content: center;
+.video-modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0,0,0,0.75);
+  z-index: 9999;
+  padding: 20px;
 }
 
+.video-modal.active {
+  display: flex;
+}
+
+.video-content {
+  width: min(800px, 95vw);
+  background: #000;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.video-content video {
+  width: 100%;
+  height: auto;
+  max-height: 80vh;
+  display: block;
+}
+  
 /* ACTIVE STATE */
 .kids-video-box.active {
 opacity: 1;
@@ -1759,23 +1911,69 @@ html {
 <body>
   
 <!-- NAV -->
-<nav>
-<div class="nav-logo">
-<img src="images/aidia-logo.png" alt="AiDiA Logo">
-<div class="nav-logo-text">AiDiA <span>My BFF</span></div>
-</div>
-<ul class="nav-links">
-<li><a href="#who">Who It's For</a></li>
-<li><a href="#products">The Bear</a></li>
-<li><a href="#videos">See It Live</a></li>
-<li><a href="#carehomes">Care Homes</a></li>
-<li><a href="#contact">Contact</a></li>
-</ul>
-<a href="#contact" class="nav-cta">Get in Touch</a>
-</nav>
+<nav class="navbar">
+  <!-- LOGO -->
+  <div class="nav-logo">
+    <img src="images/aidia-logo2.JPEG" alt="AiDiA Logo">
+    <div class="nav-logo-text">AiDiA <span>My BFF</span></div>
+  </div>
+
+  <!-- LINKS -->
+  <ul class="nav-links">
+    <li><a href="#who">Who It's For</a></li>
+    <li><a href="#products">The Bear</a></li>
+    <li><a href="#videos">See It Live</a></li>
+    <li><a href="#carehomes">Care Homes</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
   
+  <div id="cartDrawer" class="cart-drawer">
+  <h3>Your Cart</h3>
+
+  <div id="cartItems"></div>
+
+  <p id="cartTotal">Total: $0.00</p>
+
+  <button onclick="checkoutCart()">Checkout</button>
+</div>
+
+  <!-- RIGHT SIDE ACTIONS -->
+  <div class="nav-actions">
+
+    <!-- CART ICON (NEW) -->
+    <div class="cart-icon" onclick="openCart()">
+      🛒
+      <span id="cart-count">0</span>
+    </div>
+
+    <!-- BUY NOW BUTTON -->
+    <a href="https://buy.stripe.com/aFa9AS3086JYfnR5WX8k804"
+       class="nav-cta"
+       target="_blank"
+       rel="noopener">
+      Buy Now
+    </a>
+
+  </div>
+</nav>
 <!-- HERO (CLEAN CENTER VERSION) -->
 <section id="hero" class="hero">
+
+  <div class="hero-showcase">
+    <img
+      src="images/sitting-blue-bear.jpeg"
+      class="hero-bear"
+      alt="AiDiA Bear"
+    >
+
+    <div class="hero-floating-card">
+      <img
+        src="images/child-with-bear.JPG"
+        alt="Child with AiDiA"
+      >
+    </div>
+  </div>
+
   <div class="hero-text">
     <span class="hero-tag">
       More Than a Teddy. A Companion for Life.
@@ -1795,28 +1993,15 @@ html {
         Discover AiDiA
       </a>
 
-      <a href="#contact" class="btn-outline">
-        Care Home Enquiries
-      </a>
+     <a href="https://buy.stripe.com/your_real_link_here"
+   class="btn-outline"
+   target="_blank"
+   rel="noopener">
+  Buy Now
+</a>
     </div>
   </div>
 
-  <div class="hero-showcase">
-
-    <img
-      src="images/sitting-blue-bear.jpeg"
-      class="hero-bear"
-      alt="AiDiA Bear"
-    >
-
-    <div class="hero-floating-card">
-      <img
-        src="images/child-with-bear.JPG"
-        alt="Child with AiDiA"
-      >
-    </div>
-
-  </div>
 </section>
   
 <!-- TRUST BAR -->
@@ -1883,20 +2068,16 @@ html {
           Supports learning, emotional growth, and safe interaction for younger users.
         </p>
 
-        <button class="who-video-link" onclick="toggleKidsVideo(this)">
-          Watch how it works
-        </button>
+      <button onclick="openVideo()">Watch how it works</button>
+      <button class="close-video" onclick="closeVideo()">✖</button>
 
-        <div class="kids-video-box">
-          <video id="kidsVideo" controls>
-            <source src="videos/aidia-video3.mp4" type="video/mp4">
-          </video>
-        </div>
-
-      </div>
-    </div>
-
+<div id="videoModal" class="video-modal">
+  <div class="video-content">
+    <video id="kidsVideo" controls>
+      <source src="videos/aidia-video3.mp4" type="video/mp4">
+    </video>
   </div>
+</div>
 
 </section>
   
@@ -2002,11 +2183,11 @@ AiDiA comes in two beautiful versions — both packed with the same powerful AI 
 
   <div class="field">
     <label>Quantity</label>
-    <div class="qty-box">
-   <button onclick="changeProductQty(-1)">−</button>
-<button onclick="changeProductQty(1)">+</button>
-    </div>
-  </div>
+  <div class="qty-box">
+  <button onclick="changeProductQty(-1)">−</button>
+  <span id="qtyValue">1</span>
+  <button onclick="changeProductQty(1)">+</button>
+</div>
 
   <div class="field">
     <label>Shipping</label>
@@ -2019,9 +2200,12 @@ AiDiA comes in two beautiful versions — both packed with the same powerful AI 
     </select>
     <p id="shippingCost">Shipping: $0.00</p>
   </div>
-<button class="buy-btn" id="buyNowBtn">
-  Buy Now
-</button>
+<div class="buy-btn-wrapper">
+  <stripe-buy-button
+    buy-button-id="buy_btn_1ThClECadV6m4tEpA0PjH6Ui"
+    publishable-key="pk_live_51RVwzdCadV6m4tEptfVOHpusMQajznTWH3nfVa5WQkRnE0W1QawN8ZS3oxXCEopiwqZ4va84t9NnqO8j8D6OgGA4007kPZtXRJ"
+  ></stripe-buy-button>
+</div>
 
 <button class="cart-btn" onclick="addToCart()">
   Add to Cart
@@ -2458,9 +2642,11 @@ window.selectVariant = function(color, btn){
 function changeProductQty(val) {
   quantity = Math.max(1, quantity + val);
 
-  const el = document.getElementById("qtyValue");
-  if (el) el.textContent = quantity;
-}
+ <div class="qty-box">
+  <button onclick="changeProductQty(-1)">−</button>
+  <button onclick="changeProductQty(1)">+</button>
+</div>
+  
 window.updateShipping = function(){
   const select = document.getElementById("countrySelect");
   const display = document.getElementById("shippingCost");
@@ -2488,9 +2674,8 @@ function saveCart() {
    ADD TO CART (MERGE ITEMS)
 ========================= */
 window.addToCart = function(){
-  const existingItem = cart.find(
-    item => item.variant === selectedVariant
-  );
+  window.open(STRIPE_LINK, "_blank");
+}
 
   if (existingItem) {
     existingItem.quantity += quantity;
@@ -2512,7 +2697,7 @@ window.addToCart = function(){
    UI RENDER
 ========================= */
 function updateCartUI() {
-  const count = document.getElementById("cartCount");
+ const count = document.getElementById("cart-count");
   const items = document.getElementById("cartItems");
   const total = document.getElementById("cartTotal");
 
@@ -2578,34 +2763,16 @@ function removeItem(index) {
 /* =========================
    STRIPE CHECKOUT
 ========================= */
-async function checkoutCart() {
+const STRIPE_LINK = "https://buy.stripe.com/aFa9AS3086JYfnR5WX8k804";
+
+function checkoutCart() {
   if (cart.length === 0) {
     alert("Your cart is empty");
     return;
   }
 
-  try {
-    const stripe = Stripe("pk_live_xxxxxxxxx");
-
-    const res = await fetch("/api/create-checkout-session", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ cart })
-    });
-
-    const data = await res.json();
-
-    if (data.url) {
-      window.location.href = data.url;
-    } else {
-      alert("Checkout failed.");
-    }
-  } catch (err) {
-    console.error(err);
-    alert("Server error during checkout.");
-  }
+  window.open(STRIPE_LINK, "_blank");
 }
-
 /* =========================
    CAROUSEL
 ========================= */
@@ -2622,27 +2789,27 @@ function showSlide(index) {
   if (text) text.textContent = slides[index].dataset.text;
 }
 
-function nextSlide() {
-  if (!slides.length) return;
-
-  currentSlide = (currentSlide + 1) % slides.length;
-  showSlide(currentSlide);
-}
-
-function prevSlide() {
-  if (!slides.length) return;
-
-  currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-  showSlide(currentSlide);
-}
+document.querySelector(".next")?.addEventListener("click", nextSlide);
+document.querySelector(".prev")?.addEventListener("click", prevSlide);
 
 /* =========================
    KIDS VIDEO TOGGLE
 ========================= */
-window.toggleKidsVideo = function(btn){
-  const box = btn?.parentElement?.querySelector(".kids-video-box");
-  if (box) box.classList.toggle("active");
+function openVideo() {
+  document.getElementById("videoModal").classList.add("active");
 }
+
+function closeVideo() {
+  const modal = document.getElementById("videoModal");
+  const video = document.getElementById("kidsVideo");
+
+  modal.classList.remove("active");
+
+  video.pause();
+  video.currentTime = 0;
+}
+
+document.getElementById("videoModal")?.addEventListener("click", closeVideo);
 
 /* =========================
    CONTACT FORM
