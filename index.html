@@ -1897,6 +1897,55 @@ html {
 .cart-btn:hover{
   transform: translateY(-3px);
 }
+  .cart-drawer{
+  position:fixed;
+  top:0;
+  right:-420px;
+
+  width:400px;
+  height:100vh;
+
+  background:#fff;
+  z-index:9999;
+
+  transition:.35s;
+  box-shadow:-10px 0 40px rgba(0,0,0,.15);
+
+  display:flex;
+  flex-direction:column;
+}
+
+.cart-drawer.open{
+  right:0;
+}
+
+.cart-header{
+  padding:20px;
+  display:flex;
+  justify-content:space-between;
+  border-bottom:1px solid #eee;
+}
+
+#cartItems{
+  flex:1;
+  overflow:auto;
+  padding:20px;
+}
+
+.cart-footer{
+  padding:20px;
+  border-top:1px solid #eee;
+}
+
+.checkout-btn{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:12px;
+  background:#FFD814;
+  font-weight:700;
+  cursor:pointer;
+}
   #products,
 #contact,
 #who,
@@ -1927,16 +1976,24 @@ html {
     <li><a href="#contact">Contact</a></li>
   </ul>
   
-  <div id="cartDrawer" class="cart-drawer">
-  <h3>Your Cart</h3>
+ <div id="cartDrawer" class="cart-drawer">
+
+  <div class="cart-header">
+    <h3>Your Cart</h3>
+    <button onclick="closeCart()">✕</button>
+  </div>
 
   <div id="cartItems"></div>
 
-  <p id="cartTotal">Total: $0.00</p>
+  <div class="cart-footer">
+    <p id="cartTotal">Total: $0.00</p>
 
-  <button onclick="checkoutCart()">Checkout</button>
+    <button onclick="checkoutCart()" class="checkout-btn">
+      Checkout
+    </button>
+  </div>
+
 </div>
-
   <!-- RIGHT SIDE ACTIONS -->
   <div class="nav-actions">
 
@@ -1993,11 +2050,8 @@ html {
         Discover AiDiA
       </a>
 
-     <a href="https://buy.stripe.com/your_real_link_here"
-   class="btn-outline"
-   target="_blank"
-   rel="noopener">
-  Buy Now
+   <a href="#carehomes" class="btn-outline">
+  Care Homes
 </a>
     </div>
   </div>
