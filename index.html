@@ -707,7 +707,36 @@ section + section{margin-top: 10px;}
   color: #6e6e73;
   line-height: 1.6;
 }
+<div class="who-card-body">
+  <h3>Teens & Children</h3>
 
+  <p>
+    Supports learning, emotional growth, and safe interaction for younger users.
+  </p>
+
+  <button onclick="openVideo()" class="btn-primary">
+    Watch how it works
+  </button>
+</div>
+</div>
+</div>
+
+<!-- VIDEO MODAL -->
+<div id="videoModal" class="video-modal">
+  <div class="video-content">
+
+    <button onclick="closeVideo()" class="close-video">
+      ✕
+    </button>
+
+    <video id="kidsVideo" controls playsinline>
+      <source src="videos/aidia-video3.mp4" type="video/mp4">
+    </video>
+
+  </div>
+</div>
+
+</section>
 /* ABOUT SECTION */
 #about{
   padding:120px 7%;
@@ -795,8 +824,9 @@ section + section{margin-top: 10px;}
 }
   /* ===== SCROLL ANIMATION BASE ===== */
 .reveal{
-  opacity:0;
-  transform:translateY(40px);
+  opacity:1;
+  transform:none;
+}
   transition:all 0.8s ease;
   will-change:opacity, transform;
 }
@@ -1964,17 +1994,18 @@ html {
   <!-- LOGO -->
   <div class="nav-logo">
     <img src="images/aidia-logo2.jpeg" alt="AiDiA Logo">
-    <div class="nav-logo-text">AiDiA <span>My BFF</span></div>
+    <div class="nav-logo-text"><span>My BFF</span></div>
   </div>
 
   <!-- LINKS -->
-  <ul class="nav-links">
-    <li><a href="#who">Who It's For</a></li>
-    <li><a href="#products">The Bear</a></li>
-    <li><a href="#videos">See It Live</a></li>
-    <li><a href="#carehomes">Care Homes</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
+ <ul class="nav-links">
+  <li><a href="#who">Who It's For</a></li>
+  <li><a href="#about">About</a></li>
+  <li><a href="#products">The Bear</a></li>
+  <li><a href="#videos">See It Live</a></li>
+  <li><a href="#carehomes">Care Homes</a></li>
+  <li><a href="#contact">Contact</a></li>
+</ul>
   
  <div id="cartDrawer" class="cart-drawer">
 
@@ -2116,20 +2147,31 @@ html {
       </div>
 
       <div class="who-card-body">
-        <h3>Teens & Children</h3>
+  <h3>Teens & Children</h3>
 
-        <p>
-          Supports learning, emotional growth, and safe interaction for younger users.
-        </p>
+  <p>
+    Supports learning, emotional growth, and safe interaction for younger users.
+  </p>
 
-      <button onclick="openVideo()">Watch how it works</button>
-      <button class="close-video" onclick="closeVideo()">✖</button>
+  <button onclick="openVideo()" class="btn-primary">
+    Watch how it works
+  </button>
+</div>
+</div>
+</div>
 
+<!-- VIDEO MODAL -->
 <div id="videoModal" class="video-modal">
   <div class="video-content">
-    <video id="kidsVideo" controls>
+
+    <button onclick="closeVideo()" class="close-video">
+      ✕
+    </button>
+
+    <video id="kidsVideo" controls playsinline>
       <source src="videos/aidia-video3.mp4" type="video/mp4">
     </video>
+
   </div>
 </div>
 
@@ -2225,7 +2267,7 @@ AiDiA comes in two beautiful versions — both packed with the same powerful AI 
 <!-- BUY BOX -->
 <div class="amazon-buy">
   <h2>AiDiA My BFF</h2>
-<div class="amazon-price">>$249.99 USD</div>
+<div class="amazon-price">$249.99 USD</div>
   <p class="description">AI-powered companion teddy bear designed for comfort, conversation, and emotional support.</p>
   <hr>
 
@@ -2849,11 +2891,17 @@ document.querySelector(".prev")?.addEventListener("click", prevSlide);
 /* =========================
    KIDS VIDEO TOGGLE
 ========================= */
-function openVideo() {
-  document.getElementById("videoModal").classList.add("active");
-}
+window.openVideo = function () {
+  const modal = document.getElementById("videoModal");
+  const video = document.getElementById("kidsVideo");
 
-function closeVideo() {
+  modal.classList.add("active");
+
+  if(video){
+    video.play().catch(() => {});
+  }
+};
+  window.closeVideo = function () {
   const modal = document.getElementById("videoModal");
   const video = document.getElementById("kidsVideo");
 
